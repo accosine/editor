@@ -5,7 +5,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 const styleSheet = createStyleSheet('Editor', theme => ({
   container: {
     height: '100%',
-    padding: '1em .5em',
+    // padding: '1em .5em',
   },
   textArea: {
     display: 'block',
@@ -22,17 +22,21 @@ const styleSheet = createStyleSheet('Editor', theme => ({
 class Editor extends Component {
   handleEdit = ({ target }) => {
     const val = target.value;
-    console.log(target.selectionStart);
-    this.props.onEdit(val, target.selectionStart);
+    this.props.onEdit(val, {
+      start: target.selectionStart,
+      end: target.selectionEnd,
+    });
   };
 
   handleCaretPosition = ({ target }) => {
-    console.log(target.selectionStart);
-    this.props.onCaretPosition(target.selectionStart);
+    this.props.onCaretPosition({
+      start: target.selectionStart,
+      end: target.selectionEnd,
+    });
   };
 
   render() {
-    const { classes, text, caretPosition } = this.props;
+    const { classes, text } = this.props;
 
     return (
       <div className={classes.container}>

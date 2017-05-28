@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -9,7 +9,7 @@ const styleSheet = createStyleSheet('Shortcodes', theme => ({
   },
 }));
 
-function Shortcodes(props) {
+const Shortcodes = (props) => {
   const { onShortcode, classes } = props;
   return (
     <div>

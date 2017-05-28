@@ -3,7 +3,6 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import MarkdownEditor from './components/MarkdownEditor';
 import Navigation from './components/Navigation';
-import logo from './logo.svg';
 // import './App.css';
 
 const styleSheet = createStyleSheet('App', theme => ({
