@@ -11,12 +11,14 @@ import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import classnames from 'classnames';
 
 import Editor from './Editor';
-import Markdown from './Markdown';
+import Preview from './Preview';
 import Shortcodes from './Shortcodes';
 
 const styleSheet = createStyleSheet('MarkdownEditor', theme => ({
   root: {
     flexGrow: 1,
+    width: '98%',
+    margin: '0 auto',
     // marginTop: 30,
   },
   container: {
@@ -39,7 +41,11 @@ const styleSheet = createStyleSheet('MarkdownEditor', theme => ({
 }));
 
 class MarkdownEditor extends Component {
-  state = { text: 'Ohl stinkt', caretPosition: { start: 0, end: 0}, frontmatterExpanded: false };
+  state = {
+    text: 'Ohl stinkt',
+    caretPosition: { start: 0, end: 0 },
+    frontmatterExpanded: false,
+  };
 
   onEdit = (text, caretPosition) => {
     this.setState({ text, caretPosition });
@@ -56,7 +62,8 @@ class MarkdownEditor extends Component {
   onShortcode = shortcodeText => {
     console.log(shortcodeText);
     const { text, caretPosition } = this.state;
-    const newText = text.slice(0, caretPosition.start) +
+    const newText =
+      text.slice(0, caretPosition.start) +
       shortcodeText +
       text.slice(caretPosition.end, text.length);
     this.setState({ text: newText });
@@ -77,9 +84,9 @@ class MarkdownEditor extends Component {
           <ExpandMoreIcon />
         </IconButton>
         <Collapse in={frontmatterExpanded} transitionDuration="auto">
-          <Grid container gutter={24}>
+          <Grid container gutter={8}>
             <Grid item xs={12}>
-              <Typography type="headline1" gutterBottom>
+              <Typography type="headline" gutterBottom>
                 Frontmatter
               </Typography>
             </Grid>
@@ -110,7 +117,7 @@ class MarkdownEditor extends Component {
                 Preview
               </Typography>
               <Divider />
-              <Markdown text={this.state.text} />
+              <Preview text={this.state.text} />
             </Paper>
           </Grid>
         </Grid>

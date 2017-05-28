@@ -20,6 +20,7 @@ const styleSheet = createStyleSheet('Editor', theme => ({
 }));
 
 class Editor extends Component {
+  nameInput = null;
   handleEdit = ({ target }) => {
     const val = target.value;
     this.props.onEdit(val, {
@@ -35,12 +36,19 @@ class Editor extends Component {
     });
   };
 
+  componentDidMount() {}
+
   render() {
     const { classes, text } = this.props;
+    // if (this.nameInput) this.nameInput.focus();
 
     return (
       <div className={classes.container}>
         <textarea
+          ref={input => {
+            this.nameInput = input;
+          }}
+          autoFocus
           value={text}
           className={classes.textArea}
           onChange={this.handleEdit}
