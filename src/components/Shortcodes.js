@@ -20,7 +20,10 @@ const Shortcodes = (props) => {
       >
         YouTube
       </Button>
-      <Button raised className={classes.button}>Vimeo</Button>
+      <Button
+        raised
+        onClick={()=>{if(window.AMP){document.getElementById('give').focus()}}}
+        className={classes.button}>Vimeo</Button>
       <Button raised className={classes.button}>Soundcloud</Button>
       <Button raised className={classes.button}>Instagram</Button>
       <Button raised className={classes.button}>Twitter</Button>

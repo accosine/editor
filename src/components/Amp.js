@@ -71,6 +71,17 @@ class Amp extends Component {
         this.container.appendChild(this.shadowRoot);
       }
       this.ampedDoc = amp.attachShadowDoc(this.shadowRoot, doc, 'asdf');
+      console.log(this.ampedDoc);
+      const prom = this.ampedDoc.ampdoc.whenReady();
+      const bla = () => {
+        document.getElementById('give').blur();
+        setTimeout(function(){
+          const ff = document.getElementById('give');
+          ff.focus();
+          console.log(ff);
+        }, 100);
+      }
+      prom.then(bla())
     });
   };
 

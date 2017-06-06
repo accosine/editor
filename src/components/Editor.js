@@ -45,6 +45,7 @@ class Editor extends Component {
     return (
       <div className={classes.container}>
         <textarea
+          id="give"
           ref={input => {
             this.nameInput = input;
           }}
@@ -53,7 +54,6 @@ class Editor extends Component {
           className={classes.textArea}
           onChange={this.handleEdit}
           onClick={this.handleCaretPosition}
-          onFocus={this.handleCaretPosition}
           onKeyUp={this.handleCaretPosition}
         />
       </div>
