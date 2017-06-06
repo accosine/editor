@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+const RENDER_DELAY = 750;
+
 const ampDoc = (articleText, styles) => `
 <!doctype html>
 <html amp lang="en">
@@ -14,6 +16,7 @@ const ampDoc = (articleText, styles) => `
       <style>
         ${styles}
       </style>
+      <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     </head>
     <body>
       ${articleText}
@@ -25,6 +28,7 @@ class Amp extends Component {
   ampedDoc = null;
   container = null;
   shadowRoot = null;
+  renderTimeout = null;
   ampReadyPromise = new Promise(resolve => {
     (window.AMP = window.AMP || []).push(resolve);
   });
@@ -42,47 +46,42 @@ class Amp extends Component {
     this.closeAmpDoc();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return nextProps.html !== this.props.html;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.html !== this.props.html;
+  }
 
   attachAmpDoc = html => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(ampDoc(html), 'text/html');
-    console.log(doc);
+    if (this.renderTimeout) {
+      console.log('clear timeout')
+      clearTimeout(this.renderTimeout);
+    }
+    this.renderTimeout = setTimeout(() => {
+      const { editorRef } = this.props;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(ampDoc(html), 'text/html');
 
-    // const oldShadowRoot = this.shadowRoot;
-    // this.shadowRoot = document.createElement('div');
-    // if (oldShadowRoot) {
-    //   this.container.replaceChild(this.shadowRoot, oldShadowRoot);
-    // } else {
-    //   this.container.appendChild(this.shadowRoot);
-    // }
-    // this.ampedDoc = this.shadowRoot.createShadowRoot();
-    // console.log(this.ampedDoc)
-    // this.ampedDoc.textcontent = html;
-    this.ampReadyPromise.then(amp => {
-      // Replace the old shadow root with a new div element.
-      const oldShadowRoot = this.shadowRoot;
-      this.shadowRoot = document.createElement('div');
-      if (oldShadowRoot) {
-        this.container.replaceChild(this.shadowRoot, oldShadowRoot);
-      } else {
-        this.container.appendChild(this.shadowRoot);
-      }
-      this.ampedDoc = amp.attachShadowDoc(this.shadowRoot, doc, 'asdf');
-      console.log(this.ampedDoc);
-      const prom = this.ampedDoc.ampdoc.whenReady();
-      const bla = () => {
-        document.getElementById('give').blur();
-        setTimeout(function(){
-          const ff = document.getElementById('give');
-          ff.focus();
-          console.log(ff);
-        }, 100);
-      }
-      prom.then(bla())
-    });
+      this.ampReadyPromise.then(amp => {
+        // Replace the old shadow root with a new div element.
+        const oldShadowRoot = this.shadowRoot;
+        this.shadowRoot = document.createElement('div');
+        if (oldShadowRoot) {
+          this.container.replaceChild(this.shadowRoot, oldShadowRoot);
+        } else {
+          this.container.appendChild(this.shadowRoot);
+        }
+        this.ampedDoc = amp.attachShadowDoc(this.shadowRoot, doc, 'asdf');
+        this.ampedDoc.ampdoc.whenReady().then(() => {
+          if (editorRef) {
+            editorRef.blur();
+            setTimeout(function() {
+              const ff = editorRef;
+              ff.focus();
+              console.log(ff);
+            }, 100);
+          }
+        });
+      });
+    }, RENDER_DELAY);
   };
 
   closeAmpDoc = () => {

@@ -47,6 +47,8 @@ class MarkdownEditor extends Component {
     frontmatterExpanded: false,
   };
 
+  editorRef = null;
+
   onEdit = (text, caretPosition) => {
     this.setState({ text, caretPosition });
   };
@@ -105,6 +107,9 @@ class MarkdownEditor extends Component {
               </Typography>
               <Divider />
               <Editor
+                getRef={ref => {
+                  this.editorRef = ref;
+                }}
                 text={text}
                 onCaretPosition={this.onCaretPosition}
                 onEdit={this.onEdit}
@@ -117,7 +122,7 @@ class MarkdownEditor extends Component {
                 Preview
               </Typography>
               <Divider />
-              <Preview text={this.state.text} />
+              <Preview text={this.state.text} editorRef={this.editorRef} />
             </Paper>
           </Grid>
         </Grid>

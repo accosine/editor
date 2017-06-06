@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 
+import Youtube from './Youtube';
+
 const styleSheet = createStyleSheet('Shortcodes', theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -13,13 +15,7 @@ const Shortcodes = (props) => {
   const { onShortcode, classes } = props;
   return (
     <div>
-      <Button
-        raised
-        onClick={onShortcode.bind(null, '💩')}
-        className={classes.button}
-      >
-        YouTube
-      </Button>
+      <Youtube onShortcode={onShortcode} />
       <Button
         raised
         onClick={()=>{if(window.AMP){document.getElementById('give').focus()}}}
