@@ -17,6 +17,7 @@ const ampDoc = (articleText, styles) => `
         ${styles}
       </style>
       <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+      <script async custom-element="amp-soundcloud" src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"></script>
     </head>
     <body>
       ${articleText}

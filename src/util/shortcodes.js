@@ -53,74 +53,74 @@ const shortcodes = {
     //     <source type="audio/mpeg" src="foo.mp3">
     //     <source type="audio/ogg" src="foo.ogg">
     //   </amp-audio></div>`,
-    // soundcloud: (str, params) =>
-    //   `<div><amp-soundcloud
-    //     height=${params.height || 166}
-    //     layout="fixed-height"
-    //     ${params.color && !params.visual ? `data-color="${params.color}"` : ''}
-    //     data-trackid="${params.id}"
-    //     ${params.visual ? 'data-visual="true"' : ''}>
-    //   </amp-soundcloud></div>`,
-    // carousel: (str, params) =>
-    //   `<div><amp-carousel
-    //           type="slides"
-    //           layout="responsive"
-    //           controls
-    //           width=${params.width || 4}
-    //           height=${params.height || 3}>
-    //     ${str}
-    //   </amp-carousel></div>`,
-    // facebook: (str, params) =>
-    //   `<div><amp-facebook width=16 height=9
-    //     layout="responsive"
-    //     data-embed-as="${params.type || 'post'}"
-    //     data-href="${params.url}">
-    //   </amp-facebook></div>`,
-    // fittext: (str, params) =>
-    //   `<div><amp-fit-text
-    //       width=${params.width || 4}
-    //       height=${params.height || 3}
-    //       min-font-size=${params.min || 10}
-    //       max-font-size=${params.max || 52}
-    //       layout="responsive">
-    //     ${str}
-    //   </amp-fit-text></div>`,
-    // iframe: (str, params) =>
-    //   `<div><amp-iframe
-    //             sandbox="allow-scripts allow-same-origin"
-    //             src="${params.url || ''}"
-    //             width=${params.width || 1}
-    //             height=${params.height || 1}
-    //             layout="responsive">
-    //          </amp-fit-text></div>`,
-    // instagram: (str, params) =>
-    //   `<div><amp-instagram
-    //             data-shortcode="${params.shortcode || ''}"
-    //             width=${params.width || 1}
-    //             height=${params.height || 1}
-    //             layout="responsive">
-    //          </amp-instagram></div>`,
-    // twitter: (str, params) =>
-    //   `<div><amp-twitter
-    //             data-tweetid="${params.tweetid || ''}"
-    //             width=${params.width || 400}
-    //             height=${params.height || 600}
-    //             data-cards="hidden">
-    //          </amp-twitter></div>`,
-    // vine: (str, params) =>
-    //   `<div><amp-vine
-    //     data-vineid="${params.vineid || ''}"
-    //     width=${params.width || 400}
-    //     height=${params.height || 400}>
-    //     layout="responsive">
-    //   </amp-vine></div>`,
-    // vimeo: (str, params) =>
-    //   `<div><amp-vimeo
-    //     data-videoid="${params.videoid || ''}"
-    //     width=${params.width || 500}
-    //     height=${params.height || 281}
-    //     layout="responsive">
-    //   </amp-vimeo></div>`,
+    soundcloud: (str, params) =>
+      `<div><amp-soundcloud
+        height=${params.height || 166}
+        layout="fixed-height"
+        ${params.color && !params.visual ? `data-color="${params.color}"` : ''}
+        data-trackid="${params.id}"
+        ${params.visual ? 'data-visual="true"' : ''}>
+      </amp-soundcloud></div>`,
+    carousel: (str, params) =>
+      `<div><amp-carousel
+              type="slides"
+              layout="responsive"
+              controls
+              width=${params.width || 4}
+              height=${params.height || 3}>
+        ${str}
+      </amp-carousel></div>`,
+    facebook: (str, params) =>
+      `<div><amp-facebook width=16 height=9
+        layout="responsive"
+        data-embed-as="${params.type || 'post'}"
+        data-href="${params.url}">
+      </amp-facebook></div>`,
+    fittext: (str, params) =>
+      `<div><amp-fit-text
+          width=${params.width || 4}
+          height=${params.height || 3}
+          min-font-size=${params.min || 10}
+          max-font-size=${params.max || 52}
+          layout="responsive">
+        ${str}
+      </amp-fit-text></div>`,
+    iframe: (str, params) =>
+      `<div><amp-iframe
+                sandbox="allow-scripts allow-same-origin"
+                src="${params.url || ''}"
+                width=${params.width || 1}
+                height=${params.height || 1}
+                layout="responsive">
+             </amp-fit-text></div>`,
+    instagram: (str, params) =>
+      `<div><amp-instagram
+                data-shortcode="${params.shortcode || ''}"
+                width=${params.width || 1}
+                height=${params.height || 1}
+                layout="responsive">
+             </amp-instagram></div>`,
+    twitter: (str, params) =>
+      `<div><amp-twitter
+                data-tweetid="${params.tweetid || ''}"
+                width=${params.width || 400}
+                height=${params.height || 600}
+                data-cards="hidden">
+             </amp-twitter></div>`,
+    vine: (str, params) =>
+      `<div><amp-vine
+        data-vineid="${params.vineid || ''}"
+        width=${params.width || 400}
+        height=${params.height || 400}>
+        layout="responsive">
+      </amp-vine></div>`,
+    vimeo: (str, params) =>
+      `<div><amp-vimeo
+        data-videoid="${params.videoid || ''}"
+        width=${params.width || 500}
+        height=${params.height || 281}
+        layout="responsive">
+      </amp-vimeo></div>`,
     youtube: (str, params) =>
       `<div><amp-youtube
         data-videoid="${params.videoid || ''}"

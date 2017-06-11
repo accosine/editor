@@ -29,7 +29,7 @@ class Youtube extends Component {
   };
 
   closeDialog = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, videoid: '' });
   };
 
   onInsert = () => {
@@ -39,7 +39,7 @@ class Youtube extends Component {
   };
 
   render() {
-    const { onShortcode, classes } = this.props;
+    const { classes } = this.props;
     const { videoid } = this.state;
     return (
       <div className={classes.container}>
