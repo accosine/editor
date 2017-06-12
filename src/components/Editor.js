@@ -39,14 +39,12 @@ class Editor extends Component {
   componentDidMount() {}
 
   render() {
-    const { classes, text, getRef } = this.props;
-    // if (this.nameInput) this.nameInput.focus();
+    const { classes, text } = this.props;
 
     return (
       <div className={classes.container}>
         <textarea
           id="give"
-          ref={getRef}
           autoFocus
           value={text}
           className={classes.textArea}
@@ -58,9 +56,6 @@ class Editor extends Component {
     );
   }
 }
-          // ref={input => {
-          //   this.nameInput = input;
-          // }}
 
 Editor.propTypes = {
   onEdit: PropTypes.func.isRequired,

@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 
 import Youtube from './Youtube';
 import Soundcloud from './Soundcloud';
 
-const styleSheet = createStyleSheet('Shortcodes', theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-}));
-
 const Shortcodes = (props) => {
-  const { onShortcode, classes } = props;
+  const { onShortcode } = props;
   return (
     <div>
       <Youtube onShortcode={onShortcode} />
@@ -23,7 +15,7 @@ const Shortcodes = (props) => {
 }
 
 Shortcodes.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+  onShortcode: PropTypes.func.isRequired,
+}
 
-export default withStyles(styleSheet)(Shortcodes);
+export default Shortcodes;

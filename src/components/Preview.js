@@ -7,18 +7,12 @@ import Amp from './Amp';
 
 class Preview extends Component {
   render() {
-    const { editorRef } = this.props;
-    return <Amp editorRef={editorRef} html={shortcodes(marked(this.props.text))} />;
+    return <Amp html={shortcodes(marked(this.props.text))} />;
   }
 }
-// <div
-//   dangerouslySetInnerHTML={{
-//     __html: marked(this.props.text),
-//   }}
-// />
 
 Preview.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
 };
 
 export default Preview;

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const RENDER_DELAY = 750;
-
 const ampDoc = (articleText, styles) => `
 <!doctype html>
 <html amp lang="en">
@@ -38,9 +36,8 @@ class Amp extends Component {
     this.attachAmpDoc(this.props.html);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // this.closeAmpDoc();
-    this.attachAmpDoc(nextProps.html);
+  componentDidUpdate(prevProps, prevState) {
+    this.attachAmpDoc(this.props.html);
   }
 
   componentWillUnmount() {
@@ -48,16 +45,16 @@ class Amp extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldUpdate', nextProps.html !== this.props.html);
     return nextProps.html !== this.props.html;
   }
 
   attachAmpDoc = html => {
     if (this.renderTimeout) {
-      console.log('clear timeout')
       clearTimeout(this.renderTimeout);
     }
+
     this.renderTimeout = setTimeout(() => {
-      const { editorRef } = this.props;
       const parser = new DOMParser();
       const doc = parser.parseFromString(ampDoc(html), 'text/html');
 
@@ -71,18 +68,14 @@ class Amp extends Component {
           this.container.appendChild(this.shadowRoot);
         }
         this.ampedDoc = amp.attachShadowDoc(this.shadowRoot, doc, 'asdf');
+        // reset focus to the previously focused element
         this.ampedDoc.ampdoc.whenReady().then(() => {
-          if (editorRef) {
-            editorRef.blur();
-            setTimeout(function() {
-              const ff = editorRef;
-              ff.focus();
-              console.log(ff);
-            }, 100);
-          }
+          const activeElement = document.activeElement;
+          activeElement.blur();
+          activeElement.focus();
         });
       });
-    }, RENDER_DELAY);
+    }, this.props.renderDelay);
   };
 
   closeAmpDoc = () => {
@@ -97,5 +90,14 @@ class Amp extends Component {
     );
   }
 }
+
+Amp.defaultProps = {
+  renderDelay: 750,
+};
+
+Amp.propTypes = {
+  html: PropTypes.string.isRequired,
+  renderDelay: PropTypes.number.isRequired,
+};
 
 export default Amp;
