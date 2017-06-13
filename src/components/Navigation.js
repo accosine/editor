@@ -1,27 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles, createStyleSheet } from "material-ui/styles";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import Button from "material-ui/Button";
+import IconButton from "material-ui/IconButton";
+import MenuIcon from "material-ui-icons/Menu";
 
-const styleSheet = createStyleSheet('Navigation', () => ({
+const styleSheet = createStyleSheet("Navigation", () => ({
   root: {
-    position: 'relative',
-    width: '100%',
+    position: "relative",
+    width: "100%"
   },
   appBar: {
-    position: 'relative',
+    position: "relative"
   },
   flex: {
-    flex: 1,
-  },
+    flex: 1
+  }
 }));
 
-const Navigation = (props) => {
+const Navigation = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -30,16 +30,18 @@ const Navigation = (props) => {
           <IconButton contrast>
             <MenuIcon />
           </IconButton>
-          <Typography type="title" colorInherit className={classes.flex}>Title</Typography>
+          <Typography type="title" colorInherit className={classes.flex}>
+            Title
+          </Typography>
           <Button contrast>Login</Button>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
 
 Navigation.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styleSheet)(Navigation);

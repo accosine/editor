@@ -1,50 +1,49 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import Grid from 'material-ui/Grid';
-import Divider from 'material-ui/Divider';
-import Collapse from 'material-ui/transitions/Collapse';
-import IconButton from 'material-ui/IconButton';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import classnames from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles, createStyleSheet } from "material-ui/styles";
+import Paper from "material-ui/Paper";
+import Typography from "material-ui/Typography";
+import Grid from "material-ui/Grid";
+import Divider from "material-ui/Divider";
+import Collapse from "material-ui/transitions/Collapse";
+import IconButton from "material-ui/IconButton";
+import ExpandMoreIcon from "material-ui-icons/ExpandMore";
+import classnames from "classnames";
+import Editor from "./Editor";
+import Preview from "./Preview";
+import Shortcodes from "./Shortcodes";
 
-import Editor from './Editor';
-import Preview from './Preview';
-import Shortcodes from './Shortcodes';
-
-const styleSheet = createStyleSheet('MarkdownEditor', theme => ({
+const styleSheet = createStyleSheet("MarkdownEditor", theme => ({
   root: {
     flexGrow: 1,
-    width: '98%',
-    margin: '0 auto',
+    width: "98%",
+    margin: "0 auto"
     // marginTop: 30,
   },
   container: {
-    height: '85vh',
+    height: "85vh"
   },
   paper: {
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
-    height: '100%',
+    height: "100%"
   },
   expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transform: "rotate(0deg)",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
-  },
+    transform: "rotate(180deg)"
+  }
 }));
 
 class MarkdownEditor extends Component {
   state = {
-    text: 'Ohl stinkt',
+    text: "Ohl stinkt",
     caretPosition: { start: 0, end: 0 },
-    frontmatterExpanded: false,
+    frontmatterExpanded: false
   };
 
   onEdit = (text, caretPosition) => {
@@ -55,15 +54,15 @@ class MarkdownEditor extends Component {
     this.setState({ caretPosition });
   };
 
-  handleExpandClick = () => {
+  onFrontmatterExpand = () => {
     this.setState({ frontmatterExpanded: !this.state.frontmatterExpanded });
   };
 
   onShortcode = shortcodeText => {
-    console.log(shortcodeText);
+    // Get caret position, slice text till caret position, add shortcode in
+    // between, append the rest of the slice and set state to new text.
     const { text, caretPosition } = this.state;
-    const newText =
-      text.slice(0, caretPosition.start) +
+    const newText = text.slice(0, caretPosition.start) +
       shortcodeText +
       text.slice(caretPosition.end, text.length);
     this.setState({ text: newText });
@@ -77,9 +76,9 @@ class MarkdownEditor extends Component {
       <div className={classes.root}>
         <IconButton
           className={classnames(classes.expand, {
-            [classes.expandOpen]: frontmatterExpanded,
+            [classes.expandOpen]: frontmatterExpanded
           })}
-          onClick={this.handleExpandClick}
+          onClick={this.onFrontmatterExpand}
         >
           <ExpandMoreIcon />
         </IconButton>
@@ -127,7 +126,7 @@ class MarkdownEditor extends Component {
 }
 
 MarkdownEditor.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styleSheet)(MarkdownEditor);

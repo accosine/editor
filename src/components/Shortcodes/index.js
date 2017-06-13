@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import Youtube from "./Youtube";
+import Soundcloud from "./Soundcloud";
 
-import Youtube from './Youtube';
-import Soundcloud from './Soundcloud';
-
-const Shortcodes = (props) => {
+const Shortcodes = props => {
   const { onShortcode } = props;
   return (
     <div>
@@ -12,10 +11,10 @@ const Shortcodes = (props) => {
       <Soundcloud onShortcode={onShortcode} />
     </div>
   );
-}
+};
 
 Shortcodes.propTypes = {
-  onShortcode: PropTypes.func.isRequired,
-}
+  onShortcode: PropTypes.func.isRequired
+};
 
 export default Shortcodes;

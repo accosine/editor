@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles, createStyleSheet } from "material-ui/styles";
+import Button from "material-ui/Button";
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
+  DialogTitle
+} from "material-ui/Dialog";
+import TextField from "material-ui/TextField";
 
-const youtubeShortcode = (videoid) => `[youtube videoid=${videoid}]`;
-
-const styleSheet = createStyleSheet('Youtube', theme => ({
+const styleSheet = createStyleSheet("Youtube", theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   },
   container: {
-    display: 'inline',
-  },
+    display: "inline"
+  }
 }));
 
+const youtubeShortcode = videoid => `[youtube videoid=${videoid}]`;
+
 class Youtube extends Component {
-  state = { open: false, videoid: '' };
+  state = { open: false, videoid: "" };
 
   openDialog = () => {
     this.setState({ open: true });
   };
 
   closeDialog = () => {
-    this.setState({ open: false, videoid: '' });
+    this.setState({ open: false, videoid: "" });
   };
 
   onInsert = () => {
@@ -72,6 +72,7 @@ class Youtube extends Component {
 
 Youtube.propTypes = {
   classes: PropTypes.object.isRequired,
+  onShortcode: PropTypes.func.isRequired
 };
 
 export default withStyles(styleSheet)(Youtube);

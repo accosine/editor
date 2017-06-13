@@ -1,40 +1,40 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles, createStyleSheet } from "material-ui/styles";
+import Button from "material-ui/Button";
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
-import { LabelSwitch } from 'material-ui/Switch';
+  DialogTitle
+} from "material-ui/Dialog";
+import TextField from "material-ui/TextField";
+import { LabelSwitch } from "material-ui/Switch";
 
-const soundcloudShortcode = params =>
-  // ATTENTION! This template string has significant whitespace- don't change!
-  `[soundcloud id=${params.trackid}` +
-  `${params.isVisual ? ' visual' : ''}` +
-  `${!params.isVisual && params.color ? ' color=' + params.color : ''}` +
-  `${params.height ? ' height=' + params.height : ''}` +
-  ']';
-
-const styleSheet = createStyleSheet('Soundcloud', theme => ({
+const styleSheet = createStyleSheet("Soundcloud", theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   },
   container: {
-    display: 'inline',
-  },
+    display: "inline"
+  }
 }));
+
+const soundcloudShortcode = params =>
+// ATTENTION! This template string has significant whitespace - don't change!
+  `[soundcloud id=${params.trackid}` +
+  `${params.isVisual ? " visual" : ""}` +
+  `${!params.isVisual && params.color ? " color=" + params.color : ""}` +
+  `${params.height ? " height=" + params.height : ""}` +
+  "]";
 
 class Soundcloud extends Component {
   state = {
     open: false,
-    trackid: '',
+    trackid: "",
     isVisual: false,
-    color: '',
-    height: '',
+    color: "",
+    height: ""
   };
 
   openDialog = () => {
@@ -44,10 +44,10 @@ class Soundcloud extends Component {
   closeDialog = () => {
     this.setState({
       open: false,
-      trackid: '',
+      trackid: "",
       isVisual: false,
-      color: '',
-      height: '',
+      color: "",
+      height: ""
     });
   };
 
@@ -110,6 +110,7 @@ class Soundcloud extends Component {
 
 Soundcloud.propTypes = {
   classes: PropTypes.object.isRequired,
+  onShortcode: PropTypes.func.isRequired
 };
 
 export default withStyles(styleSheet)(Soundcloud);
