@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { withStyles, createStyleSheet } from "material-ui/styles";
-import MarkdownEditor from "./components/MarkdownEditor";
-import Navigation from "./components/Navigation";
+import React, { Component } from 'react';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import SplitScreen from './components/SplitScreen';
+import Navigation from './components/Navigation';
 
-const styleSheet = createStyleSheet("App", theme => ({
+const styleSheet = createStyleSheet('App', theme => ({
   app: {
     // height: '100vh'
-  }
+  },
 }));
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="app">
         <Navigation />
-        <MarkdownEditor />
+        <SplitScreen />
       </div>
     );
   }

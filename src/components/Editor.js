@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles, createStyleSheet } from "material-ui/styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet("Editor", theme => ({
+const styleSheet = createStyleSheet('Editor', theme => ({
   container: {
-    height: "100%"
+    height: '100%',
   },
   textArea: {
-    display: "block",
-    width: "100%",
-    maxWidth: "100%",
-    minHeight: "90%",
+    display: 'block',
+    width: '100%',
+    maxWidth: '100%',
+    minHeight: '90%',
     border: 0,
-    outline: "none",
-    fontSize: "12pt",
-    background: "transparent"
-  }
+    outline: 'none',
+    fontSize: '12pt',
+    background: 'transparent',
+  },
 }));
 
 class Editor extends Component {
@@ -23,14 +23,14 @@ class Editor extends Component {
     const text = target.value;
     this.props.onEdit(text, {
       start: target.selectionStart,
-      end: target.selectionEnd
+      end: target.selectionEnd,
     });
   };
 
   handleCaretPosition = ({ target }) => {
     this.props.onCaretPosition({
       start: target.selectionStart,
-      end: target.selectionEnd
+      end: target.selectionEnd,
     });
   };
 
@@ -55,7 +55,7 @@ class Editor extends Component {
 Editor.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onCaretPosition: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styleSheet)(Editor);

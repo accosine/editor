@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import marked from "marked";
-import shortcodes from "../util/shortcodes";
-import Amp from "./Amp";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import marked from 'marked';
+import shortcodes from '../util/shortcodes';
+import Amp from './Amp';
 
 class Preview extends Component {
   render() {
@@ -11,7 +11,7 @@ class Preview extends Component {
 }
 
 Preview.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };
 
 export default Preview;

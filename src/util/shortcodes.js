@@ -1,4 +1,4 @@
-const Shortcode = require("shortcode-parser");
+const Shortcode = require('shortcode-parser');
 
 const shortcodes = {
   // image: (str, params) => {
@@ -57,9 +57,9 @@ const shortcodes = {
     `<div><amp-soundcloud
         height=${params.height || 166}
         layout="fixed-height"
-        ${params.color && !params.visual ? `data-color="${params.color}"` : ""}
+        ${params.color && !params.visual ? `data-color="${params.color}"` : ''}
         data-trackid="${params.id}"
-        ${params.visual ? 'data-visual="true"' : ""}>
+        ${params.visual ? 'data-visual="true"' : ''}>
       </amp-soundcloud></div>`,
   carousel: (str, params) =>
     `<div><amp-carousel
@@ -73,7 +73,7 @@ const shortcodes = {
   facebook: (str, params) =>
     `<div><amp-facebook width=16 height=9
         layout="responsive"
-        data-embed-as="${params.type || "post"}"
+        data-embed-as="${params.type || 'post'}"
         data-href="${params.url}">
       </amp-facebook></div>`,
   fittext: (str, params) =>
@@ -88,46 +88,47 @@ const shortcodes = {
   iframe: (str, params) =>
     `<div><amp-iframe
                 sandbox="allow-scripts allow-same-origin"
-                src="${params.url || ""}"
+                src="${params.url || ''}"
                 width=${params.width || 1}
                 height=${params.height || 1}
                 layout="responsive">
              </amp-fit-text></div>`,
   instagram: (str, params) =>
     `<div><amp-instagram
-                data-shortcode="${params.shortcode || ""}"
+                data-shortcode="${params.id || ''}"
+                ${params.captioned ? 'data-captioned' : ''}
                 width=${params.width || 1}
                 height=${params.height || 1}
                 layout="responsive">
              </amp-instagram></div>`,
   twitter: (str, params) =>
     `<div><amp-twitter
-                data-tweetid="${params.tweetid || ""}"
+                data-tweetid="${params.tweetid || ''}"
                 width=${params.width || 400}
                 height=${params.height || 600}
                 data-cards="hidden">
              </amp-twitter></div>`,
   vine: (str, params) =>
     `<div><amp-vine
-        data-vineid="${params.vineid || ""}"
+        data-vineid="${params.vineid || ''}"
         width=${params.width || 400}
         height=${params.height || 400}>
         layout="responsive">
       </amp-vine></div>`,
   vimeo: (str, params) =>
     `<div><amp-vimeo
-        data-videoid="${params.videoid || ""}"
+        data-videoid="${params.videoid || ''}"
         width=${params.width || 500}
         height=${params.height || 281}
         layout="responsive">
       </amp-vimeo></div>`,
   youtube: (str, params) =>
     `<div><amp-youtube
-        data-videoid="${params.videoid || ""}"
+        data-videoid="${params.videoid || ''}"
         width=${params.width || 480}
         height=${params.height || 270}
         layout="responsive">
-      </amp-youtube></div>`
+      </amp-youtube></div>`,
 };
 
 for (let s in shortcodes) {

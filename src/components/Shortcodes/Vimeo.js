@@ -10,7 +10,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
-const styleSheet = createStyleSheet('Youtube', theme => ({
+const styleSheet = createStyleSheet('Vimeo', theme => ({
   button: {
     margin: theme.spacing.unit,
   },
@@ -19,9 +19,9 @@ const styleSheet = createStyleSheet('Youtube', theme => ({
   },
 }));
 
-const youtubeShortcode = videoid => `[youtube videoid=${videoid}]`;
+const vimeoShortcode = videoid => `[vimeo videoid=${videoid}]`;
 
-class Youtube extends Component {
+class Vimeo extends Component {
   state = { open: false, videoid: '' };
 
   openDialog = () => {
@@ -33,7 +33,7 @@ class Youtube extends Component {
   };
 
   onInsert = () => {
-    const html = youtubeShortcode(this.state.videoid);
+    const html = vimeoShortcode(this.state.videoid);
     this.props.onShortcode(html);
     this.closeDialog();
   };
@@ -44,7 +44,7 @@ class Youtube extends Component {
     return (
       <div className={classes.container}>
         <Button raised onClick={this.openDialog} className={classes.button}>
-          YouTube
+          Vimeo
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
           <DialogTitle>{"Use Google's location service?"}</DialogTitle>
@@ -55,14 +55,14 @@ class Youtube extends Component {
               to Google, even when no apps are running.
             </DialogContentText>
             <TextField
-              label="YouTube Video ID"
+              label="Vimeo Video ID"
               value={videoid}
               onChange={event => this.setState({ videoid: event.target.value })}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} primary>Cancel</Button>
-            <Button onClick={this.onInsert} primary>Insert</Button>
+            <Button onClick={this.closeDialog}>Cancel</Button>
+            <Button onClick={this.onInsert}>Insert</Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -70,9 +70,9 @@ class Youtube extends Component {
   }
 }
 
-Youtube.propTypes = {
+Vimeo.propTypes = {
   classes: PropTypes.object.isRequired,
   onShortcode: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(Youtube);
+export default withStyles(styleSheet)(Vimeo);
