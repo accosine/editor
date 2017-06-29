@@ -85,6 +85,13 @@ const shortcodes = {
           layout="responsive">
         ${str}
       </amp-fit-text></div>`,
+  gfycat: (str, params) =>
+    `<amp-gfycat
+        data-gfyid="${params.id}"
+        width="${params.width}"
+        height="${params.height}"
+        ${params.noautoplay ? 'noautoplay' : ''}>
+    </amp-gfycat>`,
   iframe: (str, params) =>
     `<div><amp-iframe
                 sandbox="allow-scripts allow-same-origin"
