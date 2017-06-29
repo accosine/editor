@@ -5,13 +5,13 @@ import Soundcloud from './Soundcloud';
 import Vimeo from './Vimeo';
 import Instagram from './Instagram';
 import Gfycat from './Gfycat';
+import FitText from './FitText';
 
 // import Facebook from './Facebook';
 // import FacebookComments from './FacebookComments';
 // import FacebookLike from './FacebookLike';
 // import Pinterest from './Pinterest';
 // import Twitter from './Twitter';
-// import FitText from './FitText';
 // import Playbuzz from './Playbuzz';
 
 // import Accordion from './Accordion';
@@ -31,6 +31,7 @@ const Shortcodes = props => {
       <Vimeo onShortcode={onShortcode} />
       <Instagram onShortcode={onShortcode} />
       <Gfycat onShortcode={onShortcode} />
+      <FitText onShortcode={onShortcode} />
       {/*
       <FacebookComments onShortcode={onShortcode} />
       */}
@@ -39,9 +40,6 @@ const Shortcodes = props => {
       */}
       {/*
       <FacebookLike onShortcode={onShortcode} />
-      */}
-      {/*
-      <FitText onShortcode={onShortcode} />
       */}
       {/*
       <Pinterest onShortcode={onShortcode} />
