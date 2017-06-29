@@ -8,10 +8,9 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { LabelSwitch } from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 
-const styleSheet = createStyleSheet('Gfycat', theme => ({
+const styleSheet = createStyleSheet('FacebookComments', theme => ({
   button: {
     margin: theme.spacing.unit,
   },
@@ -20,11 +19,11 @@ const styleSheet = createStyleSheet('Gfycat', theme => ({
   },
 }));
 
-const gfycatShortcode = ({ id, noAutoplay, width, height }) =>
-  `[gfycat id=${id} width=${width} height=${height}${noAutoplay ? ' noautoplay' : ''}]`;
+const facebookCommentsShortcode = ({ url, width, height, numposts }) =>
+  `[facebookcomments url="${url}" width=${width} height=${height} numposts=${numposts}]`;
 
-class Gfycat extends Component {
-  state = { open: false, id: '', noAutoplay: false, height: '', width: '' };
+class FacebookComments extends Component {
+  state = { open: false, url: '', width: '', height: '', numposts: '' };
 
   openDialog = () => {
     this.setState({ open: true });
@@ -35,33 +34,28 @@ class Gfycat extends Component {
   };
 
   onInsert = () => {
-    const shortcode = gfycatShortcode(this.state);
+    const shortcode = facebookCommentsShortcode(this.state);
     this.props.onShortcode(shortcode);
     this.closeDialog();
   };
 
   render() {
     const { classes } = this.props;
-    const { id, noAutoplay, width, height } = this.state;
+    const { url, width, height, numposts } = this.state;
     return (
       <div className={classes.container}>
         <Button raised onClick={this.openDialog} className={classes.button}>
-          Gfycat
+          Facebook Comments
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Gfycat shortcode"}</DialogTitle>
+          <DialogTitle>{"Insert Facebook Comments shortcode"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To specify the width and height in the code, copy it from the
-              embed URL:
-              Go to https://gfycat.com/name, where name is the Gfycat ID.
-              Click the embed link icon ().
-              Copy the width and height specified in the "Fixed iFRAME" field.
             </DialogContentText>
             <TextField
-              label="Gfycat ID"
-              value={id}
-              onChange={event => this.setState({ id: event.target.value })}
+              label="URL"
+              value={url}
+              onChange={event => this.setState({ url: event.target.value })}
             />
             <TextField
               label="Width"
@@ -75,10 +69,11 @@ class Gfycat extends Component {
               type="number"
               onChange={event => this.setState({ height: event.target.value })}
             />
-            <LabelSwitch
-              checked={noAutoplay}
-              onChange={(event, noAutoplay) => this.setState({ noAutoplay })}
-              label="Disable Autoplay"
+            <TextField
+              label="Num Posts"
+              value={numposts}
+              type="number"
+              onChange={event => this.setState({ numposts: event.target.value })}
             />
           </DialogContent>
           <DialogActions>
@@ -91,9 +86,9 @@ class Gfycat extends Component {
   }
 }
 
-Gfycat.propTypes = {
+FacebookComments.propTypes = {
   classes: PropTypes.object.isRequired,
   onShortcode: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(Gfycat);
+export default withStyles(styleSheet)(FacebookComments);

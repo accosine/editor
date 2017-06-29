@@ -6,7 +6,7 @@ import Amp from './Amp';
 
 class Preview extends Component {
   render() {
-    return <Amp html={shortcodes(marked(this.props.text))} />;
+    return <Amp html={marked(shortcodes(this.props.text))} />;
   }
 }
 

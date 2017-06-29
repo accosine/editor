@@ -6,9 +6,9 @@ import Vimeo from './Vimeo';
 import Instagram from './Instagram';
 import Gfycat from './Gfycat';
 import FitText from './FitText';
+import FacebookComments from './FacebookComments';
 
 // import Facebook from './Facebook';
-// import FacebookComments from './FacebookComments';
 // import FacebookLike from './FacebookLike';
 // import Pinterest from './Pinterest';
 // import Twitter from './Twitter';
@@ -32,9 +32,7 @@ const Shortcodes = props => {
       <Instagram onShortcode={onShortcode} />
       <Gfycat onShortcode={onShortcode} />
       <FitText onShortcode={onShortcode} />
-      {/*
       <FacebookComments onShortcode={onShortcode} />
-      */}
       {/*
       <Facebook onShortcode={onShortcode} />
       */}

@@ -8,7 +8,6 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { LabelSwitch } from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 
 const styleSheet = createStyleSheet('FitText', theme => ({
@@ -27,10 +26,10 @@ class FitText extends Component {
   state = {
     open: false,
     text: '',
-    width: null,
-    height: null,
-    min: null,
-    max: null,
+    width: '',
+    height: '',
+    min: '',
+    max: '',
   };
 
   openDialog = () => {
