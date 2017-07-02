@@ -7,20 +7,18 @@ import Instagram from './Instagram';
 import Gfycat from './Gfycat';
 import FitText from './FitText';
 import FacebookComments from './FacebookComments';
-
-// import Facebook from './Facebook';
-// import FacebookLike from './FacebookLike';
-// import Pinterest from './Pinterest';
-// import Twitter from './Twitter';
-// import Playbuzz from './Playbuzz';
+import Facebook from './Facebook';
+import Pinterest from './Pinterest';
+import Twitter from './Twitter';
+import Playbuzz from './Playbuzz';
+import Iframe from './Iframe';
 
 // import Accordion from './Accordion';
-// import AppBanner from './AppBanner';
 // import Carousel from './Carousel';
-// import Iframe from './Iframe';
 // import Lightbox from './Lightbox';
-// import Img from './Img';
 // import ImageLightbox from './ImageLightbox';
+// import Img from './Img';
+// import AppBanner from './AppBanner';
 
 const Shortcodes = props => {
   const { onShortcode } = props;
@@ -33,41 +31,28 @@ const Shortcodes = props => {
       <Gfycat onShortcode={onShortcode} />
       <FitText onShortcode={onShortcode} />
       <FacebookComments onShortcode={onShortcode} />
-      {/*
       <Facebook onShortcode={onShortcode} />
-      */}
-      {/*
-      <FacebookLike onShortcode={onShortcode} />
-      */}
-      {/*
       <Pinterest onShortcode={onShortcode} />
-      */}
-      {/*
       <Playbuzz onShortcode={onShortcode} />
-      */}
-      {/*
       <Twitter onShortcode={onShortcode} />
-      */}
-      {/*
-      <Accordion onShortcode={onShortcode} />
-      */}
+      <Iframe onShortcode={onShortcode} />
       {/*
       <AppBanner onShortcode={onShortcode} />
-      */}
-      {/*
-      <Carousel onShortcode={onShortcode} />
-      */}
-      {/*
-      <Iframe onShortcode={onShortcode} />
-      */}
-      {/*
-      <Lightbox onShortcode={onShortcode} />
       */}
       {/*
       <Img onShortcode={onShortcode} />
       */}
       {/*
+      <Lightbox onShortcode={onShortcode} />
+      */}
+      {/*
       <ImageLightbox onShortcode={onShortcode} />
+      */}
+      {/*
+      <Accordion onShortcode={onShortcode} />
+      */}
+      {/*
+      <Carousel onShortcode={onShortcode} />
       */}
     </div>
   );
