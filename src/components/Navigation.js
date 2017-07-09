@@ -4,9 +4,10 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+
+import Login from './Login';
 
 const styleSheet = createStyleSheet('Navigation', () => ({
   root: {
@@ -25,7 +26,7 @@ const Navigation = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appBar}>
+      <AppBar className={classes.appBar} >
         <Toolbar>
           <IconButton>
             <MenuIcon />
@@ -33,7 +34,7 @@ const Navigation = props => {
           <Typography type="title" className={classes.flex}>
             Title
           </Typography>
-          <Button>Login</Button>
+          <Login {...props}/>
         </Toolbar>
       </AppBar>
     </div>

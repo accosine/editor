@@ -10,10 +10,13 @@ const styleSheet = createStyleSheet('App', theme => ({
 }));
 
 class App extends Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <div className="app">
-        <Navigation />
+        <Navigation {...this.props} />
         <SplitScreen />
       </div>
     );
