@@ -12,18 +12,20 @@ import Pinterest from './Pinterest';
 import Twitter from './Twitter';
 import Playbuzz from './Playbuzz';
 import Iframe from './Iframe';
+// import Img from './Img';
 
 // import Accordion from './Accordion';
 // import Carousel from './Carousel';
 // import Lightbox from './Lightbox';
 // import ImageLightbox from './ImageLightbox';
-// import Img from './Img';
 // import AppBanner from './AppBanner';
 
 const Shortcodes = props => {
   const { onShortcode } = props;
   return (
     <div>
+      {props.children}
+      {/*<Img onShortcode={onShortcode} />*/}
       <Youtube onShortcode={onShortcode} />
       <Soundcloud onShortcode={onShortcode} />
       <Vimeo onShortcode={onShortcode} />
@@ -38,9 +40,6 @@ const Shortcodes = props => {
       <Iframe onShortcode={onShortcode} />
       {/*
       <AppBanner onShortcode={onShortcode} />
-      */}
-      {/*
-      <Img onShortcode={onShortcode} />
       */}
       {/*
       <Lightbox onShortcode={onShortcode} />

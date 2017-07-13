@@ -23,18 +23,19 @@ const styleSheet = createStyleSheet('Navigation', () => ({
 }));
 
 const Navigation = props => {
-  const { classes } = props;
+  const { classes, ...rest } = props;
+
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} >
         <Toolbar>
-          <IconButton>
+          <IconButton onClick={() => props.ACTIONS.handleToggle()}>
             <MenuIcon />
           </IconButton>
           <Typography type="title" className={classes.flex}>
             Title
           </Typography>
-          <Login {...props}/>
+          <Login {...rest}/>
         </Toolbar>
       </AppBar>
     </div>

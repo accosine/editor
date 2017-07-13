@@ -12,6 +12,7 @@ import classnames from 'classnames';
 import Editor from './Editor';
 import Preview from './Preview';
 import Shortcodes from './Shortcodes';
+import Img from './Img';
 
 const styleSheet = createStyleSheet('SplitScreen', theme => ({
   root: {
@@ -94,7 +95,9 @@ class SplitScreen extends Component {
         </Collapse>
         <Grid container gutter={8}>
           <Grid item xs={12}>
-            <Shortcodes onShortcode={this.onShortcode} />
+            <Shortcodes onShortcode={this.onShortcode}>
+              <Img onShortcode={this.onShortcode}/>
+            </Shortcodes>
           </Grid>
         </Grid>
         <Grid className={classes.container} container gutter={8}>

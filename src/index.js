@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider } from 'material-ui/styles';
-
-import App from './App';
 import * as firebase from 'firebase';
+import 'typeface-roboto';
+import App from './App';
 import firebaseconfig from './config';
 // import registerServiceWorker from './registerServiceWorker';
-import 'typeface-roboto';
 import './index.css';
 
-const STORAGEKEY = 'KEY_FOR_LOCAL_STORAGE';
-
 firebase.initializeApp(firebaseconfig);
-const AUTH = firebase.auth();
+const REFS = {};
+const ACTIONS = {};
 const PROVIDER = new firebase.auth.FacebookAuthProvider();
+const AUTH = firebase.auth();
+const DATABASE = firebase.database();
+const STORAGE = firebase.storage();
+const CONNECT = (string, DATABASE, REFS, ACTIONS) => {
+  REFS[string] = DATABASE.ref(`${string}/`);
+  ACTIONS['push' + string] = data =>
+    REFS[string].push(data, response => response);
+};
+const STORAGEKEY = 'KEY_FOR_LOCAL_STORAGE';
 
 function isAuthenticated() {
   return !!AUTH.currentUser || !!localStorage.getItem(STORAGEKEY);
@@ -37,6 +44,28 @@ function Authenticate(event) {
 }
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+
+    ACTIONS.handleClose = this.handleClose.bind(this);
+    ACTIONS.handleToggle = this.handleToggle.bind(this);
+    this.state = {
+      ACTIONS,
+      AUTH,
+      Authenticate,
+      CONNECT,
+      DATABASE,
+      REFS,
+      isAuthenticated,
+      open: false,
+      user: {
+        uid: '',
+        team: '',
+      },
+      STORAGE,
+    };
+  }
+
   componentDidMount() {
     AUTH.onAuthStateChanged(user => {
       if (user) {
@@ -58,10 +87,19 @@ class Main extends Component {
     });
   }
 
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleToggle() {
+    this.setState({ open: !this.state.open });
+  }
+
+  handleClose = () => this.setState({ open: false });
   render() {
     return (
       <MuiThemeProvider>
-        <App authenticate={Authenticate} isAuthenticated={isAuthenticated} />
+        <App {...this.state} />
       </MuiThemeProvider>
     );
   }
