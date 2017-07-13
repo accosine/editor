@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase-admin": "^5.0.0",
+    "gray-matter": "^2.1.1"
+  }
+}
