@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FilePreview from './FilePreview';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-export default class FileList extends Component {
+const styleSheet = createStyleSheet('FileList', {
+  fileList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+});
+
+class FileList extends Component {
   static propTypes = {
     files: PropTypes.arrayOf(PropTypes.object),
   };
 
   list(files) {
-    console.log(files); 
-    var reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    console.log(reader); 
-    return files.map(file => <li key={file.name}>{`'${file.name}' of size '${file.size}' and type '${file.type}'`}</li>);
+    console.log(files);
+    return files.map(file => <FilePreview key={file.name} file={file} />);
   }
 
   render() {
-    const { files } = this.props;
+    const { files, classes } = this.props;
 
     if (files.length === 0) {
       return <div>Nothing to display</div>;
     }
 
     return (
-      <div>{ this.list(files) }</div>
+      <div className={classes.fileList}>
+        {this.list(files)}
+      </div>
     );
   }
 }
+
+export default withStyles(styleSheet)(FileList);

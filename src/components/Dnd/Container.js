@@ -13,10 +13,24 @@ class Container extends Component {
     this.state = { droppedFiles: [] };
   }
 
+  uploadFiles = files => {
+    const storageRef = this.props.STORAGE.ref();
+    const uploadTasks = files.map(file =>
+      storageRef
+        .child(`images/${file.name}`)
+        .put(file)
+        .then(function(snapshot) {
+          console.log('Uploaded a blob or file!');
+        })
+        .catch(console.log)
+    );
+  };
+
   handleFileDrop(item, monitor) {
     if (monitor) {
       const droppedFiles = monitor.getItem().files;
       this.setState({ droppedFiles });
+      this.uploadFiles(droppedFiles);
     }
   }
 

@@ -54,26 +54,26 @@ class App extends Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
-        <Router>
-          <div className="app">
-            <Navigation {...rest} />
-            <Dresser {...rest} />
-            <PrivateRoute
-              path='/editor'
-              component={SplitScreen}
-              redirectTo='/'
-              auth={this.props.isAuthenticated}
-              {...rest}
-            />
-            <PrivateRoute
-              path='/articles'
-              component={Articles}
-              redirectTo='/'
-              auth={this.props.isAuthenticated}
-              {...rest}
-            />
-          </div>
-        </Router>
+      <Router>
+        <div className="app">
+          <Navigation {...rest} />
+          <Dresser {...rest} />
+          <PrivateRoute
+            path="/editor"
+            component={SplitScreen}
+            redirectTo="/"
+            auth={this.props.isAuthenticated}
+            {...rest}
+          />
+          <PrivateRoute
+            path="/articles"
+            component={Articles}
+            redirectTo="/"
+            auth={this.props.isAuthenticated}
+            {...rest}
+          />
+        </div>
+      </Router>
     );
   }
 }

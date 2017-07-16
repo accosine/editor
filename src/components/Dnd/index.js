@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Container from './Container';
 
-export default class NativeFiles extends Component {
+export default class Dnd extends Component {
   render() {
     return (
       <div>
@@ -11,7 +11,7 @@ export default class NativeFiles extends Component {
         <p>
           Example demonstrating drag and drop of native files.
         </p>
-        <Container />
+        <Container {...this.props}/>
       </div>
     );
   }

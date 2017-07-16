@@ -5,11 +5,8 @@ import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Dnd from './Dnd';
@@ -20,7 +17,6 @@ const styleSheet = createStyleSheet('Img', {
   },
   root: {
     flexGrow: 1,
-    marginTop: '3vw',
   },
 });
 
@@ -70,16 +66,7 @@ class Img extends Component {
           onRequestClose={this.closeDialog}
           transition={<Slide direction="up" />}
         >
-          <DialogTitle>
-            {'Bla bla bla'}
-          </DialogTitle>
           <DialogContent>
-            <DialogContentText>Put images here</DialogContentText>
-            <TextField
-              label="Image URL"
-              value={imgurl}
-              onChange={event => this.setState({ imgurl: event.target.value })}
-            />
             <Paper className={classes.root}>
               <Tabs
                 index={this.state.index}
@@ -96,7 +83,7 @@ class Img extends Component {
             {this.state.index === 0 &&
               <TabContainer>
                 {'Item One'}
-                <Dnd/>
+                <Dnd {...this.props}/>
               </TabContainer>}
             {this.state.index === 1 &&
               <TabContainer>

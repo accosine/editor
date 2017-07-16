@@ -71,7 +71,7 @@ class SplitScreen extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, ...rest } = this.props;
     const { text, frontmatterExpanded } = this.state;
 
     return (
@@ -96,7 +96,7 @@ class SplitScreen extends Component {
         <Grid container gutter={8}>
           <Grid item xs={12}>
             <Shortcodes onShortcode={this.onShortcode}>
-              <Img onShortcode={this.onShortcode}/>
+              <Img onShortcode={this.onShortcode} {...rest}/>
             </Shortcodes>
           </Grid>
         </Grid>

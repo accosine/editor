@@ -15,7 +15,7 @@ const styleSheet = createStyleSheet('Login', {
 });
 
 const Login = props => {
-  const { classes, isAuthenticated, authenticate }  = props;
+  const { classes, isAuthenticated, Authenticate }  = props;
   const authed = isAuthenticated();
 
   if (authed) {
@@ -30,7 +30,7 @@ const Login = props => {
     );
   } else {
     return (
-      <Button onClick={event => authenticate()} contrast>
+      <Button onClick={event => Authenticate()} contrast>
         Login
       </Button>
     );

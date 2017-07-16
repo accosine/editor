@@ -43,6 +43,17 @@ function Authenticate(event) {
     });
 }
 
+const firebaseApi = {
+  ACTIONS,
+  AUTH,
+  Authenticate,
+  CONNECT,
+  DATABASE,
+  REFS,
+  isAuthenticated,
+  STORAGE,
+};
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -50,19 +61,11 @@ class Main extends Component {
     ACTIONS.handleClose = this.handleClose.bind(this);
     ACTIONS.handleToggle = this.handleToggle.bind(this);
     this.state = {
-      ACTIONS,
-      AUTH,
-      Authenticate,
-      CONNECT,
-      DATABASE,
-      REFS,
-      isAuthenticated,
       open: false,
       user: {
         uid: '',
         team: '',
       },
-      STORAGE,
     };
   }
 
@@ -99,7 +102,7 @@ class Main extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <App {...this.state} />
+        <App {...this.state} {...firebaseApi} />
       </MuiThemeProvider>
     );
   }
