@@ -26,14 +26,14 @@ class MediaManager extends Component {
       this.props.REFS,
       this.props.ACTIONS
     );
-    this.state = { images: '' };
+    this.state = { images: {} };
   }
 
   componentDidMount() {
     // Add database change listener for each reference in the refs object
     console.log(this.props);
     this.props.REFS['images'].on('value', snapshot => {
-      this.setState({ images: snapshot.val() });
+      this.setState({ images: snapshot.val() || {} });
     });
   }
 
@@ -58,7 +58,7 @@ class MediaManager extends Component {
               justify={'center'}
               gutter={16}
             >
-              {Object.keys(this.state.images).map((key, index) =>
+              {Object.keys(this.state.images).length ? Object.keys(this.state.images).map((key, index) =>
                 <Paper
                   key={index}
                   className={classes.articlecard}
@@ -67,14 +67,14 @@ class MediaManager extends Component {
                   {index} {key}
                   <img
                     src={
-                      storageurl + this.state.images[key].name + storagesuffix
+                      storageurl + 'thumb_' + this.state.images[key].name + storagesuffix
                     }
                   />
                   <span>{this.state.images[key].attribution}</span>
                   <span>{this.state.images[key].caption}</span>
                   <span>{this.state.images[key].alt}</span>
                 </Paper>
-              )}
+              ) : "No images uploaded yet."}
             </Grid>
           </Grid>
         </Grid>
