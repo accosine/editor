@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 import Input from 'material-ui/Input';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('FilePreview', theme => ({
   root: {
@@ -63,13 +62,16 @@ class FilePreview extends Component {
               <Typography className={classes.headline} type="headline">
                 {file.name}
               </Typography>
-              <Input placeholder="Name" className={classes.input} />
+              <Input onBlur={event => {file.newname = event.target.value}} placeholder="Name" className={classes.input} />
+              <Input onBlur={event => {file.newattribution = event.target.value}} placeholder="Attribution" className={classes.input} />
+              <Input onBlur={event => {file.newcaption = event.target.value}} placeholder="Caption" className={classes.input} />
+              <Input onBlur={event => {file.newalttext = event.target.value}} placeholder="Alt Text" className={classes.input} />
               <Input placeholder="Tags" className={classes.input} />
             </CardContent>
           </div>
           <div className={classes.cover}>
             {loaded
-              ? <img className={classes.image} src={this.reader.result} />
+              ? <img className={classes.image} src={this.reader.result} alt=""/>
               : <CircularProgress />}
           </div>
         </Card>

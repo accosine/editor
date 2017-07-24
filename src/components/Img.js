@@ -10,6 +10,7 @@ import Slide from 'material-ui/transitions/Slide';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Dnd from './Dnd';
+import MediaManager from './MediaManager';
 
 const styleSheet = createStyleSheet('Img', {
   container: {
@@ -50,6 +51,7 @@ class Img extends Component {
 
   handleChange = (event, index) => {
     this.setState({ index });
+    console.log('this ist the index' + index);
   };
 
   render() {
@@ -83,11 +85,12 @@ class Img extends Component {
             {this.state.index === 0 &&
               <TabContainer>
                 {'Item One'}
-                <Dnd {...this.props}/>
+                <Dnd switchTab={this.handleChange} {...this.props}/>
               </TabContainer>}
             {this.state.index === 1 &&
               <TabContainer>
                 {'Item Two'}
+                <MediaManager {...this.props}/>
               </TabContainer>}
             {this.state.index === 2 &&
               <TabContainer>
@@ -95,10 +98,10 @@ class Img extends Component {
               </TabContainer>}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} primary>
+            <Button onClick={this.closeDialog} >
               Cancel
             </Button>
-            <Button onClick={this.onInsert} primary>
+            <Button onClick={this.onInsert} >
               Insert
             </Button>
           </DialogActions>
