@@ -3,13 +3,24 @@ import { DragDropContext, DragDropContextProvider } from 'react-dnd';
 import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
 import TargetBox from './TargetBox';
 import FileList from './FileList';
+import { CircularProgress } from 'material-ui/Progress';
+import green from 'material-ui/colors/green';
 import Button from 'material-ui/Button';
-import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import SaveIcon from 'material-ui-icons/Save';
 
 const styleSheet = createStyleSheet('Dnd', theme => ({
-  button: {
-    margin: '10em',
+  savebutton: {
+    position: 'absolute',
+  },
+  wrapper: {
+    position: 'relative',
+  },
+  progress: {
+    top: -2,
+    left: -2,
+    position: 'absolute',
+    color: green[500],
   },
 }));
 
@@ -22,6 +33,7 @@ class Dnd extends Component {
     this.state = {
       droppedFiles: [],
       upload: 0,
+      isUploading: false,
       images: '',
     };
   }
@@ -40,9 +52,10 @@ class Dnd extends Component {
   }
 
   uploadFiles = files => {
+    this.setState({ isUploading: true });
     const timestamp = Date.now();
-    const incrementUpload = () =>
-      this.setState({ upload: this.state.upload + 1 });
+    const incrementUpload = cb =>
+      this.setState({ upload: this.state.upload + 1 }, cb);
     const switchTabIfReady = (tabnumber, arrlength) => {
       if (this.state.upload == arrlength) {
         this.props.switchTab(null, tabnumber);
@@ -65,20 +78,20 @@ class Dnd extends Component {
 
       return this.props.DATABASE.ref().update(updates);
     };
-    const fileext = (type) => {
-      let extension
-      switch(type) {
-        case "image/jpeg":
-          extension = ".jpg";
+    const fileext = type => {
+      let extension;
+      switch (type) {
+        case 'image/jpeg':
+          extension = '.jpg';
           break;
-        case "image/gif":
-          extension = ".gif";
+        case 'image/gif':
+          extension = '.gif';
           break;
-        case "image/png":
-          extension = ".png";
+        case 'image/png':
+          extension = '.png';
           break;
       }
-      return extension
+      return extension;
     };
     // TODO: conveniece function which adds file extension
     // TODO: write file name and file tags to firebase
@@ -88,8 +101,9 @@ class Dnd extends Component {
         .child(`${file.newname}` + timestamp + fileext(file.type))
         .put(file)
         .then(function(snapshot) {
-          incrementUpload();
-          switchTabIfReady(1, files.length);
+          incrementUpload(() => {
+            switchTabIfReady(1, files.length);
+          });
           writeNewImage(
             file.newname + timestamp + fileext(file.type),
             file.newattribution,
@@ -112,22 +126,29 @@ class Dnd extends Component {
 
   render() {
     const { FILE } = NativeTypes;
-    const { droppedFiles } = this.state;
+    const { droppedFiles, isUploading } = this.state;
     const { classes } = this.props;
+
+    const hasFiles = droppedFiles.length > 0;
 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <div>
           <TargetBox accepts={[FILE]} onDrop={this.handleFileDrop} />
           <FileList files={droppedFiles} />
-          <Button
-            onClick={() => this.uploadFiles(droppedFiles)}
-            fab
-            color="accent"
-            className={classes.button}
-          >
-            <ModeEditIcon />
-          </Button>
+          <div className={classes.wrapper}>
+            <Button
+              disabled={!hasFiles || isUploading}
+              onClick={() => this.uploadFiles(droppedFiles)}
+              fab
+              color="accent"
+              className={classes.savebutton}
+            >
+              <SaveIcon />
+            </Button>
+            {isUploading &&
+              <CircularProgress size={60} className={classes.progress} />}
+          </div>
         </div>
       </DragDropContextProvider>
     );

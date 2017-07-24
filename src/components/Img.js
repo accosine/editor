@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-} from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
@@ -56,7 +53,7 @@ class Img extends Component {
 
   render() {
     const { classes } = this.props;
-    const { imgurl } = this.state;
+    const { imgurl, index } = this.state;
     return (
       <div className={classes.container}>
         <Button raised onClick={this.openDialog} className={classes.button}>
@@ -82,28 +79,26 @@ class Img extends Component {
                 <Tab label="Item Three" />
               </Tabs>
             </Paper>
-            {this.state.index === 0 &&
+            {index === 0 &&
               <TabContainer>
                 {'Item One'}
-                <Dnd switchTab={this.handleChange} {...this.props}/>
+                <Dnd switchTab={this.handleChange} {...this.props} />
               </TabContainer>}
-            {this.state.index === 1 &&
+            {index === 1 &&
               <TabContainer>
                 {'Item Two'}
-                <MediaManager {...this.props}/>
+                <MediaManager {...this.props} />
               </TabContainer>}
-            {this.state.index === 2 &&
+            {index === 2 &&
               <TabContainer>
                 {'Item Three'}
               </TabContainer>}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} >
-              Cancel
-            </Button>
-            <Button onClick={this.onInsert} >
-              Insert
-            </Button>
+            <div>
+              {index > 0 && <Button onClick={this.onInsert}>Insert</Button>}
+              <Button onClick={this.closeDialog}>Cancel</Button>
+            </div>
           </DialogActions>
         </Dialog>
       </div>
