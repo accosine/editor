@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 
 const style = {
-  border: '1px solid gray',
+  border: '2vw dashed #f3f3f3',
   height: '15rem',
-  width: '15rem',
   padding: '2rem',
   textAlign: 'center',
 };

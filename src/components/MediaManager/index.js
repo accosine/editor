@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
+import ImageCard from './ImageCard';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-const storageurl = process.env.REACT_APP_FIREBASE_STORAGE_URL;
-const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
-
-const styleSheet = createStyleSheet('MediaManager', {
-  demo: {
+const styleSheet = createStyleSheet('MediaManager', theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  root: {
+    padding: theme.spacing.unit * 1,
+  },
+  card: {
+    display: 'flex',
+    width: '30vw',
+  },
+  details: {
+    display: 'flex',
     flexDirection: 'column',
+    width: '60%',
   },
-  articlecard: {
-    width: '50vw',
+  content: {
+    flex: '1 0 auto',
   },
-});
+  cover: {
+    width: '75%',
+    alignSelf: 'center',
+  },
+  image: {
+    width: '100%',
+  },
+  input: {
+    margin: theme.spacing.unit,
+  },
+  headline: {
+    textOverflow: 'ellipsis',
+  },
+}));
 
 class MediaManager extends Component {
   constructor(props) {
@@ -26,14 +51,17 @@ class MediaManager extends Component {
       this.props.REFS,
       this.props.ACTIONS
     );
-    this.state = { images: {} };
+    this.state = {
+      images: {},
+      selected: [],
+    };
   }
 
   componentDidMount() {
     // Add database change listener for each reference in the refs object
     console.log(this.props);
     this.props.REFS['images'].on('value', snapshot => {
-      this.setState({ images: snapshot.val() || {} });
+      this.setState({ images: snapshot.val() || {} });
     });
   }
 
@@ -42,42 +70,23 @@ class MediaManager extends Component {
     this.props.REFS['images'].off();
   }
 
+  addSelection = key => {
+    console.log(key);
+    this.setState({ selected: this.state.selected.concat([key]) });
+  };
+
   render() {
-    const classes = this.props.classes;
+    const { classes, ...rest } = this.props;
 
     return (
-      <div>
-        <Grid container className={classes.root}>
-          <h2>Images</h2>
-          <Grid item xs={12}>
-            <Grid
-              align={'center'}
-              container
-              className={classes.demo}
-              direction={'column'}
-              justify={'center'}
-              gutter={16}
-            >
-              {Object.keys(this.state.images).length ? Object.keys(this.state.images).map((key, index) =>
-                <Paper
-                  key={index}
-                  className={classes.articlecard}
-                  elevation={4}
-                >
-                  {index} {key}
-                  <img
-                    src={
-                      storageurl + 'thumb_' + this.state.images[key].name + storagesuffix
-                    }
-                  />
-                  <span>{this.state.images[key].attribution}</span>
-                  <span>{this.state.images[key].caption}</span>
-                  <span>{this.state.images[key].alt}</span>
-                </Paper>
-              ) : "No images uploaded yet."}
-            </Grid>
-          </Grid>
-        </Grid>
+      <div className={classes.container}>
+        {Object.keys(this.state.images).length
+            ? Object.keys(this.state.images).map((key, index) =>
+              <div>
+              <ImageCard addSelection={this.addSelection} image={this.state.images[key]} reference={key} {...rest} />
+              </div>
+            )
+          : 'No images uploaded yet.'}
       </div>
     );
   }

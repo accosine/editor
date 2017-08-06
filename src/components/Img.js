@@ -37,7 +37,7 @@ class Img extends Component {
   };
 
   closeDialog = () => {
-    this.setState({ open: false, videoid: '' });
+    this.setState({ open: false, imgurl: '' });
   };
 
   onInsert = () => {
@@ -48,7 +48,12 @@ class Img extends Component {
 
   handleChange = (event, index) => {
     this.setState({ index });
-    console.log('this ist the index' + index);
+    console.log('this is the index' + index);
+  };
+  
+  test = (tt) => {
+    this.setState({ imgurl: tt});
+    console.log('this is the index' + tt);
   };
 
   render() {
@@ -74,20 +79,18 @@ class Img extends Component {
                 textColor="primary"
                 centered
               >
-                <Tab label="Item One" />
-                <Tab label="Item Two" />
-                <Tab label="Item Three" />
+                <Tab label="Upload" />
+                <Tab label="Images" />
+                <Tab label="Search" />
               </Tabs>
             </Paper>
             {index === 0 &&
               <TabContainer>
-                {'Item One'}
                 <Dnd switchTab={this.handleChange} {...this.props} />
               </TabContainer>}
             {index === 1 &&
               <TabContainer>
-                {'Item Two'}
-                <MediaManager {...this.props} />
+                <MediaManager onTest={this.test} {...this.props} />
               </TabContainer>}
             {index === 2 &&
               <TabContainer>
