@@ -71,8 +71,11 @@ class MediaManager extends Component {
   }
 
   addSelection = key => {
-    console.log(key);
-    this.setState({ selected: this.state.selected.concat([key]) });
+    this.setState({ selected: [...this.state.selected, key] }, () => {
+      this.props.onSelection(
+        this.state.selected.map(key => this.state.images[key])
+      );
+    });
   };
 
   render() {
@@ -81,9 +84,14 @@ class MediaManager extends Component {
     return (
       <div className={classes.container}>
         {Object.keys(this.state.images).length
-            ? Object.keys(this.state.images).map((key, index) =>
+          ? Object.keys(this.state.images).map((key, index) =>
               <div>
-              <ImageCard addSelection={this.addSelection} image={this.state.images[key]} reference={key} {...rest} />
+                <ImageCard
+                  addSelection={this.addSelection}
+                  image={this.state.images[key]}
+                  reference={key}
+                  {...rest}
+                />
               </div>
             )
           : 'No images uploaded yet.'}

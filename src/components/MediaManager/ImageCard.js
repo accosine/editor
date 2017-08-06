@@ -53,7 +53,6 @@ class ImageCard extends Component {
   registerSelection = key => {
     this.setState({ selected: true });
     this.props.addSelection(key);
-    this.props.onTest(key);
   };
 
   render() {

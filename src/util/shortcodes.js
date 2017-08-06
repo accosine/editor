@@ -1,23 +1,47 @@
 import Shortcode from './shortcode-parser';
 import { oneLine } from 'common-tags';
 
+const storageurl = process.env.REACT_APP_FIREBASE_STORAGE_URL;
+const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
+
+// storageurl + 'thumb_' + image.name + storagesuffix;
+
+const addSizeSuffix = (name, suffix) => {
+  const split = name.split('.');
+  return (
+    split.slice(0, split.length - 1).join('.') +
+    suffix +
+    '.' +
+    split[split.length - 1]
+  );
+};
+
+// TODO: make srcset sizes configurable
 const shortcodes = {
-  // image: (str, params) => {
-  //   const figText = `${params.caption || ''}${params.attribution ? ' (' + params.attribution + ')' : ''}`;
-  //   const figOpen = params.caption || params.attribution ? '<figure>' : '';
-  //   const figClose = params.caption || params.attribution ? `<figcaption>${figText}</figcaption></figure>` : '';
-  //   const lightbox = params.lightbox ? 'on="tap:lightbox1" role="button" tabindex="0"' : '';
-  //   return `<div>${figOpen}<amp-img
-  //               width=${params.width || 1}
-  //               height=${params.height || 1}
-  //               src="/${config.media}/${config.images.small.prefix}${params.name}"
-  //               srcset="/${config.media}/${config.images.large.prefix}${params.name} ${config.images.large.size},
-  //               /${config.media}/${config.images.medium.prefix}${params.name} ${config.images.medium.size},
-  //               /${config.media}/${config.images.small.prefix}${params.name} ${config.images.small.size}"
-  //               alt="${params.alttext || ''}"
-  //               attribution="${params.attribution || ''}" ${lightbox}
-  //               layout="responsive"></amp-img/>${figClose}</div>`;
-  // },
+  image: (str, params) => {
+    params.name = params.name.slice(1, -1);
+    const figText = `${params.caption || ''}${params.attribution
+      ? ' (' + params.attribution + ')'
+      : ''}`;
+    const figOpen = params.caption || params.attribution ? '<figure>' : '';
+    const figClose =
+      params.caption || params.attribution
+        ? `<figcaption>${figText}</figcaption></figure>`
+        : '';
+    const lightbox = params.lightbox
+      ? 'on="tap:lightbox1" role="button" tabindex="0"'
+      : '';
+    return `<div>${figOpen}<amp-img
+                width=${params.width || 1}
+                height=${params.height || 1}
+                src="${storageurl}${addSizeSuffix(params.name, '-s')}${storagesuffix}"
+                srcset="${storageurl}${addSizeSuffix(params.name, '-l')}${storagesuffix} 1280w,
+                ${storageurl}${addSizeSuffix(params.name, '-m')}${storagesuffix} 640w,
+                ${storageurl}${addSizeSuffix(params.name, '-s')}${storagesuffix} 320w"
+                alt="${params.alttext || ''}"
+                attribution="${params.attribution || ''}" ${lightbox}
+                layout="responsive"></amp-img/>${figClose}</div>`;
+  },
   // video: (str, params) =>
   //   `<div><amp-video
   //     layout="responsive"
@@ -57,7 +81,9 @@ const shortcodes = {
   soundcloud: (str, params) =>
     oneLine`<div><amp-soundcloud
         height=${params.height || 166}
-        layout="fixed-height" ${params.color && !params.visual ? `data-color="${params.color}"` : ''} data-trackid="${params.id}"
+        layout="fixed-height" ${params.color && !params.visual
+          ? `data-color="${params.color}"`
+          : ''} data-trackid="${params.id}"
         ${params.visual ? 'data-visual="true"' : ''}>
       </amp-soundcloud></div>`,
   carousel: (str, params) =>
@@ -117,8 +143,8 @@ const shortcodes = {
             </amp-instagram></div>`,
   pinterest: (str, { width, height, url }) =>
     oneLine`<div><amp-pinterest
-              width=${width || "236"}
-              height=${height || "326"}
+              width=${width || '236'}
+              height=${height || '326'}
               data-do="embedPin"
               data-url="${url}">
             </amp-pinterest></div>`,
@@ -164,4 +190,4 @@ for (let s in shortcodes) {
   Shortcode.add(s, shortcodes[s]);
 }
 
-export default (text) => Shortcode.parse(text);
+export default text => Shortcode.parse(text);

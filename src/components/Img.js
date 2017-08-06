@@ -27,21 +27,26 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const imgShortcode = imgurl => `[imgurl src=${imgurl}]`;
+const imgShortcode = img => `[image name='${img.name}']`;
+const carouselShortcode = imgurl => `[imgurl name=${imgurl}]`;
 
 class Img extends Component {
-  state = { open: false, imgurl: '', index: 0 };
+  state = { open: false, index: 0, selection: [] };
 
   openDialog = () => {
     this.setState({ open: true });
   };
 
   closeDialog = () => {
-    this.setState({ open: false, imgurl: '' });
+    this.setState({ open: false });
   };
 
+  onSelection = images => {
+    this.setState({ selection: images });
+  }
+
   onInsert = () => {
-    const html = imgShortcode(this.state.imgurl);
+    const html = this.state.selection.length > 1 ? carouselShortcode(this.state.selection) : imgShortcode(this.state.selection[0]);
     this.props.onShortcode(html);
     this.closeDialog();
   };
@@ -50,15 +55,10 @@ class Img extends Component {
     this.setState({ index });
     console.log('this is the index' + index);
   };
-  
-  test = (tt) => {
-    this.setState({ imgurl: tt});
-    console.log('this is the index' + tt);
-  };
 
   render() {
     const { classes } = this.props;
-    const { imgurl, index } = this.state;
+    const { index } = this.state;
     return (
       <div className={classes.container}>
         <Button raised onClick={this.openDialog} className={classes.button}>
@@ -90,7 +90,7 @@ class Img extends Component {
               </TabContainer>}
             {index === 1 &&
               <TabContainer>
-                <MediaManager onTest={this.test} {...this.props} />
+                <MediaManager onSelection={this.onSelection} {...this.props} />
               </TabContainer>}
             {index === 2 &&
               <TabContainer>
@@ -99,7 +99,7 @@ class Img extends Component {
           </DialogContent>
           <DialogActions>
             <div>
-              {index > 0 && <Button onClick={this.onInsert}>Insert</Button>}
+              {index > 0 && <Button disabled={!this.state.selection.length} onClick={this.onInsert}>Insert</Button>}
               <Button onClick={this.closeDialog}>Cancel</Button>
             </div>
           </DialogActions>
