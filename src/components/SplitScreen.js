@@ -85,7 +85,7 @@ class SplitScreen extends Component {
           <ExpandMoreIcon />
         </IconButton>
         <Collapse in={frontmatterExpanded} transitionDuration="auto">
-          <Grid container gutter={8}>
+          <Grid container spacing={8}>
             <Grid item xs={12}>
               <Typography type="headline" gutterBottom>
                 Frontmatter
@@ -93,14 +93,14 @@ class SplitScreen extends Component {
             </Grid>
           </Grid>
         </Collapse>
-        <Grid container gutter={8}>
+        <Grid container spacing={8}>
           <Grid item xs={12}>
             <Shortcodes onShortcode={this.onShortcode}>
-              <Img onShortcode={this.onShortcode} {...rest}/>
+              <Img onShortcode={this.onShortcode} {...rest} />
             </Shortcodes>
           </Grid>
         </Grid>
-        <Grid className={classes.container} container gutter={8}>
+        <Grid className={classes.container} container spacing={8}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <Typography type="subheading" gutterBottom>

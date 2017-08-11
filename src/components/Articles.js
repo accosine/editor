@@ -45,7 +45,7 @@ class Articles extends Component {
     return (
       <div>
         <Grid container className={classes.root}>
-        <h2>Articles</h2>
+          <h2>Articles</h2>
           <Grid item xs={12}>
             <Grid
               align={'center'}
@@ -53,7 +53,7 @@ class Articles extends Component {
               className={classes.demo}
               direction={'column'}
               justify={'center'}
-              gutter={16}
+              spacing={16}
             >
               {Object.keys(this.state.articles).map((key, index) =>
                 <Paper
@@ -61,7 +61,7 @@ class Articles extends Component {
                   className={classes.articlecard}
                   elevation={4}
                 >
-                 {index} {key}
+                  {index} {key}
                   {this.state.articles[key].slug}:{this.state.articles[key].title}
                 </Paper>
               )}
