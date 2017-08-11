@@ -22,6 +22,23 @@ const fs = require('fs');
  * When an image is uploaded in the Storage bucket We generate a thumbnail automatically using
  * ImageMagick.
  */
+
+const addSizeSuffix = (name, suffix) => {
+  const split = name.split('.');
+  return (
+    split.slice(0, split.length - 1).join('.') +
+    suffix +
+    '.' +
+    split[split.length - 1]
+  );
+};
+
+const imageSizes = [
+  { suffix: '-s', size: '320>' },
+  { suffix: '-m', size: '640>' },
+  { suffix: '-l', size: '1280>' },
+];
+
 module.exports = event => {
   const object = event.data; // The Storage object.
 
@@ -30,7 +47,6 @@ module.exports = event => {
   const contentType = object.contentType; // File content type.
   const resourceState = object.resourceState; // The resourceState is 'exists' or 'not_exists' (for file/folder deletions).
   const metageneration = object.metageneration; // Number of times metadata has been generated. New objects have a value of 1.
-
   // Exit if this is triggered on a file that is not an image.
   if (!contentType.startsWith('image/')) {
     console.log('This is not an image.');
@@ -39,9 +55,10 @@ module.exports = event => {
 
   // Get the file name.
   const fileName = path.basename(filePath);
+
   // Exit if the image is already a thumbnail.
-  if (fileName.startsWith('thumb_')) {
-    console.log('Already a Thumbnail.');
+  if (object.metadata.isResized) {
+    console.log('Already resized.');
     return;
   }
 
@@ -69,21 +86,44 @@ module.exports = event => {
     .then(() => {
       console.log('Image downloaded locally to', tempFilePath);
       // Generate a thumbnail using ImageMagick.
-      return spawn('convert', [
-        tempFilePath,
-        '-thumbnail',
-        '200x200>',
-        tempFilePath,
-      ]);
+      return Promise.all(
+        imageSizes.map(size =>
+          spawn('convert', [
+            tempFilePath,
+            '-thumbnail',
+            size.size,
+            addSizeSuffix(tempFilePath, size.suffix),
+          ])
+        )
+      );
     })
     .then(() => {
-      console.log('Thumbnail created at', tempFilePath);
-      // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-      const thumbFileName = `thumb_${fileName}`;
-      const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
-      // Uploading the thumbnail.
-      return bucket.upload(tempFilePath, { destination: thumbFilePath });
+      return Promise.all(
+        imageSizes.map(size => {
+          console.log(
+            'Thumbnail created at',
+            addSizeSuffix(tempFilePath, size.suffix)
+          );
+          // We add a prefix to thumbnails file name. That's where we'll upload the thumbnail.
+          const thumbFileName = addSizeSuffix(fileName, size.suffix);
+          const thumbFilePath = path.join(
+            path.dirname(filePath),
+            thumbFileName
+          );
+
+          // Uploading the thumbnail.
+          return bucket.upload(addSizeSuffix(tempFilePath, size.suffix), {
+            destination: thumbFilePath,
+            metadata: { metadata: { isResized: true } },
+          });
+        })
+      );
       // Once the thumbnail has been uploaded delete the local file to free up disk space.
     })
-    .then(() => fs.unlinkSync(tempFilePath));
-}
+    .then(() => {
+      fs.unlinkSync(tempFilePath);
+      imageSizes.map(size =>
+        fs.unlinkSync(addSizeSuffix(tempFilePath, size.suffix))
+      );
+    });
+};

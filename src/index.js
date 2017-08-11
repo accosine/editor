@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { MuiThemeProvider } from 'material-ui/styles';
 import * as firebase from 'firebase';
 import 'typeface-roboto';
 import App from './App';
 import firebaseconfig from './config';
 // import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import ThemeProvider from './ThemeProvider';
 
 firebase.initializeApp(firebaseconfig);
 const REFS = {};
@@ -101,9 +101,9 @@ class Main extends Component {
   handleClose = () => this.setState({ open: false });
   render() {
     return (
-      <MuiThemeProvider>
+      <ThemeProvider>
         <App {...this.state} {...firebaseApi} />
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

@@ -1,20 +1,11 @@
 import Shortcode from './shortcode-parser';
 import { oneLine } from 'common-tags';
+import addSizeSuffix from './addSizeSuffix';
 
 const storageurl = process.env.REACT_APP_FIREBASE_STORAGE_URL;
 const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
 
 // storageurl + 'thumb_' + image.name + storagesuffix;
-
-const addSizeSuffix = (name, suffix) => {
-  const split = name.split('.');
-  return (
-    split.slice(0, split.length - 1).join('.') +
-    suffix +
-    '.' +
-    split[split.length - 1]
-  );
-};
 
 // TODO: make srcset sizes configurable
 const shortcodes = {
@@ -34,10 +25,22 @@ const shortcodes = {
     return `<div>${figOpen}<amp-img
                 width=${params.width || 1}
                 height=${params.height || 1}
-                src="${storageurl}${addSizeSuffix(params.name, '-s')}${storagesuffix}"
-                srcset="${storageurl}${addSizeSuffix(params.name, '-l')}${storagesuffix} 1280w,
-                ${storageurl}${addSizeSuffix(params.name, '-m')}${storagesuffix} 640w,
-                ${storageurl}${addSizeSuffix(params.name, '-s')}${storagesuffix} 320w"
+                src="${storageurl}${addSizeSuffix(
+      params.name,
+      '-s'
+    )}${storagesuffix}"
+                srcset="${storageurl}${addSizeSuffix(
+      params.name,
+      '-l'
+    )}${storagesuffix} 1280w,
+                ${storageurl}${addSizeSuffix(
+      params.name,
+      '-m'
+    )}${storagesuffix} 640w,
+                ${storageurl}${addSizeSuffix(
+      params.name,
+      '-s'
+    )}${storagesuffix} 320w"
                 alt="${params.alttext || ''}"
                 attribution="${params.attribution || ''}" ${lightbox}
                 layout="responsive"></amp-img/>${figClose}</div>`;
