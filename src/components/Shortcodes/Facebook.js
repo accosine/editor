@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -21,7 +22,9 @@ const styleSheet = createStyleSheet('Facebook', theme => ({
 }));
 
 const facebookShortcode = ({ url, width, height, isVideo }) =>
-  `[facebook url="${url}" width=${width} height=${height}${isVideo ? ' video' : ''}]`;
+  `[facebook url="${url}" width=${width} height=${height}${isVideo
+    ? ' video'
+    : ''}]`;
 
 class Facebook extends Component {
   state = { open: false, url: '', width: '', height: '', isVideo: false };
@@ -49,10 +52,11 @@ class Facebook extends Component {
           Facebook Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Facebook shortcode"}</DialogTitle>
+          <DialogTitle>
+            {'Insert Facebook shortcode'}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-            </DialogContentText>
+            <DialogContentText />
             <TextField
               label="URL"
               value={url}
@@ -70,9 +74,13 @@ class Facebook extends Component {
               type="number"
               onChange={event => this.setState({ height: event.target.value })}
             />
-            <LabelSwitch
-              checked={isVideo}
-              onChange={(event, isVideo) => this.setState({ isVideo })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isVideo}
+                  onChange={(event, isVideo) => this.setState({ isVideo })}
+                />
+              }
               label="Only show video"
             />
           </DialogContent>
@@ -92,4 +100,3 @@ Facebook.propTypes = {
 };
 
 export default withStyles(styleSheet)(Facebook);
-

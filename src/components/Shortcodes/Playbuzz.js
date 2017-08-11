@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -24,7 +25,7 @@ const playbuzzShortcode = ({ height, url, iteminfo }) =>
   `[playbuzz url="${url}" height=${height}${iteminfo ? ' iteminfo' : ''}]`;
 
 class Playbuzz extends Component {
-  state = { open: false, url: '',  height: '', iteminfo: false };
+  state = { open: false, url: '', height: '', iteminfo: false };
 
   openDialog = () => {
     this.setState({ open: true });
@@ -49,10 +50,11 @@ class Playbuzz extends Component {
           Playbuzz Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Playbuzz shortcode"}</DialogTitle>
+          <DialogTitle>
+            {'Insert Playbuzz shortcode'}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-            </DialogContentText>
+            <DialogContentText />
             <TextField
               label="url"
               value={url}
@@ -64,9 +66,13 @@ class Playbuzz extends Component {
               type="number"
               onChange={event => this.setState({ height: event.target.value })}
             />
-            <LabelSwitch
-              checked={iteminfo}
-              onChange={(event, iteminfo) => this.setState({ iteminfo })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={iteminfo}
+                  onChange={(event, iteminfo) => this.setState({ iteminfo })}
+                />
+              }
               label="whether to display data info, such as creation date, creator name, etc."
             />
           </DialogContent>
@@ -86,6 +92,3 @@ Playbuzz.propTypes = {
 };
 
 export default withStyles(styleSheet)(Playbuzz);
-
-
-

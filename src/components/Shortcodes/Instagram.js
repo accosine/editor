@@ -8,7 +8,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 
 const styleSheet = createStyleSheet('Instagram', theme => ({
@@ -50,21 +51,27 @@ class Instagram extends Component {
           Instagram
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle>
+            {"Use Google's location service?"}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location.
-              This means sending anonymous location data
-              to Google, even when no apps are running.
+              Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are running.
             </DialogContentText>
             <TextField
               label="Instagram Post ID"
               value={id}
               onChange={event => this.setState({ id: event.target.value })}
             />
-            <LabelSwitch
-              checked={isCaptioned}
-              onChange={(event, isCaptioned) => this.setState({ isCaptioned })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isCaptioned}
+                  onChange={(event, isCaptioned) =>
+                    this.setState({ isCaptioned })}
+                />
+              }
               label="Captioned"
             />
           </DialogContent>

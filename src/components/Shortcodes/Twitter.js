@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -21,7 +22,9 @@ const styleSheet = createStyleSheet('Twitter', theme => ({
 }));
 
 const twitterShortcode = ({ id, width, height, cardsHidden }) =>
-  `[twitter id="${id}" width=${width} height=${height}${cardsHidden ? ' cardshidden' : ''}]`;
+  `[twitter id="${id}" width=${width} height=${height}${cardsHidden
+    ? ' cardshidden'
+    : ''}]`;
 
 class Twitter extends Component {
   state = { open: false, id: '', width: '', height: '', cardsHidden: false };
@@ -49,10 +52,11 @@ class Twitter extends Component {
           Twitter Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Twitter shortcode"}</DialogTitle>
+          <DialogTitle>
+            {'Insert Twitter shortcode'}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-            </DialogContentText>
+            <DialogContentText />
             <TextField
               label="id"
               value={id}
@@ -70,9 +74,14 @@ class Twitter extends Component {
               type="number"
               onChange={event => this.setState({ height: event.target.value })}
             />
-            <LabelSwitch
-              checked={cardsHidden}
-              onChange={(event, cardsHidden) => this.setState({ cardsHidden })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={cardsHidden}
+                  onChange={(event, cardsHidden) =>
+                    this.setState({ cardsHidden })}
+                />
+              }
               label="Hide photos, videos, and link previews"
             />
           </DialogContent>
@@ -92,5 +101,3 @@ Twitter.propTypes = {
 };
 
 export default withStyles(styleSheet)(Twitter);
-
-

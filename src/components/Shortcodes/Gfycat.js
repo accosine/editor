@@ -8,7 +8,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 
 const styleSheet = createStyleSheet('Gfycat', theme => ({
@@ -21,7 +22,9 @@ const styleSheet = createStyleSheet('Gfycat', theme => ({
 }));
 
 const gfycatShortcode = ({ id, noAutoplay, width, height }) =>
-  `[gfycat id=${id} width=${width} height=${height}${noAutoplay ? ' noautoplay' : ''}]`;
+  `[gfycat id=${id} width=${width} height=${height}${noAutoplay
+    ? ' noautoplay'
+    : ''}]`;
 
 class Gfycat extends Component {
   state = { open: false, id: '', noAutoplay: false, height: '', width: '' };
@@ -49,14 +52,15 @@ class Gfycat extends Component {
           Gfycat
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Gfycat shortcode"}</DialogTitle>
+          <DialogTitle>
+            {'Insert Gfycat shortcode'}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               To specify the width and height in the code, copy it from the
-              embed URL:
-              Go to https://gfycat.com/name, where name is the Gfycat ID.
-              Click the embed link icon ().
-              Copy the width and height specified in the "Fixed iFRAME" field.
+              embed URL: Go to https://gfycat.com/name, where name is the Gfycat
+              ID. Click the embed link icon (). Copy the width and height
+              specified in the "Fixed iFRAME" field.
             </DialogContentText>
             <TextField
               label="Gfycat ID"
@@ -75,9 +79,14 @@ class Gfycat extends Component {
               type="number"
               onChange={event => this.setState({ height: event.target.value })}
             />
-            <LabelSwitch
-              checked={noAutoplay}
-              onChange={(event, noAutoplay) => this.setState({ noAutoplay })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={noAutoplay}
+                  onChange={(event, noAutoplay) =>
+                    this.setState({ noAutoplay })}
+                />
+              }
               label="Disable Autoplay"
             />
           </DialogContent>

@@ -9,7 +9,8 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import { LabelSwitch } from 'material-ui/Switch';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 
 const styleSheet = createStyleSheet('Soundcloud', theme => ({
   button: {
@@ -66,21 +67,26 @@ class Soundcloud extends Component {
           Soundcloud
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle>
+            {"Use Google's location service?"}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location.
-              This means sending anonymous location data
-              to Google, even when no apps are running.
+              Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are running.
             </DialogContentText>
             <TextField
               label="Soundcloud Track ID"
               value={trackid}
               onChange={event => this.setState({ trackid: event.target.value })}
             />
-            <LabelSwitch
-              checked={isVisual}
-              onChange={(event, isVisual) => this.setState({ isVisual })}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isVisual}
+                  onChange={(event, isVisual) => this.setState({ isVisual })}
+                />
+              }
               label="Visual Mode"
             />
             {!isVisual
@@ -99,8 +105,12 @@ class Soundcloud extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} primary>Cancel</Button>
-            <Button onClick={this.onInsert} primary>Insert</Button>
+            <Button onClick={this.closeDialog} primary>
+              Cancel
+            </Button>
+            <Button onClick={this.onInsert} primary>
+              Insert
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
