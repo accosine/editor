@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
 import ImageCard from './ImageCard';
+import CarouselSettings from './CarouselSettings';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('MediaManager', theme => ({
@@ -79,10 +77,21 @@ class MediaManager extends Component {
   };
 
   render() {
-    const { classes, ...rest } = this.props;
+    const {
+      classes,
+      carouselSettings,
+      onCarouselSettings,
+      ...rest
+    } = this.props;
 
     return (
       <div className={classes.container}>
+        {this.state.selected.length > 1
+          ? <CarouselSettings
+              onCarouselSettings={onCarouselSettings}
+              carouselSettings={carouselSettings}
+            />
+          : ''}
         {Object.keys(this.state.images).length
           ? Object.keys(this.state.images).map((key, index) =>
               <div>
@@ -104,6 +113,9 @@ MediaManager.defaultProps = {
   user: { avatar: '' },
 };
 
-MediaManager.propTypes = {};
+MediaManager.propTypes = {
+  carouselSettings: PropTypes.object.required,
+  onCarouselSettings: PropTypes.func.required,
+};
 
 export default withStyles(styleSheet)(MediaManager);

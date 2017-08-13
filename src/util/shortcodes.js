@@ -23,8 +23,10 @@ const shortcodes = {
       ? 'on="tap:lightbox1" role="button" tabindex="0"'
       : '';
     return `<div>${figOpen}<amp-img
-                width=${params.width || 1}
-                height=${params.height || 1}
+                ${params.fill
+                  ? ''
+                  : `width=${params.width || 1}
+                height=${params.height || 1}`}
                 src="${storageurl}${addSizeSuffix(
       params.name,
       '-s'
@@ -43,7 +45,9 @@ const shortcodes = {
     )}${storagesuffix} 320w"
                 alt="${params.alttext || ''}"
                 attribution="${params.attribution || ''}" ${lightbox}
-                layout="responsive"></amp-img/>${figClose}</div>`;
+                layout="${params.fill
+                  ? 'fill'
+                  : 'responsive'}"></amp-img/>${figClose}</div>`;
   },
   // video: (str, params) =>
   //   `<div><amp-video
@@ -89,13 +93,15 @@ const shortcodes = {
           : ''} data-trackid="${params.id}"
         ${params.visual ? 'data-visual="true"' : ''}>
       </amp-soundcloud></div>`,
-  carousel: (str, params) =>
+  carousel: (str, { autoplay, delay, controls, width, height, loop }) =>
     oneLine`<div><amp-carousel
               type="slides"
               layout="responsive"
-              controls
-              width=${params.width || 4}
-              height=${params.height || 3}>
+              ${autoplay ? `autoplay delay="${delay || 3000}"` : ''}
+              ${controls ? 'controls' : ''}
+              ${loop ? 'loop' : ''}
+              width=${width || 4}
+              height=${height || 3}>
               ${str}
             </amp-carousel></div>`,
   facebook: (str, { url, width, height, video }) =>

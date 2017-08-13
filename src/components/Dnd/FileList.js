@@ -14,15 +14,14 @@ class FileList extends Component {
   static propTypes = {
     files: PropTypes.arrayOf(PropTypes.object),
   };
-  
+
   list(files) {
     // console.log(files);
     return files.map(file => {
       console.log(file);
-      return <FilePreview key={file.name} file={file} />
+      return <FilePreview key={file.name} file={file} />;
     });
   }
-
 
   render() {
     const { files, classes } = this.props;

@@ -27,11 +27,31 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const imgShortcode = img => `[image name='${img.name}']`;
-const carouselShortcode = imgurl => `[imgurl name=${imgurl}]`;
+const imgShortcode = (img, carousel) =>
+  `[image ${carousel
+    ? 'fill'
+    : `width=${img.width} height=${img.height}`} name='${img.name}']`;
+const carouselShortcode = (imgs, settings) =>
+  `[carousel${settings.autoplay
+    ? ` autoplay delay=${settings.delay}`
+    : ''}${settings.loop ? ' loop' : ''}${settings.controls
+    ? ' controls'
+    : ''}]\n${imgs
+    .map(img => imgShortcode(img, true))
+    .join('\n')}\n[/carousel]`;
 
 class Img extends Component {
-  state = { open: false, index: 0, selection: [] };
+  state = {
+    open: false,
+    index: 0,
+    selection: [],
+    carouselSettings: {
+      autoplay: false,
+      loop: false,
+      controls: true,
+      delay: '3000',
+    },
+  };
 
   openDialog = () => {
     this.setState({ open: true });
@@ -43,10 +63,17 @@ class Img extends Component {
 
   onSelection = images => {
     this.setState({ selection: images });
-  }
+  };
+
+  onCarouselSettings = carouselSettings => {
+    this.setState({ carouselSettings });
+  };
 
   onInsert = () => {
-    const html = this.state.selection.length > 1 ? carouselShortcode(this.state.selection) : imgShortcode(this.state.selection[0]);
+    const html =
+      this.state.selection.length > 1
+        ? carouselShortcode(this.state.selection, this.state.carouselSettings)
+        : imgShortcode(this.state.selection[0]);
     this.props.onShortcode(html);
     this.closeDialog();
   };
@@ -58,7 +85,7 @@ class Img extends Component {
 
   render() {
     const { classes } = this.props;
-    const { index } = this.state;
+    const { index, carouselSettings } = this.state;
     return (
       <div className={classes.container}>
         <Button raised onClick={this.openDialog} className={classes.button}>
@@ -90,7 +117,12 @@ class Img extends Component {
               </TabContainer>}
             {index === 1 &&
               <TabContainer>
-                <MediaManager onSelection={this.onSelection} {...this.props} />
+                <MediaManager
+                  onSelection={this.onSelection}
+                  onCarouselSettings={this.onCarouselSettings}
+                  carouselSettings={carouselSettings}
+                  {...this.props}
+                />
               </TabContainer>}
             {index === 2 &&
               <TabContainer>
@@ -99,7 +131,13 @@ class Img extends Component {
           </DialogContent>
           <DialogActions>
             <div>
-              {index > 0 && <Button disabled={!this.state.selection.length} onClick={this.onInsert}>Insert</Button>}
+              {index > 0 &&
+                <Button
+                  disabled={!this.state.selection.length}
+                  onClick={this.onInsert}
+                >
+                  Insert
+                </Button>}
               <Button onClick={this.closeDialog}>Cancel</Button>
             </div>
           </DialogActions>

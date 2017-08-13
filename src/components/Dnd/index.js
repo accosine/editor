@@ -61,15 +61,7 @@ class Dnd extends Component {
         this.props.switchTab(null, tabnumber);
       }
     };
-    const writeNewImage = (name, caption, alt, attribution) => {
-      // A new image
-      var imageData = {
-        name,
-        attribution,
-        caption,
-        alt,
-      };
-
+    const writeNewImage = imageData => {
       // Get a key for a new image
       var newImageKey = this.props.REFS['images'].push().key;
 
@@ -104,12 +96,14 @@ class Dnd extends Component {
           incrementUpload(() => {
             switchTabIfReady(1, files.length);
           });
-          writeNewImage(
-            file.newname + timestamp + fileext(file.type),
-            file.newattribution,
-            file.newcaption,
-            file.newalttext
-          );
+          writeNewImage({
+            name: file.newname + timestamp + fileext(file.type),
+            attribution: file.newattribution,
+            caption: file.newcaption,
+            alt: file.newalttext,
+            width: file.width,
+            height: file.height,
+          });
           console.log(snapshot);
           console.log('Uploaded an image!');
         })

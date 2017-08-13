@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Ampdoc from './Ampdoc';
 
+// TODO: style must be universal (and injected from outside) for frontend useage
+const styles = 'amp-carousel amp-img > img { object-fit: contain; }';
+
 class Amp extends Component {
   ampedDoc = null;
   container = null;
@@ -35,7 +38,7 @@ class Amp extends Component {
 
     this.renderTimeout = setTimeout(() => {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(Ampdoc(html), 'text/html');
+      const doc = parser.parseFromString(Ampdoc(html, styles), 'text/html');
 
       this.ampReadyPromise.then(amp => {
         // Replace the old shadow root with a new div element.

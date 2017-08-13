@@ -62,16 +62,48 @@ class FilePreview extends Component {
               <Typography className={classes.headline} type="headline">
                 {file.name}
               </Typography>
-              <Input onBlur={event => {file.newname = event.target.value}} placeholder="Name" className={classes.input} />
-              <Input onBlur={event => {file.newattribution = event.target.value}} placeholder="Attribution" className={classes.input} />
-              <Input onBlur={event => {file.newcaption = event.target.value}} placeholder="Caption" className={classes.input} />
-              <Input onBlur={event => {file.newalttext = event.target.value}} placeholder="Alt Text" className={classes.input} />
+              <Input
+                onBlur={event => {
+                  file.newname = event.target.value;
+                }}
+                placeholder="Name"
+                className={classes.input}
+              />
+              <Input
+                onBlur={event => {
+                  file.newattribution = event.target.value;
+                }}
+                placeholder="Attribution"
+                className={classes.input}
+              />
+              <Input
+                onBlur={event => {
+                  file.newcaption = event.target.value;
+                }}
+                placeholder="Caption"
+                className={classes.input}
+              />
+              <Input
+                onBlur={event => {
+                  file.newalttext = event.target.value;
+                }}
+                placeholder="Alt Text"
+                className={classes.input}
+              />
               <Input placeholder="Tags" className={classes.input} />
             </CardContent>
           </div>
           <div className={classes.cover}>
             {loaded
-              ? <img className={classes.image} src={this.reader.result} alt=""/>
+              ? <img
+                  onLoad={event => {
+                    file.width = event.target.width;
+                    file.height = event.target.height;
+                  }}
+                  className={classes.image}
+                  src={this.reader.result}
+                  alt=""
+                />
               : <CircularProgress />}
           </div>
         </Card>
