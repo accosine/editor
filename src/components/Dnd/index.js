@@ -61,10 +61,7 @@ class Dnd extends Component {
         this.props.switchTab(null, tabnumber);
       }
     };
-    const writeNewImage = imageData => {
-      // Get a key for a new image
-      var newImageKey = this.props.REFS['images'].push().key;
-
+    const writeNewImage = (imageData, newImageKey) => {
       var updates = {};
       updates['/images/' + newImageKey] = imageData;
 
@@ -88,27 +85,34 @@ class Dnd extends Component {
     // TODO: conveniece function which adds file extension
     // TODO: write file name and file tags to firebase
     const storageRef = this.props.STORAGE.ref();
-    const uploadTasks = files.map(file =>
-      storageRef
+    const uploadTasks = files.map(file => {
+      // Get a key for a new image
+      var newImageKey = this.props.REFS['images'].push().key;
+      console.log(newImageKey);
+
+      return storageRef
         .child(`${file.newname}` + timestamp + fileext(file.type))
-        .put(file)
+        .put(file, { customMetadata: { dbkey: newImageKey } })
         .then(function(snapshot) {
           incrementUpload(() => {
             switchTabIfReady(1, files.length);
           });
-          writeNewImage({
-            name: file.newname + timestamp + fileext(file.type),
-            attribution: file.newattribution,
-            caption: file.newcaption,
-            alt: file.newalttext,
-            width: file.width,
-            height: file.height,
-          });
+          writeNewImage(
+            {
+              name: file.newname + timestamp + fileext(file.type),
+              attribution: file.newattribution,
+              caption: file.newcaption,
+              alt: file.newalttext,
+              width: file.width,
+              height: file.height,
+            },
+            newImageKey
+          );
           console.log(snapshot);
           console.log('Uploaded an image!');
         })
-        .catch(console.log)
-    );
+        .catch(console.log);
+    });
   };
 
   handleFileDrop = (item, monitor) => {
