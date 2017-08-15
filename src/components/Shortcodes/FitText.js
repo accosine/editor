@@ -51,15 +51,16 @@ class FitText extends Component {
     const { text, width, height, min, max } = this.state;
     return (
       <div className={classes.container}>
-        <Button raised onClick={this.openDialog} className={classes.button}>
+        <Button dense onClick={this.openDialog} className={classes.button}>
           Fit-Text
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{'Insert FitText shortcode'}</DialogTitle>
+          <DialogTitle>
+            {'Insert FitText shortcode'}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Min: min font size
-              Max: max font size
+              Min: min font size Max: max font size
             </DialogContentText>
             <TextField
               label="Text"

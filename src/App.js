@@ -59,7 +59,15 @@ class App extends Component {
           <Navigation {...rest} />
           <Dresser {...rest} />
           <PrivateRoute
+            exact
             path="/editor"
+            component={SplitScreen}
+            redirectTo="/"
+            auth={this.props.isAuthenticated}
+            {...rest}
+          />
+          <PrivateRoute
+            path="/editor/:slug"
             component={SplitScreen}
             redirectTo="/"
             auth={this.props.isAuthenticated}

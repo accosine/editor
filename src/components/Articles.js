@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
+import { Link } from 'react-router-dom';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 const styleSheet = createStyleSheet('Articles', {
@@ -56,13 +57,10 @@ class Articles extends Component {
               spacing={16}
             >
               {Object.keys(this.state.articles).map((key, index) =>
-                <Paper
-                  key={index}
-                  className={classes.articlecard}
-                  elevation={4}
-                >
-                  {index} {key}
-                  {this.state.articles[key].slug}:{this.state.articles[key].title}
+                <Paper className={classes.articlecard} elevation={4}>
+                  <Link to={`/editor/${key}`}>
+                    {this.state.articles[key].title}
+                  </Link>
                 </Paper>
               )}
             </Grid>

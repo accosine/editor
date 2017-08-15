@@ -43,16 +43,17 @@ class Youtube extends Component {
     const { videoid } = this.state;
     return (
       <div className={classes.container}>
-        <Button raised onClick={this.openDialog} className={classes.button}>
+        <Button dense onClick={this.openDialog} className={classes.button}>
           YouTube
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle>
+            {"Use Google's location service?"}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location.
-              This means sending anonymous location data
-              to Google, even when no apps are running.
+              Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are running.
             </DialogContentText>
             <TextField
               label="YouTube Video ID"
@@ -61,8 +62,12 @@ class Youtube extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} primary>Cancel</Button>
-            <Button onClick={this.onInsert} primary>Insert</Button>
+            <Button onClick={this.closeDialog} primary>
+              Cancel
+            </Button>
+            <Button onClick={this.onInsert} primary>
+              Insert
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

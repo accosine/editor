@@ -10,9 +10,14 @@ import IconButton from 'material-ui/IconButton';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import classnames from 'classnames';
 import Editor from './Editor';
+import Button from 'material-ui/Button';
+import SaveIcon from 'material-ui-icons/Save';
+import { CircularProgress } from 'material-ui/Progress';
 import Preview from './Preview';
 import Shortcodes from './Shortcodes';
 import Img from './Img';
+import FrontMatter from './FrontMatter';
+import green from 'material-ui/colors/green';
 
 const styleSheet = createStyleSheet('SplitScreen', theme => ({
   root: {
@@ -38,17 +43,73 @@ const styleSheet = createStyleSheet('SplitScreen', theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  saveButtonWrapper: {
+    position: 'relative',
+  },
+  saveButton: {
+    position: 'absolute',
+  },
+  progress: {
+    top: -2,
+    left: -2,
+    position: 'absolute',
+    color: green[500],
+  },
+  saveButtonContainer: {
+    margin: 3 * theme.spacing.unit,
+    position: 'fixed',
+    bottom: 50,
+    right: 50,
+  },
 }));
 
 class SplitScreen extends Component {
-  state = {
-    text: 'Ohl stinkt',
-    caretPosition: { start: 0, end: 0 },
-    frontmatterExpanded: false,
-  };
+  constructor(props) {
+    super(props);
+
+    if (props.match.params.slug) {
+      console.log('with slug', props.match.params.slug);
+      this.props.CONNECT(
+        `articles/${props.match.params.slug}`,
+        this.props.DATABASE,
+        this.props.REFS,
+        this.props.ACTIONS
+      );
+    }
+    this.state = {
+      isSaving: false,
+      content: '',
+      caretPosition: { start: 0, end: 0 },
+      frontmatterExpanded: props.match.params.slug ? false : true,
+      title: '',
+      author: '',
+      description: '',
+      collection: '',
+      headline: '',
+      subline: '',
+      layout: '',
+      type: '',
+      picture: '',
+      attribution: '',
+      alt: '',
+      slug: '',
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.slug) {
+      this.props.REFS[
+        `articles/${this.props.match.params.slug}`
+      ].on('value', snapshot =>
+        this.setState({
+          ...snapshot.val(),
+        })
+      );
+    }
+  }
 
   onEdit = (text, caretPosition) => {
-    this.setState({ text, caretPosition });
+    this.setState({ content: text, caretPosition });
   };
 
   onCaretPosition = caretPosition => {
@@ -59,20 +120,55 @@ class SplitScreen extends Component {
     this.setState({ frontmatterExpanded: !this.state.frontmatterExpanded });
   };
 
+  onSave = () => {
+    const {
+      caretPosition,
+      frontmatterExpanded,
+      isSaving,
+      ...article
+    } = this.state;
+    this.setState(
+      {
+        isSaving: true,
+      },
+      () => {
+        this.props.REFS[`articles/${this.props.match.params.slug}`]
+          .set(article)
+          .then(() => this.setState({ isSaving: false }));
+      }
+    );
+  };
+
   onShortcode = shortcodeText => {
     // Get caret position, slice text till caret position, add shortcode in
     // between, append the rest of the slice and set state to new text.
-    const { text, caretPosition } = this.state;
+    const { content, caretPosition } = this.state;
     const newText =
-      text.slice(0, caretPosition.start) +
+      content.slice(0, caretPosition.start) +
       shortcodeText +
-      text.slice(caretPosition.end, text.length);
-    this.setState({ text: newText });
+      content.slice(caretPosition.end, content.length);
+    this.setState({ content: newText });
   };
 
   render() {
     const { classes, ...rest } = this.props;
-    const { text, frontmatterExpanded } = this.state;
+    const {
+      frontmatterExpanded,
+      isSaving,
+      content,
+      title,
+      author,
+      description,
+      collection,
+      headline,
+      subline,
+      layout,
+      type,
+      picture,
+      attribution,
+      alt,
+      slug,
+    } = this.state;
 
     return (
       <div className={classes.root}>
@@ -90,6 +186,21 @@ class SplitScreen extends Component {
               <Typography type="headline" gutterBottom>
                 Frontmatter
               </Typography>
+              <FrontMatter
+                title={title}
+                author={author}
+                description={description}
+                collection={collection}
+                headline={headline}
+                subline={subline}
+                layout={layout}
+                type={type}
+                picture={picture}
+                attribution={attribution}
+                alt={alt}
+                slug={slug}
+                onChange={change => this.setState(change)}
+              />
             </Grid>
           </Grid>
         </Collapse>
@@ -108,7 +219,7 @@ class SplitScreen extends Component {
               </Typography>
               <Divider />
               <Editor
-                text={text}
+                text={content}
                 onCaretPosition={this.onCaretPosition}
                 onEdit={this.onEdit}
               />
@@ -120,10 +231,26 @@ class SplitScreen extends Component {
                 Preview
               </Typography>
               <Divider />
-              <Preview text={this.state.text} />
+              <Preview text={content} />
             </Paper>
           </Grid>
         </Grid>
+
+        <div className={classes.saveButtonContainer}>
+          <div className={classes.saveButtonWrapper}>
+            <Button
+              onClick={this.onSave}
+              disabled={isSaving}
+              fab
+              color="accent"
+              className={classes.saveButton}
+            >
+              <SaveIcon />
+            </Button>
+            {isSaving &&
+              <CircularProgress size={60} className={classes.progress} />}
+          </div>
+        </div>
       </div>
     );
   }

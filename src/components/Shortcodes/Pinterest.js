@@ -44,14 +44,15 @@ class Pinterest extends Component {
     const { url, width, height } = this.state;
     return (
       <div className={classes.container}>
-        <Button raised onClick={this.openDialog} className={classes.button}>
+        <Button dense onClick={this.openDialog} className={classes.button}>
           Pinterest
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>{"Insert Pinterest shortcode"}</DialogTitle>
+          <DialogTitle>
+            {'Insert Pinterest shortcode'}
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-            </DialogContentText>
+            <DialogContentText />
             <TextField
               label="URL"
               value={url}
@@ -86,4 +87,3 @@ Pinterest.propTypes = {
 };
 
 export default withStyles(styleSheet)(Pinterest);
-

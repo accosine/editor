@@ -48,7 +48,7 @@ class Gfycat extends Component {
     const { id, noAutoplay, width, height } = this.state;
     return (
       <div className={classes.container}>
-        <Button raised onClick={this.openDialog} className={classes.button}>
+        <Button dense onClick={this.openDialog} className={classes.button}>
           Gfycat
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
