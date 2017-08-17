@@ -6,10 +6,10 @@ import FileList from './FileList';
 import { CircularProgress } from 'material-ui/Progress';
 import green from 'material-ui/colors/green';
 import Button from 'material-ui/Button';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import SaveIcon from 'material-ui-icons/Save';
 
-const styleSheet = createStyleSheet('Dnd', theme => ({
+const styleSheet = theme => ({
   savebutton: {
     position: 'absolute',
   },
@@ -22,7 +22,7 @@ const styleSheet = createStyleSheet('Dnd', theme => ({
     position: 'absolute',
     color: green[500],
   },
-}));
+});
 
 class Dnd extends Component {
   constructor(props) {

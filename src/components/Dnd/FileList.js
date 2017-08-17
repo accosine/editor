@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FilePreview from './FilePreview';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('FileList', {
+const styleSheet = {
   fileList: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-});
+};
 
 class FileList extends Component {
   static propTypes = {

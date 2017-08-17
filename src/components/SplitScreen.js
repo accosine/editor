@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
@@ -19,7 +19,7 @@ import Img from './Img';
 import FrontMatter from './FrontMatter';
 import green from 'material-ui/colors/green';
 
-const styleSheet = createStyleSheet('SplitScreen', theme => ({
+const styleSheet = theme => ({
   root: {
     flexGrow: 1,
     width: '98%',
@@ -61,7 +61,7 @@ const styleSheet = createStyleSheet('SplitScreen', theme => ({
     bottom: 50,
     right: 50,
   },
-}));
+});
 
 class SplitScreen extends Component {
   constructor(props) {

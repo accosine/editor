@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import addSizeSuffix from '../../util/addSizeSuffix';
 
 const storageurl = process.env.REACT_APP_FIREBASE_STORAGE_URL;
 const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
 
-const styleSheet = createStyleSheet('ImageCard', theme => ({
+const styleSheet = theme => ({
   root: {
     padding: theme.spacing.unit * 1,
   },
@@ -38,7 +38,7 @@ const styleSheet = createStyleSheet('ImageCard', theme => ({
   headline: {
     textOverflow: 'ellipsis',
   },
-}));
+});
 
 class ImageCard extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
@@ -12,14 +12,14 @@ import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import TextField from 'material-ui/TextField';
 
-const styleSheet = createStyleSheet('Gfycat', theme => ({
+const styleSheet = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
   container: {
     display: 'inline',
   },
-}));
+});
 
 const gfycatShortcode = ({ id, noAutoplay, width, height }) =>
   `[gfycat id=${id} width=${width} height=${height}${noAutoplay

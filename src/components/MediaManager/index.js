@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImageCard from './ImageCard';
 import CarouselSettings from './CarouselSettings';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('MediaManager', theme => ({
+const styleSheet = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -37,7 +37,7 @@ const styleSheet = createStyleSheet('MediaManager', theme => ({
   headline: {
     textOverflow: 'ellipsis',
   },
-}));
+});
 
 class MediaManager extends Component {
   constructor(props) {

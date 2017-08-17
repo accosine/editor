@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import List from 'material-ui/List';
 import { Link } from 'react-router-dom';
 
-const styleSheet = createStyleSheet('Dresser', {
+const styleSheet = {
   list: {
     width: 550,
     flex: 'initial',
@@ -16,7 +16,7 @@ const styleSheet = createStyleSheet('Dresser', {
     width: 'auto',
     flex: 'initial',
   },
-});
+};
 
 //TODO: Remove 'ACTIONS', pass direct access to function via props
 class Dresser extends Component {
@@ -33,14 +33,14 @@ class Dresser extends Component {
         <Drawer className={classes.list} open={this.props.open}>
           <div>
             <List disablePadding>
-              <Link to='/editor'>
+              <Link to="/editor">
                 <MenuItem onClick={() => this.props.ACTIONS.handleClose()}>
                   Editor
                 </MenuItem>
               </Link>
             </List>
             <List className={classes.list} disablePadding>
-              <Link to='/articles'>
+              <Link to="/articles">
                 <MenuItem onClick={this.props.ACTIONS.handleClose}>
                   Articles
                 </MenuItem>

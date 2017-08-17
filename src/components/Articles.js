@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import { Link } from 'react-router-dom';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('Articles', {
+const styleSheet = {
   demo: {
     flexDirection: 'column',
   },
   articlecard: {
     width: '50vw',
   },
-});
+};
 
 class Articles extends Component {
   constructor(props) {

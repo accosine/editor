@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
@@ -9,14 +9,14 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Dnd from './Dnd';
 import MediaManager from './MediaManager';
 
-const styleSheet = createStyleSheet('Img', {
+const styleSheet = {
   container: {
     display: 'inline',
   },
   root: {
     flexGrow: 1,
   },
-});
+};
 
 const TabContainer = props =>
   <div style={{ padding: 24 }}>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('Editor', theme => ({
+const styleSheet = {
   container: {
     height: '100%',
   },
@@ -16,7 +16,7 @@ const styleSheet = createStyleSheet('Editor', theme => ({
     fontSize: '12pt',
     background: 'transparent',
   },
-}));
+};
 
 class Editor extends Component {
   handleEdit = ({ target }) => {

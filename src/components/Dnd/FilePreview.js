@@ -4,9 +4,9 @@ import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 import Input from 'material-ui/Input';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const styleSheet = createStyleSheet('FilePreview', theme => ({
+const styleSheet = theme => ({
   root: {
     padding: theme.spacing.unit * 1,
   },
@@ -35,7 +35,7 @@ const styleSheet = createStyleSheet('FilePreview', theme => ({
   headline: {
     textOverflow: 'ellipsis',
   },
-}));
+});
 
 class FilePreview extends Component {
   state = {

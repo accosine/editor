@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 
-const styleSheet = createStyleSheet('Login', {
+const styleSheet = {
   row: {
     display: 'flex',
     justifyContent: 'center',
@@ -12,20 +12,16 @@ const styleSheet = createStyleSheet('Login', {
   avatar: {
     margin: 10,
   },
-});
+};
 
 const Login = props => {
-  const { classes, isAuthenticated, Authenticate }  = props;
+  const { classes, isAuthenticated, Authenticate } = props;
   const authed = isAuthenticated();
 
   if (authed) {
     return (
       <div className={classes.row}>
-        <Avatar
-          alt=''
-          src={props.user.avatar}
-          className={classes.avatar}
-        />
+        <Avatar alt="" src={props.user.avatar} className={classes.avatar} />
       </div>
     );
   } else {

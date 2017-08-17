@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -14,7 +14,7 @@ const styleSheet = createStyleSheet(theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
-}));
+});
 
 const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
   <TextField

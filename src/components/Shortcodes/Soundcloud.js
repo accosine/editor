@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
@@ -12,14 +12,14 @@ import TextField from 'material-ui/TextField';
 import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 
-const styleSheet = createStyleSheet('Soundcloud', theme => ({
+const styleSheet = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
   container: {
     display: 'inline',
   },
-}));
+});
 
 const soundcloudShortcode = params =>
   // ATTENTION! This template string has significant whitespace - don't change!

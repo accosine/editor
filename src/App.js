@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import SplitScreen from './components/SplitScreen';
 import Articles from './components/Articles';
 import Navigation from './components/Navigation';
 import Dresser from './components/Dresser';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
-const styleSheet = createStyleSheet('App', theme => ({
+const styleSheet = {
   app: {
     // height: '100vh'
   },
-}));
+};
 
 const RenderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);

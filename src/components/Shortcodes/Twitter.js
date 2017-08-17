@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
@@ -12,14 +12,14 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
-const styleSheet = createStyleSheet('Twitter', theme => ({
+const styleSheet = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
   container: {
     display: 'inline',
   },
-}));
+});
 
 const twitterShortcode = ({ id, width, height, cardsHidden }) =>
   `[twitter id="${id}" width=${width} height=${height}${cardsHidden
