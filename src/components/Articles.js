@@ -15,29 +15,20 @@ const styleSheet = {
 };
 
 class Articles extends Component {
-  constructor(props) {
-    super(props);
-
-    this.props.CONNECT(
-      'articles',
-      this.props.DATABASE,
-      this.props.REFS,
-      this.props.ACTIONS
-    );
-    this.state = { articles: '' };
-  }
+  state = { articles: '' };
 
   componentDidMount() {
+    const { firebase: { CONNECT, DATABASE, REFS, ACTIONS } } = this.props;
+    CONNECT('articles', DATABASE, REFS, ACTIONS);
     // Add database change listener for each reference in the refs object
-    console.log(this.props);
-    this.props.REFS['articles'].on('value', snapshot => {
+    this.props.firebase.REFS['articles'].on('value', snapshot => {
       this.setState({ articles: snapshot.val() });
     });
   }
 
   componentWillUnmount() {
     // Remove all database change listeners
-    this.props.REFS['articles'].off();
+    this.props.firebase.REFS['articles'].off();
   }
 
   render() {
@@ -57,7 +48,7 @@ class Articles extends Component {
               spacing={16}
             >
               {Object.keys(this.state.articles).map((key, index) =>
-                <Paper className={classes.articlecard} elevation={4}>
+                <Paper key={key} className={classes.articlecard} elevation={4}>
                   <Link to={`/editor/${key}`}>
                     {this.state.articles[key].title}
                   </Link>

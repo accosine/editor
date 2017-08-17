@@ -20,30 +20,25 @@ const styleSheet = {
 
 //TODO: Remove 'ACTIONS', pass direct access to function via props
 class Dresser extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
-
   render() {
-    const classes = this.props.classes;
+    const { classes, onDrawerClose } = this.props;
 
     return (
       <div>
-        <Drawer className={classes.list} open={this.props.open}>
+        <Drawer
+          className={classes.list}
+          open={this.props.open}
+          onRequestClose={onDrawerClose}
+        >
           <div>
             <List disablePadding>
               <Link to="/editor">
-                <MenuItem onClick={() => this.props.ACTIONS.handleClose()}>
-                  Editor
-                </MenuItem>
+                <MenuItem onClick={onDrawerClose}>Editor</MenuItem>
               </Link>
             </List>
             <List className={classes.list} disablePadding>
               <Link to="/articles">
-                <MenuItem onClick={this.props.ACTIONS.handleClose}>
-                  Articles
-                </MenuItem>
+                <MenuItem onClick={onDrawerClose}>Articles</MenuItem>
               </Link>
             </List>
             <hr />
@@ -56,6 +51,7 @@ class Dresser extends Component {
 
 Dresser.propTypes = {
   classes: PropTypes.object.isRequired,
+  onDrawerClose: PropTypes.func.isRequired,
 };
 
 export default withStyles(styleSheet)(Dresser);

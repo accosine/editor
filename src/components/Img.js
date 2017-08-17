@@ -80,11 +80,10 @@ class Img extends Component {
 
   handleChange = (event, index) => {
     this.setState({ index });
-    console.log('this is the index' + index);
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, firebase } = this.props;
     const { index, carouselSettings } = this.state;
     return (
       <div className={classes.container}>
@@ -100,7 +99,7 @@ class Img extends Component {
           <DialogContent>
             <Paper className={classes.root}>
               <Tabs
-                index={this.state.index}
+                value={this.state.index}
                 onChange={this.handleChange}
                 indicatorColor="primary"
                 textColor="primary"
@@ -113,7 +112,7 @@ class Img extends Component {
             </Paper>
             {index === 0 &&
               <TabContainer>
-                <Dnd switchTab={this.handleChange} {...this.props} />
+                <Dnd switchTab={this.handleChange} firebase={firebase} />
               </TabContainer>}
             {index === 1 &&
               <TabContainer>
@@ -121,7 +120,7 @@ class Img extends Component {
                   onSelection={this.onSelection}
                   onCarouselSettings={this.onCarouselSettings}
                   carouselSettings={carouselSettings}
-                  {...this.props}
+                  firebase={firebase}
                 />
               </TabContainer>}
             {index === 2 &&

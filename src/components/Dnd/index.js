@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import SaveIcon from 'material-ui-icons/Save';
 
-const styleSheet = theme => ({
+const styleSheet = {
   savebutton: {
     position: 'absolute',
   },
@@ -22,13 +22,11 @@ const styleSheet = theme => ({
     position: 'absolute',
     color: green[500],
   },
-});
+};
 
 class Dnd extends Component {
   constructor(props) {
     super(props);
-
-    props.CONNECT('images', props.DATABASE, props.REFS, props.ACTIONS);
 
     this.state = {
       droppedFiles: [],
@@ -39,25 +37,29 @@ class Dnd extends Component {
   }
 
   componentDidMount() {
+    const { firebase: { CONNECT, DATABASE, ACTIONS, REFS } } = this.props;
     // Add database change listener for each reference in the refs object
-    console.log(this.props);
-    this.props.REFS['images'].on('value', snapshot => {
+    CONNECT('images', DATABASE, REFS, ACTIONS);
+    REFS['images'].on('value', snapshot => {
       this.setState({ images: snapshot.val() });
     });
   }
 
   componentWillUnmount() {
     // Remove all database change listeners
-    this.props.REFS['images'].off();
+    this.props.firebase.REFS['images'].off();
   }
 
   uploadFiles = files => {
+    const {
+      firebase: { CONNECT, DATABASE, ACTIONS, REFS, STORAGE },
+    } = this.props;
     this.setState({ isUploading: true });
     const timestamp = Date.now();
     const incrementUpload = cb =>
       this.setState({ upload: this.state.upload + 1 }, cb);
     const switchTabIfReady = (tabnumber, arrlength) => {
-      if (this.state.upload == arrlength) {
+      if (this.state.upload === arrlength) {
         this.props.switchTab(null, tabnumber);
       }
     };
@@ -65,7 +67,7 @@ class Dnd extends Component {
       var updates = {};
       updates['/images/' + newImageKey] = imageData;
 
-      return this.props.DATABASE.ref().update(updates);
+      return DATABASE.ref().update(updates);
     };
     const fileext = type => {
       let extension;
@@ -84,10 +86,10 @@ class Dnd extends Component {
     };
     // TODO: conveniece function which adds file extension
     // TODO: write file name and file tags to firebase
-    const storageRef = this.props.STORAGE.ref();
+    const storageRef = STORAGE.ref();
     const uploadTasks = files.map(file => {
       // Get a key for a new image
-      var newImageKey = this.props.REFS['images'].push().key;
+      var newImageKey = REFS['images'].push().key;
       console.log(newImageKey);
 
       return storageRef

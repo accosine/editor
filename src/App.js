@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 const styleSheet = {
   app: {
-    // height: '100vh'
+    height: '100vh',
   },
 };
 
@@ -29,61 +29,81 @@ const PropsRoute = ({ component, ...rest }) => {
   );
 };
 
-const PrivateRoute = ({ component, redirectTo, auth, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={routeProps => {
-        return auth()
-          ? RenderMergedProps(component, routeProps, rest)
-          : <Redirect
-              to={{
-                pathname: redirectTo,
-                state: { from: routeProps.location },
-              }}
-            />;
-      }}
-    />
-  );
-};
+const PrivateRoute = ({ component, redirectTo, ...rest }) =>
+  <Route
+    {...rest}
+    render={routeProps =>
+      rest.firebase.isAuthenticated()
+        ? RenderMergedProps(component, routeProps, rest)
+        : <Redirect
+            to={{
+              pathname: redirectTo,
+              state: { from: routeProps.location },
+            }}
+          />}
+  />;
 
 class App extends Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
   render() {
-    const { classes, ...rest } = this.props;
+    const {
+      classes,
+      firebase,
+      user,
+      open,
+      onDrawerToggle,
+      onDrawerClose,
+    } = this.props;
     return (
       <Router>
-        <div className="app">
-          <Navigation {...rest} />
-          <Dresser {...rest} />
+        <div className={classes.app}>
+          <Navigation
+            onDrawerToggle={onDrawerToggle}
+            firebase={firebase}
+            user={user}
+          />
+          <Dresser
+            onDrawerClose={onDrawerClose}
+            firebase={firebase}
+            open={open}
+          />
           <PrivateRoute
             exact
             path="/editor"
             component={SplitScreen}
             redirectTo="/"
-            auth={this.props.isAuthenticated}
-            {...rest}
+            firebase={firebase}
           />
           <PrivateRoute
             path="/editor/:slug"
             component={SplitScreen}
             redirectTo="/"
-            auth={this.props.isAuthenticated}
-            {...rest}
+            firebase={firebase}
           />
           <PrivateRoute
             path="/articles"
             component={Articles}
             redirectTo="/"
-            auth={this.props.isAuthenticated}
-            {...rest}
+            firebase={firebase}
           />
         </div>
       </Router>
     );
   }
 }
+
+App.propTypes = {
+  onDrawerToggle: PropTypes.func.isRequired,
+  onDrawerClose: PropTypes.func.isRequired,
+  firebase: PropTypes.shape({
+    ACTIONS: PropTypes.object.isRequired,
+    AUTH: PropTypes.object.isRequired,
+    Authenticate: PropTypes.func.isRequired,
+    CONNECT: PropTypes.func.isRequired,
+    DATABASE: PropTypes.object.isRequired,
+    REFS: PropTypes.object.isRequired,
+    STORAGE: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withStyles(styleSheet)(App);

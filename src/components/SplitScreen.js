@@ -64,47 +64,49 @@ const styleSheet = theme => ({
 });
 
 class SplitScreen extends Component {
-  constructor(props) {
-    super(props);
-
-    if (props.match.params.slug) {
-      console.log('with slug', props.match.params.slug);
-      this.props.CONNECT(
-        `articles/${props.match.params.slug}`,
-        this.props.DATABASE,
-        this.props.REFS,
-        this.props.ACTIONS
-      );
-    }
-    this.state = {
-      isSaving: false,
-      content: '',
-      caretPosition: { start: 0, end: 0 },
-      frontmatterExpanded: props.match.params.slug ? false : true,
-      title: '',
-      author: '',
-      description: '',
-      collection: '',
-      headline: '',
-      subline: '',
-      layout: '',
-      type: '',
-      picture: '',
-      attribution: '',
-      alt: '',
-      slug: '',
-    };
-  }
+  state = {
+    isSaving: false,
+    content: '',
+    caretPosition: { start: 0, end: 0 },
+    frontmatterExpanded: this.props.match.params.slug ? false : true,
+    title: '',
+    author: '',
+    description: '',
+    collection: '',
+    headline: '',
+    subline: '',
+    layout: '',
+    type: '',
+    picture: '',
+    attribution: '',
+    alt: '',
+    slug: '',
+  };
 
   componentDidMount() {
-    if (this.props.match.params.slug) {
-      this.props.REFS[
+    const { firebase, match } = this.props;
+    if (match.params.slug) {
+      firebase.CONNECT(
+        `articles/${match.params.slug}`,
+        firebase.DATABASE,
+        firebase.REFS,
+        firebase.ACTIONS
+      );
+      firebase.REFS[
         `articles/${this.props.match.params.slug}`
       ].on('value', snapshot =>
         this.setState({
           ...snapshot.val(),
         })
       );
+    }
+  }
+
+  componentWillUnmount() {
+    const { firebase, match } = this.props;
+    // Remove all database change listeners
+    if (match.params.slug) {
+      firebase.REFS[`articles/${this.props.match.params.slug}`].off();
     }
   }
 
@@ -132,7 +134,7 @@ class SplitScreen extends Component {
         isSaving: true,
       },
       () => {
-        this.props.REFS[`articles/${this.props.match.params.slug}`]
+        this.props.firebase.REFS[`articles/${this.props.match.params.slug}`]
           .set(article)
           .then(() => this.setState({ isSaving: false }));
       }
@@ -151,7 +153,7 @@ class SplitScreen extends Component {
   };
 
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes, firebase } = this.props;
     const {
       frontmatterExpanded,
       isSaving,
@@ -207,7 +209,7 @@ class SplitScreen extends Component {
         <Grid container spacing={8}>
           <Grid item xs={12}>
             <Shortcodes onShortcode={this.onShortcode}>
-              <Img onShortcode={this.onShortcode} {...rest} />
+              <Img onShortcode={this.onShortcode} firebase={firebase} />
             </Shortcodes>
           </Grid>
         </Grid>

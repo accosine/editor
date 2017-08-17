@@ -55,19 +55,13 @@ const firebaseApi = {
 };
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-
-    ACTIONS.handleClose = this.handleClose.bind(this);
-    ACTIONS.handleToggle = this.handleToggle.bind(this);
-    this.state = {
-      open: false,
-      user: {
-        uid: '',
-        team: '',
-      },
-    };
-  }
+  state = {
+    open: false,
+    user: {
+      uid: '',
+      team: '',
+    },
+  };
 
   componentDidMount() {
     AUTH.onAuthStateChanged(user => {
@@ -90,19 +84,21 @@ class Main extends Component {
     });
   }
 
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-  handleToggle() {
+  handleDrawerToggle = () => {
     this.setState({ open: !this.state.open });
-  }
+  };
 
-  handleClose = () => this.setState({ open: false });
+  handleDrawerClose = () => this.setState({ open: false });
+
   render() {
     return (
       <ThemeProvider>
-        <App {...this.state} {...firebaseApi} />
+        <App
+          {...this.state}
+          firebase={firebaseApi}
+          onDrawerToggle={this.handleDrawerToggle}
+          onDrawerClose={this.handleDrawerClose}
+        />
       </ThemeProvider>
     );
   }

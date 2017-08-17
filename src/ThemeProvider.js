@@ -12,13 +12,12 @@ const theme = createMuiTheme({
       flatPrimary: {
         color: 'white',
         backgroundColor: '#92EFE5',
+        borderRadius: 5,
+        '&:hover': {
+          textDecoration: 'none',
+          backgroundColor: 'black',
+        },
       },
-      borderRadius: 5,
-      '&:hover': {
-        textDecoration: 'none',
-        backgroundColor: 'black',
-      },
-
       disabled: {
         backgroundColor: 'transparent',
       },

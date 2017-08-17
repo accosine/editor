@@ -42,20 +42,20 @@ const FrontMatter = props =>
     <FrontMatterTextfield id="slug" {...props} />
   </div>;
 
-FrontMatter.PropTypes = {
-  title: PropTypes.string.required,
-  author: PropTypes.string.required,
-  description: PropTypes.string.required,
-  collection: PropTypes.string.required,
-  headline: PropTypes.string.required,
-  subline: PropTypes.string.required,
-  layout: PropTypes.string.required,
-  type: PropTypes.string.required,
-  picture: PropTypes.string.required,
-  attribution: PropTypes.string.required,
-  alt: PropTypes.string.required,
-  slug: PropTypes.string.required,
-  onChange: PropTypes.func.required,
+FrontMatter.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  collection: PropTypes.string.isRequired,
+  headline: PropTypes.string.isRequired,
+  subline: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  attribution: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styleSheet)(FrontMatter);

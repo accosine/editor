@@ -15,13 +15,13 @@ const styleSheet = {
 };
 
 const Login = props => {
-  const { classes, isAuthenticated, Authenticate } = props;
+  const { classes, firebase: { isAuthenticated, Authenticate }, user } = props;
   const authed = isAuthenticated();
 
   if (authed) {
     return (
       <div className={classes.row}>
-        <Avatar alt="" src={props.user.avatar} className={classes.avatar} />
+        <Avatar alt="" src={user.avatar} className={classes.avatar} />
       </div>
     );
   } else {

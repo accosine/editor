@@ -15,12 +15,10 @@ const styleSheet = theme => ({
   },
   card: {
     display: 'flex',
-    width: '30vw',
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
-    width: '60%',
   },
   content: {
     flex: '1 0 auto',
@@ -37,6 +35,9 @@ const styleSheet = theme => ({
   },
   headline: {
     textOverflow: 'ellipsis',
+  },
+  media: {
+    height: 200,
   },
 });
 
@@ -64,13 +65,12 @@ class ImageCard extends Component {
       <div className={classes.root}>
         <Card className={classes.card}>
           <div className={classes.details}>
-            <CardMedia>
-              <img
-                src={
-                  storageurl + addSizeSuffix(image.name, '-s') + storagesuffix
-                }
-              />
-            </CardMedia>
+            <CardMedia
+              className={classes.media}
+              image={
+                storageurl + addSizeSuffix(image.name, '-s') + storagesuffix
+              }
+            />
             <CardContent>
               <Typography type="headline" component="h2">
                 {image.name}

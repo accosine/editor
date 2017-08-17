@@ -27,7 +27,6 @@ class Amp extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('shouldUpdate', nextProps.html !== this.props.html);
     return nextProps.html !== this.props.html;
   }
 

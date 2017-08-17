@@ -23,13 +23,13 @@ const styleSheet = {
 };
 
 const Navigation = props => {
-  const { classes, ...rest } = props;
+  const { classes, onDrawerToggle, ...rest } = props;
 
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar}>
         <Toolbar>
-          <IconButton onClick={() => props.ACTIONS.handleToggle()}>
+          <IconButton onClick={onDrawerToggle}>
             <MenuIcon />
           </IconButton>
           <Typography type="title" className={classes.flex}>

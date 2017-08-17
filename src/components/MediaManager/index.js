@@ -40,32 +40,23 @@ const styleSheet = theme => ({
 });
 
 class MediaManager extends Component {
-  constructor(props) {
-    super(props);
-
-    this.props.CONNECT(
-      'images',
-      this.props.DATABASE,
-      this.props.REFS,
-      this.props.ACTIONS
-    );
-    this.state = {
-      images: {},
-      selected: [],
-    };
-  }
+  state = {
+    images: {},
+    selected: [],
+  };
 
   componentDidMount() {
+    const { firebase: { CONNECT, DATABASE, REFS, ACTIONS } } = this.props;
+    CONNECT('images', DATABASE, REFS, ACTIONS);
     // Add database change listener for each reference in the refs object
-    console.log(this.props);
-    this.props.REFS['images'].on('value', snapshot => {
+    REFS['images'].on('value', snapshot => {
       this.setState({ images: snapshot.val() || {} });
     });
   }
 
   componentWillUnmount() {
     // Remove all database change listeners
-    this.props.REFS['images'].off();
+    this.props.firebase.REFS['images'].off();
   }
 
   addSelection = key => {
@@ -94,7 +85,7 @@ class MediaManager extends Component {
           : ''}
         {Object.keys(this.state.images).length
           ? Object.keys(this.state.images).map((key, index) =>
-              <div>
+              <div key={key}>
                 <ImageCard
                   addSelection={this.addSelection}
                   image={this.state.images[key]}
@@ -114,8 +105,8 @@ MediaManager.defaultProps = {
 };
 
 MediaManager.propTypes = {
-  carouselSettings: PropTypes.object.required,
-  onCarouselSettings: PropTypes.func.required,
+  carouselSettings: PropTypes.object.isRequired,
+  onCarouselSettings: PropTypes.func.isRequired,
 };
 
 export default withStyles(styleSheet)(MediaManager);
