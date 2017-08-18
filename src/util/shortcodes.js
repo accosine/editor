@@ -10,7 +10,6 @@ const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
 // TODO: make srcset sizes configurable
 const shortcodes = {
   image: (str, params) => {
-    params.name = params.name.slice(1, -1);
     const figText = `${params.caption || ''}${params.attribution
       ? ' (' + params.attribution + ')'
       : ''}`;
