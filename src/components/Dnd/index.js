@@ -8,6 +8,7 @@ import green from 'material-ui/colors/green';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 import SaveIcon from 'material-ui-icons/Save';
+import connectFirebase from '../../util/connect-firebase';
 
 const styleSheet = {
   savebutton: {
@@ -51,9 +52,7 @@ class Dnd extends Component {
   }
 
   uploadFiles = files => {
-    const {
-      firebase: { CONNECT, DATABASE, ACTIONS, REFS, STORAGE },
-    } = this.props;
+    const { firebase: { DATABASE, REFS, STORAGE } } = this.props;
     this.setState({ isUploading: true });
     const timestamp = Date.now();
     const incrementUpload = cb =>
@@ -154,4 +153,6 @@ class Dnd extends Component {
     );
   }
 }
-export default withStyles(styleSheet)(DragDropContext(HTML5Backend)(Dnd));
+export default withStyles(styleSheet)(
+  DragDropContext(HTML5Backend)(connectFirebase(Dnd))
+);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ImageCard from './ImageCard';
 import CarouselSettings from './CarouselSettings';
 import { withStyles } from 'material-ui/styles';
+import connectFirebase from '../../util/connect-firebase';
 
 const styleSheet = theme => ({
   container: {
@@ -109,4 +110,4 @@ MediaManager.propTypes = {
   onCarouselSettings: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(MediaManager);
+export default withStyles(styleSheet)(connectFirebase(MediaManager));

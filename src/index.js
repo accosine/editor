@@ -7,6 +7,7 @@ import firebaseconfig from './config';
 // import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import ThemeProvider from './ThemeProvider';
+import FirebaseProvider from './util/FirebaseProvider';
 
 firebase.initializeApp(firebaseconfig);
 const REFS = {};
@@ -93,12 +94,13 @@ class Main extends Component {
   render() {
     return (
       <ThemeProvider>
-        <App
-          {...this.state}
-          firebase={firebaseApi}
-          onDrawerToggle={this.handleDrawerToggle}
-          onDrawerClose={this.handleDrawerClose}
-        />
+        <FirebaseProvider firebase={firebaseApi}>
+          <App
+            {...this.state}
+            onDrawerToggle={this.handleDrawerToggle}
+            onDrawerClose={this.handleDrawerClose}
+          />
+        </FirebaseProvider>
       </ThemeProvider>
     );
   }

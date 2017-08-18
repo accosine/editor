@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Dnd from './Dnd';
 import MediaManager from './MediaManager';
+import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = {
   container: {
@@ -83,7 +84,7 @@ class Img extends Component {
   };
 
   render() {
-    const { classes, firebase } = this.props;
+    const { classes } = this.props;
     const { index, carouselSettings } = this.state;
     return (
       <div className={classes.container}>
@@ -112,7 +113,7 @@ class Img extends Component {
             </Paper>
             {index === 0 &&
               <TabContainer>
-                <Dnd switchTab={this.handleChange} firebase={firebase} />
+                <Dnd switchTab={this.handleChange} />
               </TabContainer>}
             {index === 1 &&
               <TabContainer>
@@ -120,7 +121,6 @@ class Img extends Component {
                   onSelection={this.onSelection}
                   onCarouselSettings={this.onCarouselSettings}
                   carouselSettings={carouselSettings}
-                  firebase={firebase}
                 />
               </TabContainer>}
             {index === 2 &&
@@ -155,4 +155,4 @@ Img.propTypes = {
   onShortcode: PropTypes.func.isRequired,
 };
 
-export default withStyles(styleSheet)(Img);
+export default withStyles(styleSheet)(connectFirebase(Img));

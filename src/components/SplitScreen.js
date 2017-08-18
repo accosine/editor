@@ -18,6 +18,7 @@ import Shortcodes from './Shortcodes';
 import Img from './Img';
 import FrontMatter from './FrontMatter';
 import green from 'material-ui/colors/green';
+import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = theme => ({
   root: {
@@ -153,7 +154,7 @@ class SplitScreen extends Component {
   };
 
   render() {
-    const { classes, firebase } = this.props;
+    const { classes } = this.props;
     const {
       frontmatterExpanded,
       isSaving,
@@ -209,7 +210,7 @@ class SplitScreen extends Component {
         <Grid container spacing={8}>
           <Grid item xs={12}>
             <Shortcodes onShortcode={this.onShortcode}>
-              <Img onShortcode={this.onShortcode} firebase={firebase} />
+              <Img onShortcode={this.onShortcode} />
             </Shortcodes>
           </Grid>
         </Grid>
@@ -262,4 +263,4 @@ SplitScreen.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(SplitScreen);
+export default withStyles(styleSheet)(connectFirebase(SplitScreen));

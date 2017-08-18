@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
+import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = {
   row: {
@@ -41,4 +42,4 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(Login);
+export default withStyles(styleSheet)(connectFirebase(Login));

@@ -5,6 +5,7 @@ import SplitScreen from './components/SplitScreen';
 import Articles from './components/Articles';
 import Navigation from './components/Navigation';
 import Dresser from './components/Dresser';
+import connectFirebase from './util/connect-firebase';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 const styleSheet = {
@@ -29,11 +30,11 @@ const PropsRoute = ({ component, ...rest }) => {
   );
 };
 
-const PrivateRoute = ({ component, redirectTo, ...rest }) =>
+const PrivateRoute = ({ component, redirectTo, isAuthenticated, ...rest }) =>
   <Route
     {...rest}
     render={routeProps =>
-      rest.firebase.isAuthenticated()
+      isAuthenticated()
         ? RenderMergedProps(component, routeProps, rest)
         : <Redirect
             to={{
@@ -56,34 +57,30 @@ class App extends Component {
     return (
       <Router>
         <div className={classes.app}>
-          <Navigation
-            onDrawerToggle={onDrawerToggle}
-            firebase={firebase}
-            user={user}
-          />
+          <Navigation onDrawerToggle={onDrawerToggle} user={user} />
           <Dresser
             onDrawerClose={onDrawerClose}
-            firebase={firebase}
+            isAuthenticated={firebase.isAuthenticated}
             open={open}
           />
           <PrivateRoute
             exact
             path="/editor"
+            isAuthenticated={firebase.isAuthenticated}
             component={SplitScreen}
             redirectTo="/"
-            firebase={firebase}
           />
           <PrivateRoute
             path="/editor/:slug"
+            isAuthenticated={firebase.isAuthenticated}
             component={SplitScreen}
             redirectTo="/"
-            firebase={firebase}
           />
           <PrivateRoute
             path="/articles"
+            isAuthenticated={firebase.isAuthenticated}
             component={Articles}
             redirectTo="/"
-            firebase={firebase}
           />
         </div>
       </Router>
@@ -106,4 +103,4 @@ App.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(styleSheet)(App);
+export default withStyles(styleSheet)(connectFirebase(App));

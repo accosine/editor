@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
+import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = {
   demo: {
@@ -66,4 +67,4 @@ Articles.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(Articles);
+export default withStyles(styleSheet)(connectFirebase(Articles));
