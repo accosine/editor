@@ -15,6 +15,8 @@ const styleSheet = {
     outline: 'none',
     fontSize: '12pt',
     background: 'transparent',
+    resize: 'none',
+    padding: 10,
   },
 };
 

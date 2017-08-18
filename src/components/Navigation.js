@@ -11,11 +11,11 @@ import Login from './Login';
 
 const styleSheet = {
   root: {
-    position: 'relative',
-    width: '100%',
+    // position: 'relative',
+    // width: '100%',
   },
   appBar: {
-    position: 'relative',
+    // position: 'relative',
   },
   flex: {
     flex: 1,
@@ -27,7 +27,7 @@ const Navigation = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appBar}>
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton onClick={onDrawerToggle}>
             <MenuIcon />

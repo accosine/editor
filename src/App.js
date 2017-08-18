@@ -6,11 +6,17 @@ import Articles from './components/Articles';
 import Navigation from './components/Navigation';
 import Dresser from './components/Dresser';
 import connectFirebase from './util/connect-firebase';
+import orange from 'material-ui/colors/orange';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 const styleSheet = {
   app: {
-    height: '100vh',
+    width: '100%',
+    height: 'fit-content',
+    minHeight: '100vh',
+    background: orange[50],
+    display: 'flex',
+    flexDirection: 'column',
   },
 };
 

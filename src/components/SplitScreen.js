@@ -22,18 +22,25 @@ import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = theme => ({
   root: {
+    padding: '0 30px 47px 30px',
     flexGrow: 1,
-    width: '98%',
-    margin: '0 auto',
-    // marginTop: 30,
+    flexShrink: 1,
+    height: 'fit-content',
   },
   container: {
-    height: '85vh',
+    flexGrow: 1,
+    flexShrink: 1,
+  },
+  row: {
+    margin: 0,
   },
   paper: {
-    textAlign: 'center',
+    padding: 10,
     color: theme.palette.text.secondary,
     height: '100%',
+  },
+  title: {
+    textAlign: 'center',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -61,6 +68,7 @@ const styleSheet = theme => ({
     position: 'fixed',
     bottom: 50,
     right: 50,
+    zIndex: 1,
   },
 });
 
@@ -174,7 +182,7 @@ class SplitScreen extends Component {
     } = this.state;
 
     return (
-      <div className={classes.root}>
+      <Grid container spacing={0} direction="column" className={classes.root}>
         <IconButton
           className={classnames(classes.expand, {
             [classes.expandOpen]: frontmatterExpanded,
@@ -183,12 +191,10 @@ class SplitScreen extends Component {
         >
           <ExpandMoreIcon />
         </IconButton>
-        <Collapse in={frontmatterExpanded} transitionDuration="auto">
-          <Grid container spacing={8}>
+        <Grid container className={classes.row} spacing={8}>
+          <Collapse in={frontmatterExpanded} transitionDuration="auto">
             <Grid item xs={12}>
-              <Typography type="headline" gutterBottom>
-                Frontmatter
-              </Typography>
+              <Typography type="headline">Frontmatter</Typography>
               <FrontMatter
                 title={title}
                 author={author}
@@ -205,19 +211,29 @@ class SplitScreen extends Component {
                 onChange={change => this.setState(change)}
               />
             </Grid>
-          </Grid>
-        </Collapse>
-        <Grid container spacing={8}>
+          </Collapse>
+        </Grid>
+        <Grid container className={classes.row} spacing={8}>
           <Grid item xs={12}>
-            <Shortcodes onShortcode={this.onShortcode}>
-              <Img onShortcode={this.onShortcode} />
-            </Shortcodes>
+            <Paper>
+              <Shortcodes onShortcode={this.onShortcode}>
+                <Img onShortcode={this.onShortcode} />
+              </Shortcodes>
+            </Paper>
           </Grid>
         </Grid>
-        <Grid className={classes.container} container spacing={8}>
+        <Grid
+          className={classnames(classes.container, classes.row)}
+          container
+          spacing={8}
+        >
           <Grid item xs={6}>
             <Paper className={classes.paper}>
-              <Typography type="subheading" gutterBottom>
+              <Typography
+                type="headline"
+                className={classes.title}
+                gutterBottom
+              >
                 Markdown
               </Typography>
               <Divider />
@@ -230,7 +246,11 @@ class SplitScreen extends Component {
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
-              <Typography type="subheading" gutterBottom>
+              <Typography
+                type="headline"
+                gutterBottom
+                className={classes.title}
+              >
                 Preview
               </Typography>
               <Divider />
@@ -238,7 +258,6 @@ class SplitScreen extends Component {
             </Paper>
           </Grid>
         </Grid>
-
         <div className={classes.saveButtonContainer}>
           <div className={classes.saveButtonWrapper}>
             <Button
@@ -254,7 +273,7 @@ class SplitScreen extends Component {
               <CircularProgress size={60} className={classes.progress} />}
           </div>
         </div>
-      </div>
+      </Grid>
     );
   }
 }
