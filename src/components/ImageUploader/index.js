@@ -25,7 +25,7 @@ const styleSheet = {
   },
 };
 
-class Dnd extends Component {
+class ImageUploader extends Component {
   constructor(props) {
     super(props);
 
@@ -154,5 +154,5 @@ class Dnd extends Component {
   }
 }
 export default withStyles(styleSheet)(
-  DragDropContext(HTML5Backend)(connectFirebase(Dnd))
+  DragDropContext(HTML5Backend)(connectFirebase(ImageUploader))
 );

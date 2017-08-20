@@ -26,11 +26,7 @@ const Login = props => {
       </div>
     );
   } else {
-    return (
-      <Button onClick={event => Authenticate()} contrast>
-        Login
-      </Button>
-    );
+    return <Button onClick={event => Authenticate()}>Login</Button>;
   }
 };
 

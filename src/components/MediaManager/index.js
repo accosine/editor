@@ -1,113 +1,92 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImageCard from './ImageCard';
-import CarouselSettings from './CarouselSettings';
-import { withStyles } from 'material-ui/styles';
-import connectFirebase from '../../util/connect-firebase';
-
-const styleSheet = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  root: {
-    padding: theme.spacing.unit * 1,
-  },
-  card: {
-    display: 'flex',
-    width: '30vw',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '60%',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: '75%',
-    alignSelf: 'center',
-  },
-  image: {
-    width: '100%',
-  },
-  input: {
-    margin: theme.spacing.unit,
-  },
-  headline: {
-    textOverflow: 'ellipsis',
-  },
-});
 
 class MediaManager extends Component {
   state = {
-    images: {},
-    selected: [],
+    index: 0,
+    selection: [],
+    carouselSettings: {
+      autoplay: false,
+      loop: false,
+      controls: true,
+      delay: '3000',
+    },
   };
 
-  componentDidMount() {
-    const { firebase: { CONNECT, DATABASE, REFS, ACTIONS } } = this.props;
-    CONNECT('images', DATABASE, REFS, ACTIONS);
-    // Add database change listener for each reference in the refs object
-    REFS['images'].on('value', snapshot => {
-      this.setState({ images: snapshot.val() || {} });
-    });
-  }
-
-  componentWillUnmount() {
-    // Remove all database change listeners
-    this.props.firebase.REFS['images'].off();
-  }
-
-  addSelection = key => {
-    this.setState({ selected: [...this.state.selected, key] }, () => {
-      this.props.onSelection(
-        this.state.selected.map(key => this.state.images[key])
-      );
-    });
+  static defaultProps = {
+    multiple: false,
   };
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onInsert: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    multiple: PropTypes.bool.isRequired,
+  };
+
+  static childContextTypes = {
+    mediamanager: PropTypes.shape({
+      multiple: PropTypes.bool.isRequired,
+      onInsert: PropTypes.func.isRequired,
+      onCancel: PropTypes.func.isRequired,
+      onSelection: PropTypes.func.isRequired,
+      onCarouselSettings: PropTypes.func.isRequired,
+      handleTabChange: PropTypes.func.isRequired,
+      index: PropTypes.number.isRequired,
+      selection: PropTypes.array.isRequired,
+      carouselSettings: PropTypes.shape({
+        autoplay: PropTypes.bool.isRequired,
+        loop: PropTypes.bool.isRequired,
+        controls: PropTypes.bool.isRequired,
+        delay: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  };
+
+  onSelection = selection => {
+    this.setState({ selection });
+  };
+
+  onCarouselSettings = carouselSettings => {
+    this.setState({ carouselSettings });
+  };
+
+  handleTabChange = (event, index) => {
+    this.setState({ index });
+  };
+
+  handleInsert = () => {
+    const { multiple, onInsert } = this.props;
+    const { selection, carouselSettings } = this.state;
+    if (multiple) {
+      onInsert(selection, carouselSettings);
+    } else {
+      onInsert(selection[0]);
+    }
+  };
+
+  getChildContext() {
+    const { multiple, onCancel } = this.props;
+    return {
+      mediamanager: {
+        multiple,
+        onCancel,
+        onInsert: this.handleInsert,
+        onSelection: this.onSelection,
+        onCarouselSettings: this.onCarouselSettings,
+        handleTabChange: this.handleTabChange,
+        ...this.state,
+      },
+    };
+  }
 
   render() {
-    const {
-      classes,
-      carouselSettings,
-      onCarouselSettings,
-      ...rest
-    } = this.props;
-
     return (
-      <div className={classes.container}>
-        {this.state.selected.length > 1
-          ? <CarouselSettings
-              onCarouselSettings={onCarouselSettings}
-              carouselSettings={carouselSettings}
-            />
-          : ''}
-        {Object.keys(this.state.images).length
-          ? Object.keys(this.state.images).map((key, index) =>
-              <div key={key}>
-                <ImageCard
-                  addSelection={this.addSelection}
-                  image={this.state.images[key]}
-                  reference={key}
-                  {...rest}
-                />
-              </div>
-            )
-          : 'No images uploaded yet.'}
+      <div>
+        {this.props.children}
       </div>
     );
   }
 }
 
-MediaManager.defaultProps = {
-  user: { avatar: '' },
-};
-
-MediaManager.propTypes = {
-  carouselSettings: PropTypes.object.isRequired,
-  onCarouselSettings: PropTypes.func.isRequired,
-};
-
-export default withStyles(styleSheet)(connectFirebase(MediaManager));
+export default MediaManager;

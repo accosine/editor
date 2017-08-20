@@ -12,7 +12,7 @@ import Pinterest from './Pinterest';
 import Twitter from './Twitter';
 import Playbuzz from './Playbuzz';
 import Iframe from './Iframe';
-// import Img from './Img';
+import Img from './Img';
 
 // import Accordion from './Accordion';
 // import Carousel from './Carousel';
@@ -24,8 +24,7 @@ const Shortcodes = props => {
   const { onShortcode } = props;
   return (
     <div>
-      {props.children}
-      {/*<Img onShortcode={onShortcode} />*/}
+      <Img onShortcode={onShortcode} />
       <Youtube onShortcode={onShortcode} />
       <Soundcloud onShortcode={onShortcode} />
       <Vimeo onShortcode={onShortcode} />

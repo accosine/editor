@@ -18,32 +18,32 @@ const boxTarget = {
 };
 
 class TargetBox extends Component {
-
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
 
     return connectDropTarget(
       <div style={style}>
-        {isActive ?
-          'Release to drop' :
-          'Drag file here'
-        }
-      </div>,
+        {isActive ? 'Release to drop' : 'Drag file here'}
+      </div>
     );
   }
 }
 
 TargetBox.propTypes = {
-    connectDropTarget: PropTypes.func.isRequired,
-    isOver: PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
-    accepts: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onDrop: PropTypes.func,
+  connectDropTarget: PropTypes.func.isRequired,
+  isOver: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired,
+  accepts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onDrop: PropTypes.func,
 };
 
-export default DropTarget(props => props.accepts, boxTarget, (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
-}))(TargetBox);
+export default DropTarget(
+  props => props.accepts,
+  boxTarget,
+  (connect, monitor) => ({
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+  })
+)(TargetBox);

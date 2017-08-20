@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
+import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
+import Button from 'material-ui/Button';
+import Slide from 'material-ui/transitions/Slide';
+
+import MediaManager from './MediaManager';
+import MediaManagerTabs from './MediaManager/Tabs';
+import MediaManagerActions from './MediaManager/Actions';
 
 const styleSheet = theme => ({
   container: {
@@ -16,6 +23,67 @@ const styleSheet = theme => ({
   },
 });
 
+const imagePickerStyleSheet = {
+  container: {
+    display: 'inline',
+  },
+  root: {
+    flexGrow: 1,
+  },
+};
+
+class FrontMatterImagePicker extends Component {
+  state = {
+    open: false,
+  };
+
+  openDialog = () => {
+    this.setState({ open: true });
+  };
+
+  closeDialog = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { classes, onInsert } = this.props;
+    return (
+      <div className={classes.container}>
+        <Button dense onClick={this.openDialog} className={classes.button}>
+          Img
+        </Button>
+        {this.state.open
+          ? <Dialog
+              fullScreen
+              open={this.state.open}
+              onRequestClose={this.closeDialog}
+              transition={<Slide direction="up" />}
+            >
+              <MediaManager
+                onInsert={selected => {
+                  onInsert(selected);
+                  this.closeDialog();
+                }}
+                onCancel={this.closeDialog}
+              >
+                <DialogContent>
+                  <MediaManagerTabs />
+                </DialogContent>
+                <DialogActions>
+                  <MediaManagerActions />
+                </DialogActions>
+              </MediaManager>
+            </Dialog>
+          : null}
+      </div>
+    );
+  }
+}
+
+const StyledFrontMatterImagePicker = withStyles(imagePickerStyleSheet)(
+  FrontMatterImagePicker
+);
+
 const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
   <TextField
     className={classes.textField}
@@ -28,6 +96,13 @@ const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
 
 const FrontMatter = props =>
   <div className={props.classes.container}>
+    <StyledFrontMatterImagePicker
+      onInsert={selected => {
+        props.onChange({ picture: selected.name });
+        props.onChange({ attribution: selected.attribution });
+        props.onChange({ alt: selected.alt });
+      }}
+    />
     <FrontMatterTextfield id="title" {...props} />
     <FrontMatterTextfield id="author" {...props} />
     <FrontMatterTextfield id="description" {...props} />

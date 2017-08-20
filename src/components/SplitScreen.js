@@ -15,7 +15,6 @@ import SaveIcon from 'material-ui-icons/Save';
 import { CircularProgress } from 'material-ui/Progress';
 import Preview from './Preview';
 import Shortcodes from './Shortcodes';
-import Img from './Img';
 import FrontMatter from './FrontMatter';
 import green from 'material-ui/colors/green';
 import connectFirebase from '../util/connect-firebase';
@@ -192,8 +191,8 @@ class SplitScreen extends Component {
           <ExpandMoreIcon />
         </IconButton>
         <Grid container className={classes.row} spacing={8}>
-          <Collapse in={frontmatterExpanded} transitionDuration="auto">
-            <Grid item xs={12}>
+          <Grid item xs={12}>
+            <Collapse in={frontmatterExpanded} transitionDuration="auto">
               <Typography type="headline">Frontmatter</Typography>
               <FrontMatter
                 title={title}
@@ -210,15 +209,13 @@ class SplitScreen extends Component {
                 slug={slug}
                 onChange={change => this.setState(change)}
               />
-            </Grid>
-          </Collapse>
+            </Collapse>
+          </Grid>
         </Grid>
         <Grid container className={classes.row} spacing={8}>
           <Grid item xs={12}>
             <Paper>
-              <Shortcodes onShortcode={this.onShortcode}>
-                <Img onShortcode={this.onShortcode} />
-              </Shortcodes>
+              <Shortcodes onShortcode={this.onShortcode} />
             </Paper>
           </Grid>
         </Grid>

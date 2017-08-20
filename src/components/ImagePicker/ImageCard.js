@@ -57,7 +57,7 @@ class ImageCard extends Component {
   };
 
   render() {
-    const { classes, reference, image } = this.props;
+    const { classes, reference, image, disabled } = this.props;
     const selected = this.wasSelected();
     //TODO: Add class upon click for visual feedback
 
@@ -89,7 +89,7 @@ class ImageCard extends Component {
               <Button
                 dense
                 color="primary"
-                disabled={selected}
+                disabled={selected || disabled}
                 onClick={() => this.registerSelection(reference)}
               >
                 Add
