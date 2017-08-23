@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const FirebaseComponent = ComponentToWrap => {
-  return class FirebaseComponent extends Component {
+const connectFirebase = ComponentToWrap => {
+  class C extends Component {
     static contextTypes = {
       firebase: PropTypes.object.isRequired,
     };
@@ -10,6 +10,9 @@ const FirebaseComponent = ComponentToWrap => {
       const { firebase } = this.context;
       return <ComponentToWrap {...this.props} firebase={firebase} />;
     }
-  };
+  }
+  C.displayName = `connectFirebase(${ComponentToWrap.displayName ||
+    ComponentToWrap.name})`;
+  return C;
 };
-export default FirebaseComponent;
+export default connectFirebase;
