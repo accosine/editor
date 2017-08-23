@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
 import shortcodes from '../util/shortcodes';
 import Amp from './Amp';
 
-class Preview extends Component {
+class Preview extends PureComponent {
   render() {
-    return <Amp html={marked(shortcodes(this.props.text))} />;
+    const { text, usedShortcodes } = shortcodes(this.props.text);
+    console.log(usedShortcodes);
+    return <Amp html={marked(text)} />;
   }
 }
 

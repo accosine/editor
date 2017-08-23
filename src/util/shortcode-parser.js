@@ -145,6 +145,8 @@ module.exports = {
 
     extra = extra || {};
 
+    const usedShortcodes = [];
+
     for (var name in context) {
       // Allow absence of first char if not alpha numeric. E.g. [#shortcode]...[/shortcode]
 
@@ -169,6 +171,7 @@ module.exports = {
       var matches = buf.match(regex.wrapper);
 
       if (matches) {
+        usedShortcodes.push(name);
         for (var m, data, i = 0, len = matches.length; i < len; i++) {
           m = matches[i];
           data = parseShortcode(name, m);
@@ -182,6 +185,7 @@ module.exports = {
       matches = buf.match(regex.inline);
 
       if (matches) {
+        usedShortcodes.push(name);
         while ((m = matches.shift()) !== undefined) {
           data = parseShortcode(name, m, true);
           buf = buf.replace(
@@ -192,7 +196,7 @@ module.exports = {
       }
     }
 
-    return buf;
+    return { text: buf, usedShortcodes: [...new Set(usedShortcodes)] };
   },
 
   parseInContext: function(buf, context, data) {

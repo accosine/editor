@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Ampdoc from './Ampdoc';
 
 // TODO: style must be universal (and injected from outside) for frontend useage
 const styles = 'amp-carousel amp-img > img { object-fit: contain; }';
 
-class Amp extends Component {
+class Amp extends PureComponent {
   ampedDoc = null;
   container = null;
   shadowRoot = null;
@@ -24,10 +24,6 @@ class Amp extends Component {
 
   componentWillUnmount() {
     this.closeAmpDoc();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.html !== this.props.html;
   }
 
   attachAmpDoc = html => {

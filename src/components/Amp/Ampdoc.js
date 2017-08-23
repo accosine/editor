@@ -1,5 +1,5 @@
 const Ampdoc = (articleText, styles) => {
-  console.log(articleText);
+  // console.log(articleText);
   return `
 <!doctype html>
 <html amp lang="en">
