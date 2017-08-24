@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import List from 'material-ui/List';
+import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import ListIcon from 'material-ui-icons/List';
+import CreateIcon from 'material-ui-icons/Create';
 import { Link } from 'react-router-dom';
 
 const styleSheet = {
   list: {
-    width: 550,
-    flex: 'initial',
-    color: 'red',
-  },
-  listFull: {
-    width: 'auto',
-    flex: 'initial',
+    width: 350,
   },
 };
 
@@ -26,22 +21,25 @@ class Dresser extends Component {
     return (
       <div>
         <Drawer
-          className={classes.list}
           open={this.props.open}
+          onClick={onDrawerClose}
           onRequestClose={onDrawerClose}
         >
           <div>
-            <List disablePadding>
-              <Link to="/editor">
-                <MenuItem onClick={onDrawerClose}>Editor</MenuItem>
-              </Link>
-            </List>
             <List className={classes.list} disablePadding>
-              <Link to="/articles">
-                <MenuItem onClick={onDrawerClose}>Articles</MenuItem>
-              </Link>
+              <ListItem button component={Link} to="/editor">
+                <ListItemIcon>
+                  <CreateIcon />
+                </ListItemIcon>
+                <ListItemText primary="Editor" />
+              </ListItem>
+              <ListItem button component={Link} to="/articles">
+                <ListItemIcon>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText primary="Articles" />
+              </ListItem>
             </List>
-            <hr />
           </div>
         </Drawer>
       </div>

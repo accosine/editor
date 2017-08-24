@@ -62,12 +62,8 @@ class Youtube extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.closeDialog} primary>
-              Cancel
-            </Button>
-            <Button onClick={this.onInsert} primary>
-              Insert
-            </Button>
+            <Button onClick={this.closeDialog}>Cancel</Button>
+            <Button onClick={this.onInsert}>Insert</Button>
           </DialogActions>
         </Dialog>
       </div>
