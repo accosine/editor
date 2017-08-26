@@ -24,6 +24,15 @@ const CoverBox = styled('div', {
   lineHeight: 1,
 });
 
+const AmpComponent = Element => ({ className, ...props }) =>
+  <Element class={className} {...props} />;
+
+const AmpImg = AmpComponent('amp-img');
+
+const ArticleCover = styled(AmpImg, {
+  border: '1px solid red',
+});
+
 const Publication = ({
   children,
   config,
@@ -45,8 +54,7 @@ const Publication = ({
     <Header />
     <main id="main" role="main">
       <figure>
-        <amp-img
-          className="article-cover"
+        <ArticleCover
           width={4}
           height={3}
           src={`/${config.media}/${config.images.small.prefix}${picture}`}
@@ -86,11 +94,11 @@ const Publication = ({
           {subline}
         </h2>
         <div className="cover-box--author">
-          <amp-img
+          <AmpImg
             className="cover-box--author-picture"
             width={4}
             height={4}
-            src={`/${config.assets}/${author.avatar}`}
+            src={`/${config.assets}/${config.authors[author].avatar}`}
             alt={alt}
             attribution={attribution}
             layout="responsive"

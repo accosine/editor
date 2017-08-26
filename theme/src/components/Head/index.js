@@ -1,18 +1,24 @@
 import React from 'react';
 import moment from 'moment';
 
+import Danger from '../../util/Danger';
+
 import HeadPagination from './HeadPagination';
 import SocialmediaMeta from './SocialmediaMeta';
 import Schema from './Schema';
 import SchemaSitename from './SchemaSitename';
 import Font from './Font';
 import StylesAmp from './StylesAmp';
+import StylesCustom from './StylesCustom';
 import ExtendedComponents from './ExtendedComponents';
 import Favicons from './Favicons';
+import AmpScript from '../AmpScript';
 
 const formatDate = (date, format, locale) =>
   moment(date).locale(locale).format(format);
 
+// TODO: stop using dangerouslySetInnerHTML when React 16 supports custom HTML
+// attributes (amp-custom, amp-boilerplate, custom-element, ...
 export default ({
   frontmatter: {
     title,
@@ -32,16 +38,15 @@ export default ({
   config,
   path,
   description,
+  usedShortcodes,
 }) =>
-  <head>
+  <Danger Element="head">
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <title>
-      {title}
-    </title>
+    <title>{title}</title>
     {layout === 'start'
       ? <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
-      : null}
+      : null}{' '}
     {layout === 'publication'
       ? <link
           rel="canonical"
@@ -71,22 +76,21 @@ export default ({
     <meta name="date" content={formatDate(date, 'YYYY-MM-DD', 'de')} />
     <meta name="last-modified" content={formatDate(date, 'YYYY-MM-DD', 'de')} />
     <meta name="description" content={description} />
-    <SocialmediaMeta config={config} frontmatter={{ picture, layout }} />
+    <SocialmediaMeta
+      path={path}
+      config={config}
+      frontmatter={{ picture, layout }}
+    />
     <Schema />
-    {/* tell Google to show the sitename in SERP */}
     <SchemaSitename config={config} />
     <Font />
-    <StylesAmp />
-    <style amp-custom="">
-      {styles}
-    </style>
-    <script
-      async
-      custom-element="amp-analytics"
-      src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
-    />
-    <script async src="https://cdn.ampproject.org/v0.js" />
     <ExtendedComponents />
     <Favicons />
     <meta property="fb:pages" content={config.fbpageid} />
-  </head>;
+    {AmpScript({ name: 'analytics' })}
+    {'<script async src="https://cdn.ampproject.org/v0.js"></script>'}
+    {AmpScript({ name: 'ad' })}
+    {usedShortcodes.map(name => AmpScript({ name }))}
+    {StylesAmp()}
+    {StylesCustom({ styles })}
+  </Danger>;

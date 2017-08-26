@@ -94,6 +94,8 @@ const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
     margin="normal"
   />;
 
+// TODO: add date and date modified to frontmatter
+
 const FrontMatter = props =>
   <div className={props.classes.container}>
     <StyledFrontMatterImagePicker
