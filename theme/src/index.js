@@ -36,7 +36,7 @@ const Layout = ({ styles, body, frontmatter, usedShortcodes }) => [
 
 function render(article, frontmatter) {
   console.time('render time');
-  const styletron = new Styletron();
+  const styletron = new Styletron({ prefix: '_' });
   const { text, usedShortcodes } = shortcodes(article, styletron);
   const { tree: articleTree } = compile(text);
 
