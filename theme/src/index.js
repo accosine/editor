@@ -1,33 +1,24 @@
 import React, { createElement } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Styletron from 'styletron-server';
-import { StyletronProvider, styled } from 'styletron-react';
+import { StyletronProvider } from 'styletron-react';
 import matter from 'gray-matter';
 import marksy from 'marksy';
 import shortcodes from './shortcodes';
 import config from '../config';
 import Head from './components/Head';
 import Publication from './components/Publication';
-import ThemeProvider from './util/ThemeProvider.js';
+import ThemeProvider from './util/ThemeProvider';
+import MarkdownComponents from './components/MarkdownComponents';
 
 import theme from './theme.js';
 
 const fs = require('fs');
 const staticStyles = fs.readFileSync('./styles.css');
 
-const H2 = styled('h2', {
-  color: 'lightblue',
-  fontSize: '20px',
-});
-
 const compile = marksy({
   createElement,
-  elements: {
-    h2: ({ id, children }) =>
-      <H2>
-        {children}
-      </H2>,
-  },
+  elements: MarkdownComponents,
 });
 
 const { data: frontmatter, content } = matter.read('./test.md');

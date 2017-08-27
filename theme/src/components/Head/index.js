@@ -43,10 +43,12 @@ export default ({
   <RecklesslySetInnerHTML Element="head">
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <title>{title}</title>
+    <title>
+      {title}
+    </title>
     {layout === 'start'
       ? <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
-      : null}{' '}
+      : null}
     {layout === 'publication'
       ? <link
           rel="canonical"
@@ -90,6 +92,8 @@ export default ({
     <AmpScript name="analytics" />
     {'<script async src="https://cdn.ampproject.org/v0.js"></script>'}
     <AmpScript name="ad" />
+    <AmpScript name="user-notification" />
+    <AmpScript name="sidebar" />
     {usedShortcodes.map((name, index) => <AmpScript key={index} name={name} />)}
     <StylesAmp />
     <StylesCustom styles={styles} />
