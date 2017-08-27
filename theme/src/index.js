@@ -84,6 +84,9 @@ const server = http.createServer((req, res) => {
       'static',
       unescape(url.parse(req.url).pathname)
     );
+    if (path.extname(filename).split('.').reverse()[0] === 'svg') {
+      res.setHeader('Content-Type', 'image/svg+xml');
+    }
     const stream = fs.createReadStream(filename);
     stream.on('error', function(error) {
       console.log('Caught', error);

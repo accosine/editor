@@ -76,7 +76,7 @@ const Publication = ({
     <Sharebuttons />
   </main>,
   <aside />,
-  <Footer />,
+  <Footer config={config} />,
   lightbox ? <amp-image-lightbox id="lightbox1" layout="nodisplay" /> : null,
   <Menu />,
 ];
