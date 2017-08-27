@@ -8,8 +8,14 @@ import shortcodes from './shortcodes';
 import config from '../config';
 import Head from './components/Head';
 import Publication from './components/Publication';
+import ThemeProvider from './util/ThemeProvider.js';
 
-const H1 = styled('h1', {
+import theme from './theme.js';
+
+const fs = require('fs');
+const staticStyles = fs.readFileSync('./styles.css');
+
+const H2 = styled('h2', {
   color: 'lightblue',
   fontSize: '20px',
 });
@@ -17,10 +23,10 @@ const H1 = styled('h1', {
 const compile = marksy({
   createElement,
   elements: {
-    h1: ({ id, children }) =>
-      <H1>
+    h2: ({ id, children }) =>
+      <H2>
         {children}
-      </H1>,
+      </H2>,
   },
 });
 
@@ -41,13 +47,15 @@ function render(article, frontmatter) {
   console.time('render time');
   const styletron = new Styletron();
   const { text, usedShortcodes } = shortcodes(article, styletron);
-  const { tree } = compile(text);
+  const { tree: articleTree } = compile(text);
 
   const appMarkup = ReactDOMServer.renderToStaticMarkup(
     <StyletronProvider styletron={styletron}>
-      <Publication frontmatter={frontmatter} config={config}>
-        {tree}
-      </Publication>
+      <ThemeProvider theme={theme}>
+        <Publication frontmatter={frontmatter} config={config}>
+          {articleTree}
+        </Publication>
+      </ThemeProvider>
     </StyletronProvider>
   );
 
@@ -58,7 +66,7 @@ function render(article, frontmatter) {
       <Layout
         frontmatter={frontmatter}
         config={config}
-        styles={styletron.getCss()}
+        styles={staticStyles + styletron.getCss()}
         body={appMarkup}
         usedShortcodes={usedShortcodes}
       />
@@ -70,6 +78,8 @@ function render(article, frontmatter) {
 }
 
 const http = require('http');
+const url = require('url');
+const path = require('path');
 const hostname = '0.0.0.0';
 const port = 3000;
 const server = http.createServer((req, res) => {
@@ -78,8 +88,18 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.end(render(content, frontmatter));
   } else {
-    res.statusCode = 404;
-    res.end();
+    const filename = path.join(
+      process.cwd(),
+      'static',
+      unescape(url.parse(req.url).pathname)
+    );
+    const stream = fs.createReadStream(filename);
+    stream.on('error', function(error) {
+      console.log('Caught', error);
+      res.statusCode = 404;
+      res.end();
+    });
+    stream.pipe(res);
   }
 });
 server.listen(port, hostname, () => {

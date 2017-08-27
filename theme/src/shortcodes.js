@@ -186,10 +186,12 @@ const shortcodes = {
               layout="responsive">
             </amp-vimeo></div>`,
   youtube: (str, params, { styletron }) => {
-    const className = styletron.injectDeclaration({
-      prop: 'border',
-      val: '1px solid red',
-    });
+    const className = styletron.injectDeclaration(
+      {
+        // prop: 'border',
+        // val: '1px solid red',
+      }
+    );
     return oneLine`<div class=${className}><amp-youtube
               data-videoid="${params.videoid || ''}"
               width=${params.width || 480}

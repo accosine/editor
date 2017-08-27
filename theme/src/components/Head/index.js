@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import Danger from '../../util/Danger';
+import RecklesslySetInnerHTML from '../../util/RecklesslySetInnerHTML';
 
 import HeadPagination from './HeadPagination';
 import SocialmediaMeta from './SocialmediaMeta';
@@ -40,7 +40,7 @@ export default ({
   description,
   usedShortcodes,
 }) =>
-  <Danger Element="head">
+  <RecklesslySetInnerHTML Element="head">
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <title>{title}</title>
@@ -87,10 +87,10 @@ export default ({
     <ExtendedComponents />
     <Favicons />
     <meta property="fb:pages" content={config.fbpageid} />
-    {AmpScript({ name: 'analytics' })}
+    <AmpScript name="analytics" />
     {'<script async src="https://cdn.ampproject.org/v0.js"></script>'}
-    {AmpScript({ name: 'ad' })}
-    {usedShortcodes.map(name => AmpScript({ name }))}
-    {StylesAmp()}
-    {StylesCustom({ styles })}
-  </Danger>;
+    <AmpScript name="ad" />
+    {usedShortcodes.map((name, index) => <AmpScript key={index} name={name} />)}
+    <StylesAmp />
+    <StylesCustom styles={styles} />
+  </RecklesslySetInnerHTML>;

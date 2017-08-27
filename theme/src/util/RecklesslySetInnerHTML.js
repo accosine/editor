@@ -1,5 +1,6 @@
 import React, { Children } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import decode from 'unescape';
 
 export default ({ children, Element }) =>
   <Element
@@ -8,7 +9,7 @@ export default ({ children, Element }) =>
         children,
         child =>
           React.isValidElement(child)
-            ? ReactDOMServer.renderToStaticMarkup(child)
+            ? decode(ReactDOMServer.renderToStaticMarkup(child))
             : child
       ).join(''),
     }}
