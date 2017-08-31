@@ -10,6 +10,7 @@ import Head from './components/Head';
 import Publication from './components/Publication';
 import ThemeProvider from './util/ThemeProvider';
 import MarkdownComponents from './components/MarkdownComponents';
+import getAmpScripts from './util/getAmpScripts';
 
 import theme from './theme.js';
 
@@ -23,13 +24,13 @@ const compile = marksy({
 
 const { data: frontmatter, content } = matter.read('./test.md');
 
-const Layout = ({ styles, body, frontmatter, usedShortcodes }) => [
+const Layout = ({ styles, body, frontmatter, ampScripts }) => [
   <Head
     path={`${config.categories[frontmatter.collection]}/${frontmatter.slug}`}
     frontmatter={frontmatter}
     config={config}
     styles={styles}
-    usedShortcodes={usedShortcodes}
+    ampScripts={ampScripts}
   />,
   <body dangerouslySetInnerHTML={{ __html: body }} />,
 ];
@@ -40,10 +41,16 @@ function render(article, frontmatter) {
   const { text, usedShortcodes } = shortcodes(article, styletron);
   const { tree: articleTree } = compile(text);
 
+  const ampScripts = getAmpScripts(usedShortcodes);
+
   const appMarkup = ReactDOMServer.renderToStaticMarkup(
     <StyletronProvider styletron={styletron}>
       <ThemeProvider theme={theme}>
-        <Publication frontmatter={frontmatter} config={config}>
+        <Publication
+          styletron={styletron}
+          frontmatter={frontmatter}
+          config={config}
+        >
           {articleTree}
         </Publication>
       </ThemeProvider>
@@ -59,7 +66,7 @@ function render(article, frontmatter) {
         config={config}
         styles={staticStyles + styletron.getCss()}
         body={appMarkup}
-        usedShortcodes={usedShortcodes}
+        ampScripts={ampScripts}
       />
     ) +
     '</html>';

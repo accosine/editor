@@ -38,7 +38,7 @@ export default ({
   config,
   path,
   description,
-  usedShortcodes,
+  ampScripts,
 }) =>
   <RecklesslySetInnerHTML Element="head">
     <meta charSet="utf-8" />
@@ -94,7 +94,7 @@ export default ({
     <AmpScript name="ad" />
     <AmpScript name="user-notification" />
     <AmpScript name="sidebar" />
-    {usedShortcodes.map((name, index) => <AmpScript key={index} name={name} />)}
+    {ampScripts.map((name, index) => <AmpScript key={index} name={name} />)}
     <StylesAmp />
     <StylesCustom styles={styles} />
   </RecklesslySetInnerHTML>;

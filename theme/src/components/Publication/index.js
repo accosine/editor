@@ -10,11 +10,13 @@ import Sharebuttons from './Sharebuttons';
 import Menu from './Menu';
 import Footer from './Footer';
 import CoverBox from './CoverBox';
+import AdContainer from '../AdContainer';
 
 const AmpImg = AmpComponent('amp-img');
 
 const Publication = ({
   children,
+  styletron,
   config,
   frontmatter: {
     date,
@@ -26,11 +28,14 @@ const Publication = ({
     headline,
     subline,
     lightbox,
+    slug,
+    title,
+    category,
   },
 }) => [
-  <Analytics />,
-  <SvgSpritemap />,
-  <Header />,
+  <Analytics accountId={config.googleanalytics} />,
+  <SvgSpritemap styletron={styletron} />,
+  <Header styletron={styletron} />,
   <main id="main" role="main">
     <figure>
       <AmpImg
@@ -61,24 +66,27 @@ const Publication = ({
       subline={subline}
       date={date}
     />
-    <Sharebuttons />
-    <div className="ad--container">
-      <amp-ad
-        width={300}
-        height={250}
-        type="doubleclick"
-        data-slot="/35289663/nausika.de_(Code)"
-      />
-    </div>
+    <Sharebuttons
+      slug={slug}
+      title={title}
+      category={collection}
+      config={config}
+    />
+    <AdContainer adnetwork={config.ads.adnetwork} adslot={config.ads.adslot} />
     <article>
       {children}
     </article>
-    <Sharebuttons />
+    <Sharebuttons
+      slug={slug}
+      title={title}
+      category={collection}
+      config={config}
+    />
   </main>,
   <aside />,
   <Footer config={config} />,
   lightbox ? <amp-image-lightbox id="lightbox1" layout="nodisplay" /> : null,
-  <Menu />,
+  <Menu config={config} />,
 ];
 
 Publication.propTypes = {
