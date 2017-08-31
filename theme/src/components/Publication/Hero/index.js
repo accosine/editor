@@ -3,6 +3,26 @@ import AmpComponent from '../../AmpComponent';
 import { styled } from 'styletron-react';
 import withTheme from '../../../util/withTheme';
 import formatDate from '../../../util/formatDate';
+import { oneLine } from 'common-tags';
+const AmpImg = AmpComponent('amp-img');
+
+const Picture = styled('figcaption', {
+  position: 'relative',
+});
+
+const PictureAttribution = styled('figcaption', {
+  color: 'aliceblue',
+  fontSize: '2.5vw',
+  margin: '3vw 5vw',
+  position: 'absolute',
+  right: '1vw',
+  textShadow: '1px 1px black',
+  top: 0,
+  '@media screen and (min-width: 1024px)': {
+    fontSize: '10px',
+    margin: '1vw 0vw',
+  },
+});
 
 const Container = styled('div', {
   margin: '0 auto',
@@ -96,10 +116,10 @@ const Subline = withTheme(
     },
   }))
 );
-styled('h2', {});
 
 export default ({
   config,
+  picture,
   category,
   date,
   headline,
@@ -107,29 +127,39 @@ export default ({
   attribution,
   author,
   alt,
-}) =>
+}) => [
+  <Picture>
+    <AmpImg
+      width={4}
+      height={3}
+      src={`/${config.media}/${config.images.small.prefix}${picture}`}
+      srcset={oneLine`/${config.media}/${config.images.large
+        .prefix}${picture} ${config.images.large.size},
+                  /${config.media}/${config.images.medium
+        .prefix}${picture} ${config.images.medium.size},
+                  /${config.media}/${config.images.small
+        .prefix}${picture} ${config.images.small.size}`}
+      alt={alt}
+      attribution={attribution}
+      layout="responsive"
+    />
+    <PictureAttribution>{attribution}</PictureAttribution>
+  </Picture>,
   <Container>
-    <Breadcrumbs category={category.toLowerCase()}>
-      <A category={category.toLowerCase()} href="/">
+    <Breadcrumbs category={category}>
+      <A category={category} href="/">
         Start
       </A>
       {' > '}
-      <A
-        category={category.toLowerCase()}
-        href={`/${config.categories[category]}/`}
-      >
+      <A category={category} href={`/${config.categories[category]}/`}>
         {category}
       </A>
     </Breadcrumbs>
     <Time dateTime={formatDate(date, 'YYYY-MM-DD', 'en')}>
       {formatDate(date, 'DD. MMMM YYYY', 'de')}
     </Time>
-    <Headline>
-      {headline}
-    </Headline>
-    <Subline category={category.toLowerCase()}>
-      {subline}
-    </Subline>
+    <Headline>{headline}</Headline>
+    <Subline category={category}>{subline}</Subline>
     <Author>
       <AuthorPicture
         width={4}
@@ -140,7 +170,6 @@ export default ({
         layout="responsive"
       />
     </Author>
-    <AuthorName>
-      {config.authors[author].name}
-    </AuthorName>
-  </Container>;
+    <AuthorName>{config.authors[author].name}</AuthorName>
+  </Container>,
+];

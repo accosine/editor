@@ -50,9 +50,7 @@ class Playbuzz extends Component {
           Playbuzz Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Playbuzz shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Playbuzz shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField

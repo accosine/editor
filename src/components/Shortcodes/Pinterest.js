@@ -48,9 +48,7 @@ class Pinterest extends Component {
           Pinterest
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Pinterest shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Pinterest shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField

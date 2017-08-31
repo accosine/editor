@@ -48,9 +48,7 @@ class Iframe extends Component {
           Iframe
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Iframe shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Iframe shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField

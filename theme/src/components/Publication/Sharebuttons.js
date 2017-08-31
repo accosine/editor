@@ -53,6 +53,9 @@ const Twitter = withTheme(
 const Whatsapp = withTheme(
   styled(SocialIcon, ({ theme }) => ({
     backgroundColor: theme.whatsappgruen,
+    '@media screen and (min-width: 1024px)': {
+      display: 'none',
+    },
   }))
 );
 
@@ -74,7 +77,7 @@ export default ({
   title,
   category,
   config: { categories, protocol, domain, organization },
-}) =>
+}) => (
   <Container>
     <Link
       href={`https://facebook.com/sharer/sharer.php?u=${protocol}://${domain}/${categories[
@@ -93,7 +96,7 @@ export default ({
     <Link
       href={`whatsapp://send?text=${protocol}://${domain}/${categories[
         category
-      ]}/${slug}} ${encodeURIComponent(title)}`}
+      ]}/${slug} ${encodeURIComponent(title)}`}
       data-action="share/whatsapp/share"
       target="_blank"
       rel="noopener noreferrer"
@@ -119,4 +122,5 @@ export default ({
         <SocialIconText id="social-icon--twitter-text">TWEETEN</SocialIconText>
       </Twitter>
     </Link>
-  </Container>;
+  </Container>
+);

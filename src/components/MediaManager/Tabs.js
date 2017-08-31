@@ -12,10 +12,9 @@ const styleSheet = {
   },
 };
 
-const TabContainer = props =>
-  <div style={{ padding: 24 }}>
-    {props.children}
-  </div>;
+const TabContainer = props => (
+  <div style={{ padding: 24 }}>{props.children}</div>
+);
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -60,23 +59,23 @@ class MediaManagerTabs extends Component {
     } = this.context;
 
     const content =
-      index === 0
-        ? <TabContainer>
-            <ImageUploader switchTab={handleTabChange} />
-          </TabContainer>
-        : index === 1
-          ? <TabContainer>
-              <ImagePicker
-                onSelection={onSelection}
-                selection={selection}
-                onCarouselSettings={onCarouselSettings}
-                carouselSettings={carouselSettings}
-                multiple={multiple}
-              />
-            </TabContainer>
-          : <TabContainer>
-              {'Item Three'}
-            </TabContainer>;
+      index === 0 ? (
+        <TabContainer>
+          <ImageUploader switchTab={handleTabChange} />
+        </TabContainer>
+      ) : index === 1 ? (
+        <TabContainer>
+          <ImagePicker
+            onSelection={onSelection}
+            selection={selection}
+            onCarouselSettings={onCarouselSettings}
+            carouselSettings={carouselSettings}
+            multiple={multiple}
+          />
+        </TabContainer>
+      ) : (
+        <TabContainer>{'Item Three'}</TabContainer>
+      );
 
     return (
       <div>

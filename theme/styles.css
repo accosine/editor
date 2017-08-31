@@ -112,8 +112,8 @@ footer ul li a {
   flex-direction: column;
 }
 #nausika--logotext-use {
-  /* display: block; */
-  /* margin: 0 auto; */
+  display: block;
+  margin: 0 auto;
 }
 #nausika--footersvg {
   margin: 0 auto;
@@ -136,11 +136,11 @@ footer ul li a {
   margin-left: 15vw;
 }
 .nausika--logo-outerbubble {
-  /* stroke: #000; */
+  stroke: #000;
 }
 .nausika--logo-innerbubble {
-  /* fill: rgba(255, 255, 255, 0.7); */
-  /* stroke: #333; */
+  fill: rgba(255, 255, 255, 0.7);
+  stroke: #333;
 }
 .nausika--logo-gurl {
   margin: 10vw auto 0 auto;
@@ -171,7 +171,7 @@ footer ul li a {
     width: 35vw;
   }
   #menu li {
-    padding: .3vw 0;
+    padding: 0.3vw 0;
     list-style: none;
   }
   #menu nav ul {
@@ -315,9 +315,9 @@ article > p:first-of-type:first-letter {
 #social-icon--whatsapp-use,
 #social-icon--facebook-svg,
 #social-icon--facebook-use {
-  /* height: 8vw; */
-  /* padding: 2vw 0 2vw 1vw; */
-  /* width: 9vw; */
+  height: 8vw;
+  padding: 2vw 0 2vw 1vw;
+  width: 9vw;
 }
 #social-icon--twitter-text,
 #social-icon--whatsapp-text,

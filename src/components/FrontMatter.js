@@ -52,29 +52,29 @@ class FrontMatterImagePicker extends Component {
         <Button dense onClick={this.openDialog} className={classes.button}>
           Img
         </Button>
-        {this.state.open
-          ? <Dialog
-              fullScreen
-              open={this.state.open}
-              onRequestClose={this.closeDialog}
-              transition={<Slide direction="up" />}
+        {this.state.open ? (
+          <Dialog
+            fullScreen
+            open={this.state.open}
+            onRequestClose={this.closeDialog}
+            transition={<Slide direction="up" />}
+          >
+            <MediaManager
+              onInsert={selected => {
+                onInsert(selected);
+                this.closeDialog();
+              }}
+              onCancel={this.closeDialog}
             >
-              <MediaManager
-                onInsert={selected => {
-                  onInsert(selected);
-                  this.closeDialog();
-                }}
-                onCancel={this.closeDialog}
-              >
-                <DialogContent>
-                  <MediaManagerTabs />
-                </DialogContent>
-                <DialogActions>
-                  <MediaManagerActions />
-                </DialogActions>
-              </MediaManager>
-            </Dialog>
-          : null}
+              <DialogContent>
+                <MediaManagerTabs />
+              </DialogContent>
+              <DialogActions>
+                <MediaManagerActions />
+              </DialogActions>
+            </MediaManager>
+          </Dialog>
+        ) : null}
       </div>
     );
   }
@@ -84,7 +84,7 @@ const StyledFrontMatterImagePicker = withStyles(imagePickerStyleSheet)(
   FrontMatterImagePicker
 );
 
-const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
+const FrontMatterTextfield = ({ id, onChange, classes, ...props }) => (
   <TextField
     className={classes.textField}
     id={id}
@@ -92,11 +92,12 @@ const FrontMatterTextfield = ({ id, onChange, classes, ...props }) =>
     value={props[id]}
     onChange={event => onChange({ [id]: event.target.value })}
     margin="normal"
-  />;
+  />
+);
 
 // TODO: add date and date modified to frontmatter
 
-const FrontMatter = props =>
+const FrontMatter = props => (
   <div className={props.classes.container}>
     <StyledFrontMatterImagePicker
       onInsert={selected => {
@@ -117,7 +118,8 @@ const FrontMatter = props =>
     <FrontMatterTextfield id="attribution" {...props} />
     <FrontMatterTextfield id="alt" {...props} />
     <FrontMatterTextfield id="slug" {...props} />
-  </div>;
+  </div>
+);
 
 FrontMatter.propTypes = {
   title: PropTypes.string.isRequired,

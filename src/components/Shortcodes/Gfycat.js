@@ -52,9 +52,7 @@ class Gfycat extends Component {
           Gfycat
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Gfycat shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Gfycat shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               To specify the width and height in the code, copy it from the

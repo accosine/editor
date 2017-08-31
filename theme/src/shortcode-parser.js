@@ -101,10 +101,12 @@ function parseShortcode(name, buf, inline) {
     }
   }
 
-  attr = Object.keys(attr).reverse().reduce(function(prev, current) {
-    prev[current] = attr[current];
-    return prev;
-  }, {});
+  attr = Object.keys(attr)
+    .reverse()
+    .reduce(function(prev, current) {
+      prev[current] = attr[current];
+      return prev;
+    }, {});
 
   buf = buf
     .replace(regex, '')

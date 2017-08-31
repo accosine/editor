@@ -28,7 +28,7 @@ module.exports.musikgelbsubline = '#ECE00C';
 module.exports.musikverlauf = '#63BF44, #FF5900';
 module.exports.musikgelbtransparent = 'rgba(236,224,12,0.8)';
 
-module.exports.musik = {
+module.exports.Musik = {
   color: '#CBC14D',
   subline: '#ECE00C',
   verlauf: '#63BF44, #FF5900',

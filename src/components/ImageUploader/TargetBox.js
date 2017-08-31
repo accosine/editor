@@ -23,9 +23,7 @@ class TargetBox extends Component {
     const isActive = canDrop && isOver;
 
     return connectDropTarget(
-      <div style={style}>
-        {isActive ? 'Release to drop' : 'Drag file here'}
-      </div>
+      <div style={style}>{isActive ? 'Release to drop' : 'Drag file here'}</div>
     );
   }
 }

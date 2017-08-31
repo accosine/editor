@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 
-const TabContainer = props =>
-  <div style={{ padding: 24 }}>
-    {props.children}
-  </div>;
+const TabContainer = props => (
+  <div style={{ padding: 24 }}>{props.children}</div>
+);
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -37,10 +36,11 @@ class MediaManagerActions extends Component {
     } = this.context;
     return (
       <div>
-        {index > 0 &&
+        {index > 0 && (
           <Button disabled={!selection.length} onClick={onInsert}>
             Insert
-          </Button>}
+          </Button>
+        )}
         <Button onClick={onCancel}>Cancel</Button>
       </div>
     );

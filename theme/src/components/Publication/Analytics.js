@@ -1,5 +1,5 @@
 import React from 'react';
-export default ({ accountId }) =>
+export default ({ accountId }) => (
   <amp-analytics type="googleanalytics" id="analytics1">
     <script
       type="application/json"
@@ -17,4 +17,5 @@ export default ({ accountId }) =>
         }),
       }}
     />
-  </amp-analytics>;
+  </amp-analytics>
+);

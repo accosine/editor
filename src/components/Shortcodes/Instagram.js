@@ -51,9 +51,7 @@ class Instagram extends Component {
           Instagram
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {"Use Google's location service?"}
-          </DialogTitle>
+          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Let Google help apps determine location. This means sending

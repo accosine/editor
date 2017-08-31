@@ -18,3 +18,7 @@ type: artikel
 Schon lange vor Til Schweiger und Moritz Bleibtreu klopfte ein ganz anderer an Petrus’ Pforte und unterstrich mit diesem Song, warum er einer der besten, wenn nicht der beste Singer/Songwriter aller Zeiten ist. Bob Dylan gilt als die Stimme einer Generation und das, obwohl er neben seiner Musik fast nie seine Stimme gegen oder für etwas erhob. Im Gegenteil – er scheut sogar bis heute jegliche Öffentlichkeitsarbeit und Auftritte auf Veranstaltungen, zu denen er eingeladen wird. Sein Management gab zwar offiziell bekannt, dass der Mundharmonika-Virtuose den Literaturnobelpreis 2016 annehme, ob er allerdings persönlich auf der Preisverleihung auftauchen, geschweige denn ein paar Worte sagen werde, bleibt mehr als fragwürdig. Robert Zimmerman, wie Bob mit bürgerlichem Namen heißt, inspiriert bis heute unzählige Musiker. Musiker, die wie Bob Dylan selbst bereits Legendenstatus erreicht haben, wie beispielsweise ein gewisser Tom Petty, mit dem er 1986 gemeinsam "Knockin’ On Heaven’s Door" performte.
 [youtube videoid="UtWhioqshtw"]
 
+> dfjs asdkjf asdklfjasldkfj
+>  asdf
+>  asdf
+>  asdfasdfasdf

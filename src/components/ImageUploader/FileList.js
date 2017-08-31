@@ -30,11 +30,7 @@ class FileList extends Component {
       return <div>Nothing to display</div>;
     }
 
-    return (
-      <div className={classes.fileList}>
-        {this.list(files)}
-      </div>
-    );
+    return <div className={classes.fileList}>{this.list(files)}</div>;
   }
 }
 

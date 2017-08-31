@@ -1,6 +1,17 @@
 import React from 'react';
 import { oneLine } from 'common-tags';
 import { injectStyle } from 'styletron-utils';
+import { styled } from 'styletron-react';
+
+const Header = styled('header', {
+  display: 'flex',
+  left: 0,
+  marginTop: '2vw',
+  position: 'fixed',
+  width: '100%',
+  zIndex: 2,
+});
+
 export default ({ styletron }) => {
   const hamburger = injectStyle(styletron, {
     position: 'relative',
@@ -44,7 +55,7 @@ export default ({ styletron }) => {
   });
 
   return (
-    <header
+    <Header
       dangerouslySetInnerHTML={{
         __html: oneLine`
     <div on="tap:menu" role="button" tabindex="0" class="${hamburger}">

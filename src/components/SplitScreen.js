@@ -266,8 +266,9 @@ class SplitScreen extends Component {
             >
               <SaveIcon />
             </Button>
-            {isSaving &&
-              <CircularProgress size={60} className={classes.progress} />}
+            {isSaving && (
+              <CircularProgress size={60} className={classes.progress} />
+            )}
           </div>
         </div>
       </Grid>

@@ -94,17 +94,19 @@ class FilePreview extends Component {
             </CardContent>
           </div>
           <div className={classes.cover}>
-            {loaded
-              ? <img
-                  onLoad={event => {
-                    file.width = event.target.width;
-                    file.height = event.target.height;
-                  }}
-                  className={classes.image}
-                  src={this.reader.result}
-                  alt=""
-                />
-              : <CircularProgress />}
+            {loaded ? (
+              <img
+                onLoad={event => {
+                  file.width = event.target.width;
+                  file.height = event.target.height;
+                }}
+                className={classes.image}
+                src={this.reader.result}
+                alt=""
+              />
+            ) : (
+              <CircularProgress />
+            )}
           </div>
         </Card>
       </div>

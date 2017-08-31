@@ -39,7 +39,11 @@ function render(article, frontmatter) {
   console.time('render time');
   const styletron = new Styletron({ prefix: '_' });
   const { text, usedShortcodes } = shortcodes(article, styletron);
-  const { tree: articleTree } = compile(text);
+  const { tree: articleTree } = compile(
+    text,
+    { sanitize: false },
+    { category: frontmatter.collection }
+  );
 
   const ampScripts = getAmpScripts(usedShortcodes);
 
@@ -91,7 +95,12 @@ const server = http.createServer((req, res) => {
       'static',
       unescape(url.parse(req.url).pathname)
     );
-    if (path.extname(filename).split('.').reverse()[0] === 'svg') {
+    if (
+      path
+        .extname(filename)
+        .split('.')
+        .reverse()[0] === 'svg'
+    ) {
       res.setHeader('Content-Type', 'image/svg+xml');
     }
     const stream = fs.createReadStream(filename);

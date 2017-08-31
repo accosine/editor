@@ -52,9 +52,7 @@ class Twitter extends Component {
           Twitter Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Twitter shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Twitter shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField

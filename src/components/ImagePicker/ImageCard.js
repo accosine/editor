@@ -75,15 +75,9 @@ class ImageCard extends Component {
               <Typography type="headline" component="h2">
                 {image.name}
               </Typography>
-              <Typography component="p">
-                {image.caption}
-              </Typography>
-              <Typography component="p">
-                {image.attribution}
-              </Typography>
-              <Typography component="p">
-                {image.alt}
-              </Typography>
+              <Typography component="p">{image.caption}</Typography>
+              <Typography component="p">{image.attribution}</Typography>
+              <Typography component="p">{image.alt}</Typography>
             </CardContent>
             <CardActions>
               <Button

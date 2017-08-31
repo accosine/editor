@@ -55,9 +55,7 @@ class FitText extends Component {
           Fit-Text
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert FitText shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert FitText shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Min: min font size Max: max font size

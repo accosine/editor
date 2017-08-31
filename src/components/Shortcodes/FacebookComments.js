@@ -48,9 +48,7 @@ class FacebookComments extends Component {
           Facebook Comments
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Facebook Comments shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Facebook Comments shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField

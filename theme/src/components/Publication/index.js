@@ -1,18 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { oneLine } from 'common-tags';
+import { styled } from 'styletron-react';
 
-import AmpComponent from '../AmpComponent';
 import Analytics from './Analytics';
 import SvgSpritemap from './SvgSpritemap';
 import Header from './Header';
 import Sharebuttons from './Sharebuttons';
 import Menu from './Menu';
 import Footer from './Footer';
-import CoverBox from './CoverBox';
+import Hero from './Hero';
 import AdContainer from '../AdContainer';
 
-const AmpImg = AmpComponent('amp-img');
+const Container = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  fontFamily: 'Roboto, sans-serif',
+  '@media screen and (min-width: 1024px)': {
+    alignItems: 'center',
+  },
+});
+
+const Main = styled('main', {
+  backgroundColor: '#f9fafb',
+  marginTop: '23vw',
+  '@media screen and (min-width: 1024px)': {
+    width: '50vw',
+    marginTop: '11vw',
+  },
+});
+
+const Article = styled('article', {
+  position: 'relative',
+});
 
 const Publication = ({
   children,
@@ -20,7 +39,7 @@ const Publication = ({
   config,
   frontmatter: {
     date,
-    collection,
+    collection: category,
     attribution,
     author,
     picture,
@@ -30,64 +49,48 @@ const Publication = ({
     lightbox,
     slug,
     title,
-    category,
   },
-}) => [
-  <Analytics accountId={config.googleanalytics} />,
-  <SvgSpritemap styletron={styletron} />,
-  <Header styletron={styletron} />,
-  <main id="main" role="main">
-    <figure>
-      <AmpImg
-        width={4}
-        height={3}
-        src={`/${config.media}/${config.images.small.prefix}${picture}`}
-        srcset={oneLine`/${config.media}/${config.images.large
-          .prefix}${picture} ${config.images.large.size},
-                  /${config.media}/${config.images.medium
-          .prefix}${picture} ${config.images.medium.size},
-                  /${config.media}/${config.images.small
-          .prefix}${picture} ${config.images.small.size}`}
+}) => (
+  <Container>
+    <Analytics accountId={config.googleanalytics} />
+    <SvgSpritemap styletron={styletron} />
+    <Header styletron={styletron} />
+    <Main id="main" role="main">
+      <Hero
+        config={config}
+        category={category}
+        picture={picture}
+        author={author}
         alt={alt}
         attribution={attribution}
-        layout="responsive"
+        headline={headline}
+        subline={subline}
+        date={date}
       />
-      <figcaption className="article-caption">
-        {attribution}
-      </figcaption>
-    </figure>
-    <CoverBox
-      config={config}
-      category={collection}
-      author={author}
-      alt={alt}
-      attribution={attribution}
-      headline={headline}
-      subline={subline}
-      date={date}
-    />
-    <Sharebuttons
-      slug={slug}
-      title={title}
-      category={collection}
-      config={config}
-    />
-    <AdContainer adnetwork={config.ads.adnetwork} adslot={config.ads.adslot} />
-    <article>
-      {children}
-    </article>
-    <Sharebuttons
-      slug={slug}
-      title={title}
-      category={collection}
-      config={config}
-    />
-  </main>,
-  <aside />,
-  <Footer config={config} />,
-  lightbox ? <amp-image-lightbox id="lightbox1" layout="nodisplay" /> : null,
-  <Menu config={config} />,
-];
+      <Sharebuttons
+        slug={slug}
+        title={title}
+        category={category}
+        config={config}
+      />
+      <AdContainer
+        adnetwork={config.ads.adnetwork}
+        adslot={config.ads.adslot}
+      />
+      <Article>{children}</Article>
+      <Sharebuttons
+        slug={slug}
+        title={title}
+        category={category}
+        config={config}
+      />
+    </Main>
+    <aside />
+    <Footer config={config} />
+    {lightbox ? <amp-image-lightbox id="lightbox1" layout="nodisplay" /> : null}
+    <Menu styletron={styletron} config={config} />
+  </Container>
+);
 
 Publication.propTypes = {
   children: PropTypes.node.isRequired,

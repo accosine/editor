@@ -67,9 +67,7 @@ class Soundcloud extends Component {
           Soundcloud
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {"Use Google's location service?"}
-          </DialogTitle>
+          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Let Google help apps determine location. This means sending
@@ -89,14 +87,13 @@ class Soundcloud extends Component {
               }
               label="Visual Mode"
             />
-            {!isVisual
-              ? <TextField
-                  label="Color"
-                  value={color}
-                  onChange={event =>
-                    this.setState({ color: event.target.value })}
-                />
-              : null}
+            {!isVisual ? (
+              <TextField
+                label="Color"
+                value={color}
+                onChange={event => this.setState({ color: event.target.value })}
+              />
+            ) : null}
             <TextField
               label="Height"
               type="number"

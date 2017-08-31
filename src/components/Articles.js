@@ -48,13 +48,13 @@ class Articles extends Component {
               justify={'center'}
               spacing={16}
             >
-              {Object.keys(this.state.articles).map((key, index) =>
+              {Object.keys(this.state.articles).map((key, index) => (
                 <Paper key={key} className={classes.articlecard} elevation={4}>
                   <Link to={`/editor/${key}`}>
                     {this.state.articles[key].title}
                   </Link>
                 </Paper>
-              )}
+              ))}
             </Grid>
           </Grid>
         </Grid>

@@ -79,25 +79,29 @@ class ImagePicker extends Component {
 
     return (
       <div className={classes.container}>
-        {this.state.selected.length > 1 && multiple
-          ? <CarouselSettings
-              onCarouselSettings={onCarouselSettings}
-              carouselSettings={carouselSettings}
-            />
-          : ''}
-        {Object.keys(this.state.images).length
-          ? Object.keys(this.state.images).map((key, index) =>
-              <div key={key}>
-                <ImageCard
-                  disabled={!multiple && this.state.selected.length >= 1}
-                  addSelection={this.addSelection}
-                  image={this.state.images[key]}
-                  reference={key}
-                  {...rest}
-                />
-              </div>
-            )
-          : 'No images uploaded yet.'}
+        {this.state.selected.length > 1 && multiple ? (
+          <CarouselSettings
+            onCarouselSettings={onCarouselSettings}
+            carouselSettings={carouselSettings}
+          />
+        ) : (
+          ''
+        )}
+        {Object.keys(this.state.images).length ? (
+          Object.keys(this.state.images).map((key, index) => (
+            <div key={key}>
+              <ImageCard
+                disabled={!multiple && this.state.selected.length >= 1}
+                addSelection={this.addSelection}
+                image={this.state.images[key]}
+                reference={key}
+                {...rest}
+              />
+            </div>
+          ))
+        ) : (
+          'No images uploaded yet.'
+        )}
       </div>
     );
   }

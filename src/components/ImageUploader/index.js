@@ -145,8 +145,9 @@ class ImageUploader extends Component {
             >
               <SaveIcon />
             </Button>
-            {isUploading &&
-              <CircularProgress size={60} className={classes.progress} />}
+            {isUploading && (
+              <CircularProgress size={60} className={classes.progress} />
+            )}
           </div>
         </div>
       </DragDropContextProvider>

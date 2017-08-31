@@ -60,27 +60,27 @@ class Img extends Component {
         <Button dense onClick={this.openDialog} className={classes.button}>
           Img
         </Button>
-        {this.state.open
-          ? <Dialog
-              fullScreen
-              open={this.state.open}
-              onRequestClose={this.closeDialog}
-              transition={<Slide direction="up" />}
+        {this.state.open ? (
+          <Dialog
+            fullScreen
+            open={this.state.open}
+            onRequestClose={this.closeDialog}
+            transition={<Slide direction="up" />}
+          >
+            <MediaManager
+              onInsert={this.onInsert}
+              onCancel={this.closeDialog}
+              multiple
             >
-              <MediaManager
-                onInsert={this.onInsert}
-                onCancel={this.closeDialog}
-                multiple
-              >
-                <DialogContent>
-                  <MediaManagerTabs />
-                </DialogContent>
-                <DialogActions>
-                  <MediaManagerActions />
-                </DialogActions>
-              </MediaManager>
-            </Dialog>
-          : null}
+              <DialogContent>
+                <MediaManagerTabs />
+              </DialogContent>
+              <DialogActions>
+                <MediaManagerActions />
+              </DialogActions>
+            </MediaManager>
+          </Dialog>
+        ) : null}
       </div>
     );
   }

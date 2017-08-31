@@ -52,9 +52,7 @@ class Facebook extends Component {
           Facebook Post
         </Button>
         <Dialog open={this.state.open} onRequestClose={this.closeDialog}>
-          <DialogTitle>
-            {'Insert Facebook shortcode'}
-          </DialogTitle>
+          <DialogTitle>{'Insert Facebook shortcode'}</DialogTitle>
           <DialogContent>
             <DialogContentText />
             <TextField
