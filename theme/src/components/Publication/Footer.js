@@ -76,6 +76,7 @@ export default ({ config }) => [
       </a>
     </LogoContainer>
     <Ul>
+      {/* TODO */}
       {/* <Li>Newsletter</Li> */}
       {/* <Li>Über uns</Li> */}
       {/* <Li>FAQ</Li> */}
@@ -89,7 +90,6 @@ export default ({ config }) => [
       <Li>
         <A href="/agb/">AGB</A>
       </Li>
-      {/* <Li>App</Li> */}
       <Li>
         <A href="/rss/">RSS</A>
       </Li>

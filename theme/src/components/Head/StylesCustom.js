@@ -1,3 +1,6 @@
-// import React from 'react';
+import React from 'react';
 
-export default ({ styles }) => `<style amp-custom>${styles}</style>`;
+export default ({ styles }) =>
+  <style amp-custom="">
+    {styles}
+  </style>;

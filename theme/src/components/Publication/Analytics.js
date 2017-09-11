@@ -1,6 +1,7 @@
 import React from 'react';
-export default ({ accountId }) => (
+export default ({ accountId }) =>
   <amp-analytics type="googleanalytics" id="analytics1">
+    {/* set innerHTML to stringified JSON for minification */}
     <script
       type="application/json"
       dangerouslySetInnerHTML={{
@@ -17,5 +18,4 @@ export default ({ accountId }) => (
         }),
       }}
     />
-  </amp-analytics>
-);
+  </amp-analytics>;

@@ -21,7 +21,7 @@ export default ({
           <meta
             name="twitter:image"
             content={`${config.protocol}://${config.domain}/${config.media}/${config
-              .images.large.prefix}}${picture}`}
+              .images.large.prefix}${picture}`}
           />,
         ],
         [

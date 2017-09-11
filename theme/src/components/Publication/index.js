@@ -50,9 +50,10 @@ const Publication = ({
     slug,
     title,
   },
-}) => (
+}) => [
+  <Menu styletron={styletron} config={config} />,
+  <Analytics accountId={config.googleanalytics} />,
   <Container>
-    <Analytics accountId={config.googleanalytics} />
     <SvgSpritemap styletron={styletron} />
     <Header styletron={styletron} />
     <Main id="main" role="main">
@@ -77,7 +78,9 @@ const Publication = ({
         adnetwork={config.ads.adnetwork}
         adslot={config.ads.adslot}
       />
-      <Article>{children}</Article>
+      <Article>
+        {children}
+      </Article>
       <Sharebuttons
         slug={slug}
         title={title}
@@ -88,9 +91,8 @@ const Publication = ({
     <aside />
     <Footer config={config} />
     {lightbox ? <amp-image-lightbox id="lightbox1" layout="nodisplay" /> : null}
-    <Menu styletron={styletron} config={config} />
-  </Container>
-);
+  </Container>,
+];
 
 Publication.propTypes = {
   children: PropTypes.node.isRequired,

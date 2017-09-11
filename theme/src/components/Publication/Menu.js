@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { oneLine } from 'common-tags';
 import { injectStyle } from 'styletron-utils';
 import { styled } from 'styletron-react';
-import RecklesslySetInnerHTML from '../../util/RecklesslySetInnerHTML';
 import AmpComponent from '../AmpComponent';
 
 const Sidebar = styled(AmpComponent('amp-sidebar'), {
+  fontFamily: 'Roboto, sans-serif',
   width: '75vw',
   background: '#fff',
   '@media screen and (min-width: 1024px)': {
@@ -19,6 +18,7 @@ const Ul = styled('ul', {
   fontSize: '6vw',
   textTransform: 'uppercase',
   textAlign: 'center',
+  paddingLeft: '0',
   '@media screen and (min-width: 1024px)': {
     fontSize: '2vw',
   },
@@ -26,9 +26,9 @@ const Ul = styled('ul', {
 
 const Li = styled('li', {
   padding: '1vw 0',
+  listStyle: 'none',
   '@media screen and (min-width: 1024px)': {
     padding: '0.3vw 0',
-    listStyle: 'none',
   },
 });
 
@@ -51,26 +51,24 @@ const Menu = ({ styletron, config: { categories } }) => {
 
   return (
     <Sidebar id="menu" layout="nodisplay">
-      <div>
-        <RecklesslySetInnerHTML Element="nav">
-          {oneLine`<div on="tap:menu.close" role="button" tabindex="0">
-            <svg class="${menuLogo}">
-            <use xlink:href="#nausika--logotext-use" />
-          </svg>
-        </div>`}
-        </RecklesslySetInnerHTML>
+      <nav>
+        <svg className={menuLogo}>
+          <use xlinkHref="#nausika--logotext-use" />
+        </svg>
         <Ul>
           <Li>
             <A href="/">Start</A>
           </Li>
           <hr />
-          {Object.keys(categories).map((category, index) => (
+          {Object.keys(categories).map((category, index) =>
             <Li key={index}>
-              <A href={`/${categories[category]}`}>{category}</A>
+              <A href={`/${categories[category]}`}>
+                {category}
+              </A>
             </Li>
-          ))}
+          )}
         </Ul>
-      </div>
+      </nav>
     </Sidebar>
   );
 };

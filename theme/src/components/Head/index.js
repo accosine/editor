@@ -1,8 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 
-import RecklesslySetInnerHTML from '../../util/RecklesslySetInnerHTML';
-
 import HeadPagination from './HeadPagination';
 import SocialmediaMeta from './SocialmediaMeta';
 import Schema from './Schema';
@@ -10,14 +8,11 @@ import SchemaSitename from './SchemaSitename';
 import Font from './Font';
 import StylesAmp from './StylesAmp';
 import StylesCustom from './StylesCustom';
-import ExtendedComponents from './ExtendedComponents';
 import Favicons from './Favicons';
 import AmpScript from '../AmpScript';
 
 const formatDate = (date, format, locale) =>
-  moment(date)
-    .locale(locale)
-    .format(format);
+  moment(date).locale(locale).format(format);
 
 // TODO: stop using dangerouslySetInnerHTML when React 16 supports custom HTML
 // attributes (amp-custom, amp-boilerplate, custom-element, ...
@@ -41,33 +36,33 @@ export default ({
   path,
   description,
   ampScripts,
-}) => (
-  <RecklesslySetInnerHTML Element="head">
+}) =>
+  <head>
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <title>{title}</title>
-    {layout === 'start' ? (
-      <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
-    ) : null}
-    {layout === 'publication' ? (
-      <link
-        rel="canonical"
-        href={`${config.protocol}://${config.domain}/${path}/`}
-      />
-    ) : null}
-    {layout === 'category' ? (
-      <link
-        rel="canonical"
-        href={`${config.protocol}://${config.domain}/${path}/`}
-      />
-    ) : null}
+    {layout === 'start'
+      ? <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
+      : null}
+    {layout === 'publication'
+      ? <link
+          rel="canonical"
+          href={`${config.protocol}://${config.domain}/${path}/`}
+        />
+      : null}
+    {layout === 'category'
+      ? <link
+          rel="canonical"
+          href={`${config.protocol}://${config.domain}/${path}/`}
+        />
+      : null}
     {layout === 'category' ? <HeadPagination /> : null}
-    {layout === 'basic' ? (
-      <link
-        rel="canonical"
-        href={`${config.protocol}://${config.domain}/${path}/`}
-      />
-    ) : null}
+    {layout === 'basic'
+      ? <link
+          rel="canonical"
+          href={`${config.protocol}://${config.domain}/${path}/`}
+        />
+      : null}
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0"
@@ -83,19 +78,17 @@ export default ({
       config={config}
       frontmatter={{ picture, layout }}
     />
-    <Schema />
+    <Schema /> {/* TODO */}
     <SchemaSitename config={config} />
     <Font />
-    <ExtendedComponents />
-    <Favicons />
+    <Favicons config={config} />
     <meta property="fb:pages" content={config.fbpageid} />
     <AmpScript name="analytics" />
-    {'<script async src="https://cdn.ampproject.org/v0.js"></script>'}
+    <script async src="https://cdn.ampproject.org/v0.js" />
     <AmpScript name="ad" />
     <AmpScript name="user-notification" />
     <AmpScript name="sidebar" />
     {ampScripts.map((name, index) => <AmpScript key={index} name={name} />)}
     <StylesAmp />
     <StylesCustom styles={styles} />
-  </RecklesslySetInnerHTML>
-);
+  </head>;

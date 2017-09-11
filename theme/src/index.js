@@ -68,7 +68,7 @@ function render(article, frontmatter) {
       <Layout
         frontmatter={frontmatter}
         config={config}
-        styles={staticStyles + styletron.getCss()}
+        styles={/*staticStyles + */ styletron.getCss()}
         body={appMarkup}
         ampScripts={ampScripts}
       />
@@ -95,12 +95,7 @@ const server = http.createServer((req, res) => {
       'static',
       unescape(url.parse(req.url).pathname)
     );
-    if (
-      path
-        .extname(filename)
-        .split('.')
-        .reverse()[0] === 'svg'
-    ) {
+    if (path.extname(filename).split('.').reverse()[0] === 'svg') {
       res.setHeader('Content-Type', 'image/svg+xml');
     }
     const stream = fs.createReadStream(filename);
