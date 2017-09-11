@@ -80,6 +80,7 @@ class ImageUploader extends Component {
         case 'image/png':
           extension = '.png';
           break;
+        default:
       }
       return extension;
     };

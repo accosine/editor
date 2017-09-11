@@ -2,10 +2,9 @@ import React, { createElement } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Styletron from 'styletron-server';
 import { StyletronProvider } from 'styletron-react';
-import matter from 'gray-matter';
+// import matter from 'gray-matter';
 import marksy from 'marksy';
 import shortcodes from './shortcodes';
-import config from '../config';
 import Head from './components/Head';
 import Publication from './components/Publication';
 import ThemeProvider from './util/ThemeProvider';
@@ -14,17 +13,17 @@ import getAmpScripts from './util/getAmpScripts';
 
 import theme from './theme.js';
 
-const fs = require('fs');
-const staticStyles = fs.readFileSync('./styles.css');
+// const fs = require('fs');
+// const staticStyles = fs.readFileSync('./styles.css');
 
 const compile = marksy({
   createElement,
   elements: MarkdownComponents,
 });
 
-const { data: frontmatter, content } = matter.read('./test.md');
+// const { data: frontmatter, content } = matter.read('./test.md');
 
-const Layout = ({ styles, body, frontmatter, ampScripts }) => [
+const Layout = ({ styles, body, frontmatter, ampScripts, config }) => [
   <Head
     path={`${config.categories[frontmatter.collection]}/${frontmatter.slug}`}
     frontmatter={frontmatter}
@@ -35,7 +34,7 @@ const Layout = ({ styles, body, frontmatter, ampScripts }) => [
   <body dangerouslySetInnerHTML={{ __html: body }} />,
 ];
 
-function render(article, frontmatter) {
+module.exports = function render(article, frontmatter, config) {
   console.time('render time');
   const styletron = new Styletron({ prefix: '_' });
   const { text, usedShortcodes } = shortcodes(article, styletron);
@@ -77,36 +76,36 @@ function render(article, frontmatter) {
 
   console.timeEnd('render time');
   return html;
-}
+};
 
-const http = require('http');
-const url = require('url');
-const path = require('path');
-const hostname = '0.0.0.0';
-const port = 3000;
-const server = http.createServer((req, res) => {
-  if (req.url === '/') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end(render(content, frontmatter));
-  } else {
-    const filename = path.join(
-      process.cwd(),
-      'static',
-      unescape(url.parse(req.url).pathname)
-    );
-    if (path.extname(filename).split('.').reverse()[0] === 'svg') {
-      res.setHeader('Content-Type', 'image/svg+xml');
-    }
-    const stream = fs.createReadStream(filename);
-    stream.on('error', function(error) {
-      console.log('Caught', error);
-      res.statusCode = 404;
-      res.end();
-    });
-    stream.pipe(res);
-  }
-});
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+// const http = require('http');
+// const url = require('url');
+// const path = require('path');
+// const hostname = '0.0.0.0';
+// const port = 3000;
+// const server = http.createServer((req, res) => {
+//   if (req.url === '/') {
+//     res.statusCode = 200;
+//     res.setHeader('Content-Type', 'text/html');
+//     res.end(render(content, frontmatter));
+//   } else {
+//     const filename = path.join(
+//       process.cwd(),
+//       'static',
+//       unescape(url.parse(req.url).pathname)
+//     );
+//     if (path.extname(filename).split('.').reverse()[0] === 'svg') {
+//       res.setHeader('Content-Type', 'image/svg+xml');
+//     }
+//     const stream = fs.createReadStream(filename);
+//     stream.on('error', function(error) {
+//       console.log('Caught', error);
+//       res.statusCode = 404;
+//       res.end();
+//     });
+//     stream.pipe(res);
+//   }
+// });
+// server.listen(port, hostname, () => {
+//   console.log(`Server running at http://${hostname}:${port}/`);
+// });

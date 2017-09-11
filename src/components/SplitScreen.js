@@ -251,7 +251,23 @@ class SplitScreen extends Component {
                 Preview
               </Typography>
               <Divider />
-              <Preview text={content} />
+              <Preview
+                text={content}
+                frontmatter={{
+                  title,
+                  author,
+                  description,
+                  collection,
+                  headline,
+                  subline,
+                  layout,
+                  type,
+                  picture,
+                  attribution,
+                  alt,
+                  slug,
+                }}
+              />
             </Paper>
           </Grid>
         </Grid>

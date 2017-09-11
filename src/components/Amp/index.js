@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Ampdoc from './Ampdoc';
+import { Helmet } from 'react-helmet';
 
 // TODO: style must be universal (and injected from outside) for frontend useage
 const styles = 'amp-carousel amp-img > img { object-fit: contain; }';
@@ -62,9 +63,12 @@ class Amp extends PureComponent {
   };
 
   render() {
-    return (
-      <div className="amp-container" ref={ref => (this.container = ref)} />
-    );
+    return [
+      <Helmet>
+        <script async="" src="https://cdn.ampproject.org/shadow-v0.js" />
+      </Helmet>,
+      <div className="amp-container" ref={ref => (this.container = ref)} />,
+    ];
   }
 }
 
