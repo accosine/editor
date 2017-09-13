@@ -1,4 +1,5 @@
 import React from 'react';
+import addSizeSuffix from '../../addSizeSuffix';
 export default ({
   config,
   path,
@@ -20,8 +21,10 @@ export default ({
           <meta name="twitter:description" content={description} />,
           <meta
             name="twitter:image"
-            content={`${config.protocol}://${config.domain}/${config.media}/${config
-              .images.large.prefix}${picture}`}
+            content={`${config.media}${addSizeSuffix(
+              picture,
+              config.images.large.suffix
+            )}${config.mediasuffix}`}
           />,
         ],
         [
@@ -33,8 +36,10 @@ export default ({
           />,
           <meta
             property="og:image"
-            content={`${config.protocol}://${config.domain}/${config.media}/${config
-              .images.large.prefix}${picture}`}
+            content={`${config.media}${addSizeSuffix(
+              picture,
+              config.images.large.suffix
+            )}${config.mediasuffix}`}
           />,
         ],
         always,
@@ -45,8 +50,8 @@ export default ({
           <meta name="twitter:card" content="summary" />,
           <meta
             name="twitter:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
           <meta
             name="twitter:description"
@@ -64,8 +69,8 @@ export default ({
           />,
           <meta
             property="og:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
         ],
         always,
@@ -76,8 +81,8 @@ export default ({
           <meta name="twitter:card" content="summary" />,
           <meta
             name="twitter:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
           <meta
             name="twitter:description"
@@ -95,8 +100,8 @@ export default ({
           />,
           <meta
             property="og:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
         ],
         always,
@@ -107,8 +112,8 @@ export default ({
           <meta name="twitter:card" content="summary" />,
           <meta
             name="twitter:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
           <meta
             name="twitter:description"
@@ -126,8 +131,8 @@ export default ({
           />,
           <meta
             property="og:image"
-            content={`${config.protocol}://${config.domain}/${config.assets}/${config
-              .organization.logo.path}`}
+            content={`${config.media}${config.organization.logo
+              .path}${config.mediasuffix}`}
           />,
         ],
         always,

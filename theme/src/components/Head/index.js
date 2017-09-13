@@ -12,7 +12,9 @@ import Favicons from './Favicons';
 import AmpScript from '../AmpScript';
 
 const formatDate = (date, format, locale) =>
-  moment(date).locale(locale).format(format);
+  moment(date)
+    .locale(locale)
+    .format(format);
 
 // TODO: stop using dangerouslySetInnerHTML when React 16 supports custom HTML
 // attributes (amp-custom, amp-boilerplate, custom-element, ...
@@ -29,40 +31,40 @@ export default ({
     subline,
     layout,
     lightbox,
+    description,
   },
   styles,
   body,
   config,
   path,
-  description,
   ampScripts,
-}) =>
+}) => (
   <head>
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <title>{title}</title>
-    {layout === 'start'
-      ? <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
-      : null}
-    {layout === 'publication'
-      ? <link
-          rel="canonical"
-          href={`${config.protocol}://${config.domain}/${path}/`}
-        />
-      : null}
-    {layout === 'category'
-      ? <link
-          rel="canonical"
-          href={`${config.protocol}://${config.domain}/${path}/`}
-        />
-      : null}
+    {layout === 'start' ? (
+      <link rel="canonical" href={`${config.protocol}://${config.domain}`} />
+    ) : null}
+    {layout === 'publication' ? (
+      <link
+        rel="canonical"
+        href={`${config.protocol}://${config.domain}/${path}/`}
+      />
+    ) : null}
+    {layout === 'category' ? (
+      <link
+        rel="canonical"
+        href={`${config.protocol}://${config.domain}/${path}/`}
+      />
+    ) : null}
     {layout === 'category' ? <HeadPagination /> : null}
-    {layout === 'basic'
-      ? <link
-          rel="canonical"
-          href={`${config.protocol}://${config.domain}/${path}/`}
-        />
-      : null}
+    {layout === 'basic' ? (
+      <link
+        rel="canonical"
+        href={`${config.protocol}://${config.domain}/${path}/`}
+      />
+    ) : null}
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0"
@@ -76,7 +78,7 @@ export default ({
     <SocialmediaMeta
       path={path}
       config={config}
-      frontmatter={{ picture, layout }}
+      frontmatter={{ title, picture, layout, description }}
     />
     <Schema /> {/* TODO */}
     <SchemaSitename config={config} />
@@ -91,4 +93,5 @@ export default ({
     {ampScripts.map((name, index) => <AmpScript key={index} name={name} />)}
     <StylesAmp />
     <StylesCustom styles={styles} />
-  </head>;
+  </head>
+);

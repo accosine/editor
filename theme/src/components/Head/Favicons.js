@@ -1,83 +1,83 @@
 import React from 'react';
-export default ({ config: { assets } }) => [
+export default ({ config: { media, mediasuffix } }) => [
   <link
     rel="apple-touch-icon"
     sizes="57x57"
-    href={`/${assets}/apple-touch-icon-57x57.png`}
+    href={`${media}apple-touch-icon-57x57.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="60x60"
-    href={`/${assets}/apple-touch-icon-60x60.png`}
+    href={`${media}apple-touch-icon-60x60.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="72x72"
-    href={`/${assets}/apple-touch-icon-72x72.png`}
+    href={`${media}apple-touch-icon-72x72.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="76x76"
-    href={`/${assets}/apple-touch-icon-76x76.png`}
+    href={`${media}apple-touch-icon-76x76.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="114x114"
-    href={`/${assets}/apple-touch-icon-114x114.png`}
+    href={`${media}apple-touch-icon-114x114.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="120x120"
-    href={`/${assets}/apple-touch-icon-120x120.png`}
+    href={`${media}apple-touch-icon-120x120.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="144x144"
-    href={`/${assets}/apple-touch-icon-144x144.png`}
+    href={`${media}apple-touch-icon-144x144.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="152x152"
-    href={`/${assets}/apple-touch-icon-152x152.png`}
+    href={`${media}apple-touch-icon-152x152.png${mediasuffix}`}
   />,
   <link
     rel="apple-touch-icon"
     sizes="180x180"
-    href={`/${assets}/apple-touch-icon-180x180.png`}
+    href={`${media}apple-touch-icon-180x180.png${mediasuffix}`}
   />,
   <link
     rel="icon"
     type="image/png"
-    href={`/${assets}/favicon-32x32.png`}
+    href={`${media}favicon-32x32.png${mediasuffix}`}
     sizes="32x32"
   />,
   <link
     rel="icon"
     type="image/png"
-    href={`/${assets}/android-chrome-192x192.png`}
+    href={`${media}android-chrome-192x192.png${mediasuffix}`}
     sizes="192x192"
   />,
   <link
     rel="icon"
     type="image/png"
-    href={`/${assets}/favicon-96x96.png`}
+    href={`${media}favicon-96x96.png${mediasuffix}`}
     sizes="96x96"
   />,
   <link
     rel="icon"
     type="image/png"
-    href={`/${assets}/favicon-16x16.png`}
+    href={`${media}favicon-16x16.png${mediasuffix}`}
     sizes="16x16"
   />,
   <link
     rel="mask-icon"
-    href={`/${assets}/safari-pinned-tab.svg`}
+    href={`${media}safari-pinned-tab.svg${mediasuffix}`}
     color="#5bbad5"
   />,
   <meta name="msapplication-TileColor" content="#da532c" />,
   <meta
     name="msapplication-TileImage"
-    content={`/${assets}/mstile-144x144.png`}
+    content={`${media}mstile-144x144.png${mediasuffix}`}
   />,
   <meta name="theme-color" content="#ffffff" />,
 ];

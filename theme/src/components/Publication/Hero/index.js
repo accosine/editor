@@ -3,6 +3,7 @@ import AmpComponent from '../../AmpComponent';
 import { styled } from 'styletron-react';
 import withTheme from '../../../util/withTheme';
 import formatDate from '../../../util/formatDate';
+import addSizeSuffix from '../../../addSizeSuffix';
 import { oneLine } from 'common-tags';
 const AmpImg = AmpComponent('amp-img');
 
@@ -132,13 +133,20 @@ export default ({
     <AmpImg
       width={4}
       height={3}
-      src={`/${config.media}/${config.images.small.prefix}${picture}`}
-      srcset={oneLine`/${config.media}/${config.images.large
-        .prefix}${picture} ${config.images.large.size},
-                  /${config.media}/${config.images.medium
-        .prefix}${picture} ${config.images.medium.size},
-                  /${config.media}/${config.images.small
-        .prefix}${picture} ${config.images.small.size}`}
+      src={`${config.media}${picture}${config.images.small
+        .suffix}${config.mediasuffix}`}
+      srcset={oneLine`${config.media}${addSizeSuffix(
+        picture,
+        config.images.large.suffix
+      )}${config.mediasuffix} ${config.images.large.size},
+                  ${config.media}${addSizeSuffix(
+        picture,
+        config.images.medium.suffix
+      )}${config.mediasuffix} ${config.images.medium.size},
+                  ${config.media}${addSizeSuffix(
+        picture,
+        config.images.medium.suffix
+      )}${config.mediasuffix} ${config.images.small.size}`}
       alt={alt}
       attribution={attribution}
       layout="responsive"
@@ -164,7 +172,8 @@ export default ({
       <AuthorPicture
         width={4}
         height={4}
-        src={`/${config.assets}/${config.authors[author].avatar}`}
+        src={`${config.media}${config.authors[author]
+          .avatar}${config.mediasuffix}`}
         alt={alt}
         attribution={attribution}
         layout="responsive"

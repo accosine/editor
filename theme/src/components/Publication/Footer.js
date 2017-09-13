@@ -62,7 +62,7 @@ export default ({ config }) => [
           <amp-img
             width={'3'}
             height={'3'}
-            src={`/${config.assets}/nausika-gurl.min.svg`}
+            src={`${config.media}nausika-gurl.min.svg${config.mediasuffix}`}
             alt="Gurl you know it's true, uh uh uh, I love you!"
             attribution="All Rights Reserved"
             layout="responsive"

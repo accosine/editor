@@ -10,13 +10,12 @@ import IconButton from 'material-ui/IconButton';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import classnames from 'classnames';
 import Editor from './Editor';
-import Button from 'material-ui/Button';
+import FixedButton from './FixedButton';
 import SaveIcon from 'material-ui-icons/Save';
 import { CircularProgress } from 'material-ui/Progress';
 import Preview from './Preview';
 import Shortcodes from './Shortcodes';
 import FrontMatter from './FrontMatter';
-import green from 'material-ui/colors/green';
 import connectFirebase from '../util/connect-firebase';
 
 const styleSheet = theme => ({
@@ -50,24 +49,8 @@ const styleSheet = theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  saveButtonWrapper: {
-    position: 'relative',
-  },
-  saveButton: {
-    position: 'absolute',
-  },
   progress: {
-    top: -2,
-    left: -2,
     position: 'absolute',
-    color: green[500],
-  },
-  saveButtonContainer: {
-    margin: 3 * theme.spacing.unit,
-    position: 'fixed',
-    bottom: 50,
-    right: 50,
-    zIndex: 1,
   },
 });
 
@@ -271,22 +254,12 @@ class SplitScreen extends Component {
             </Paper>
           </Grid>
         </Grid>
-        <div className={classes.saveButtonContainer}>
-          <div className={classes.saveButtonWrapper}>
-            <Button
-              onClick={this.onSave}
-              disabled={isSaving}
-              fab
-              color="accent"
-              className={classes.saveButton}
-            >
-              <SaveIcon />
-            </Button>
-            {isSaving && (
-              <CircularProgress size={60} className={classes.progress} />
-            )}
-          </div>
-        </div>
+        <FixedButton onClick={this.onSave} disabled={isSaving} position="right">
+          <SaveIcon />
+          {isSaving && (
+            <CircularProgress size={60} className={classes.progress} />
+          )}
+        </FixedButton>
       </Grid>
     );
   }

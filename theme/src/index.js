@@ -38,11 +38,13 @@ module.exports = function render(article, frontmatter, config) {
   console.time('render time');
   const styletron = new Styletron({ prefix: '_' });
   const { text, usedShortcodes } = shortcodes(article, styletron);
-  const { tree: articleTree } = compile(
+  const { tree: articleTree, toc } = compile(
     text,
     { sanitize: false },
     { category: frontmatter.collection }
   );
+
+  console.log(toc);
 
   const ampScripts = getAmpScripts(usedShortcodes);
 
