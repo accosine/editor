@@ -10,6 +10,7 @@ import theme from 'nausika-theme';
 import config from '../config.js';
 
 import DevicePreview from './DevicePreview';
+import Iframe from './Iframe';
 
 // config.media = process.env.REACT_APP_FIREBASE_STORAGE_URL;
 // config.mediasuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
@@ -52,12 +53,7 @@ class Preview extends PureComponent {
           </FixedButton>
         ) : (
           [
-            <iframe
-              key="1"
-              className={classes.iframe}
-              title="ampdoc"
-              srcDoc={rendered}
-            />,
+            <Iframe key="1" html={rendered} />,
             <FixedButton
               key="2"
               position="left"
