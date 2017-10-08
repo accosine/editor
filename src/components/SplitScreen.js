@@ -102,10 +102,12 @@ class SplitScreen extends Component {
   }
 
   onEdit = (text, caretPosition) => {
+    console.log('onEdit');
     this.setState({ content: text, caretPosition });
   };
 
   onCaretPosition = caretPosition => {
+    console.log('onCaret');
     this.setState({ caretPosition });
   };
 
@@ -236,20 +238,18 @@ class SplitScreen extends Component {
               <Divider />
               <Preview
                 text={content}
-                frontmatter={{
-                  title,
-                  author,
-                  description,
-                  collection,
-                  headline,
-                  subline,
-                  layout,
-                  type,
-                  picture,
-                  attribution,
-                  alt,
-                  slug,
-                }}
+                title={title}
+                author={author}
+                description={description}
+                collection={collection}
+                headline={headline}
+                subline={subline}
+                layout={layout}
+                type={type}
+                picture={picture}
+                attribution={attribution}
+                alt={alt}
+                slug={slug}
               />
             </Paper>
           </Grid>

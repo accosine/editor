@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import FixedButton from './FixedButton';
@@ -28,20 +28,65 @@ const styleSheet = {
   },
 };
 
-class Preview extends PureComponent {
+class Preview extends Component {
   state = {
     fullscreen: false,
+    preview: '',
+  };
+
+  renderTimeout = null;
+
+  componentDidMount() {
+    this.updatePreview();
+  }
+
+  componentDidUpdate() {
+    this.updatePreview();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.state.preview !== nextState.preview ||
+      this.state.fullscreen !== nextState.fullscreen ||
+      this.props.text !== nextProps.text ||
+      this.props.title !== nextProps.title ||
+      this.props.author !== nextProps.author ||
+      this.props.description !== nextProps.description ||
+      this.props.collection !== nextProps.collection ||
+      this.props.headline !== nextProps.headline ||
+      this.props.subline !== nextProps.subline ||
+      this.props.layout !== nextProps.layout ||
+      this.props.type !== nextProps.type ||
+      this.props.picture !== nextProps.picture ||
+      this.props.attribution !== nextProps.attribution ||
+      this.props.alt !== nextProps.alt ||
+      this.props.slug !== nextProps.slug
+    );
+  }
+
+  updatePreview = () => {
+    if (this.renderTimeout) {
+      clearTimeout(this.renderTimeout);
+    }
+
+    this.renderTimeout = setTimeout(() => {
+      console.log('updatePreview');
+      const { text, ...frontmatter } = this.props;
+      let preview;
+      try {
+        console.log(`render with ${frontmatter.author}`);
+        preview = theme(text, frontmatter, config);
+      } catch (error) {
+        console.log(error);
+        preview = '';
+      }
+      this.setState({ preview });
+    }, this.props.renderDelay);
   };
 
   render() {
-    const { text, frontmatter, classes } = this.props;
-    const { fullscreen } = this.state;
-    let rendered;
-    try {
-      rendered = theme(text, frontmatter, config);
-    } catch (error) {
-      rendered = error;
-    }
+    const { classes } = this.props;
+    const { fullscreen, preview } = this.state;
     return [
       <div key="1" className={classes.container}>
         {fullscreen ? (
@@ -53,7 +98,7 @@ class Preview extends PureComponent {
           </FixedButton>
         ) : (
           [
-            <Iframe key="1" html={rendered} />,
+            <Iframe key="1" html={preview} />,
             <FixedButton
               key="2"
               position="left"
@@ -73,11 +118,7 @@ class Preview extends PureComponent {
           transition={<Slide direction="up" />}
         >
           <DevicePreview onClose={() => this.setState({ fullscreen: false })}>
-            <iframe
-              className={classes.iframe}
-              title="ampdoc"
-              srcDoc={rendered}
-            />
+            <Iframe html={preview} />
           </DevicePreview>
         </Dialog>
       ) : null,
@@ -85,8 +126,25 @@ class Preview extends PureComponent {
   }
 }
 
+Preview.defaultProps = {
+  renderDelay: 750,
+};
+
 Preview.propTypes = {
   text: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  collection: PropTypes.string.isRequired,
+  headline: PropTypes.string.isRequired,
+  subline: PropTypes.string.isRequired,
+  layout: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  attribution: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  renderDelay: PropTypes.number.isRequired,
 };
 
 export default withStyles(styleSheet)(Preview);

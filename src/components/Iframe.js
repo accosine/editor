@@ -15,17 +15,22 @@ const styleSheet = {
 };
 
 class Iframe extends Component {
-  renderTimeout = null;
+  state = {
+    scrollY: 0,
+  };
 
   componentDidMount() {
     this.updateIframe();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.html !== this.props.html) {
-      this.updateIframe();
-    }
+  componentDidUpdate() {
+    this.updateIframe();
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.html !== this.props.html;
+  }
+
   createIframe = () => {
     const iframe = document.createElement('iframe');
     iframe.setAttribute('class', this.props.classes.iframe);
@@ -34,21 +39,21 @@ class Iframe extends Component {
   };
 
   updateIframe = () => {
-    if (this.renderTimeout) {
-      clearTimeout(this.renderTimeout);
-    }
+    const iframe = this.createIframe();
+    this.container.innerHTML = '';
+    this.container.appendChild(iframe);
 
-    this.renderTimeout = setTimeout(() => {
-      this.container.innerHTML = '';
-      const iframe = this.createIframe();
-      this.container.appendChild(iframe);
-
-      const iframeDocument = iframe.contentDocument;
-      iframeDocument.open();
-      iframeDocument.write('');
-      iframeDocument.write(this.props.html);
-      iframeDocument.close();
-    }, this.props.renderDelay);
+    const iframeDocument = iframe.contentDocument;
+    iframeDocument.open();
+    iframeDocument.write('');
+    iframeDocument.write(this.props.html);
+    iframeDocument.close();
+    iframeDocument.addEventListener('scroll', event =>
+      this.setState({ scrollY: event.target.scrollingElement.scrollTop })
+    );
+    iframe.contentWindow.onload = () => {
+      iframe.contentWindow.scrollTo(0, this.state.scrollY);
+    };
   };
 
   render() {
@@ -59,12 +64,7 @@ class Iframe extends Component {
   }
 }
 
-Iframe.defaultProps = {
-  renderDelay: 750,
-};
-
 Iframe.propTypes = {
   html: PropTypes.string.isRequired,
-  renderDelay: PropTypes.number.isRequired,
 };
 export default withStyles(styleSheet)(Iframe);
