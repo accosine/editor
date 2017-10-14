@@ -183,7 +183,7 @@ class SplitScreen extends Component {
                 title={title}
                 author={author}
                 description={description}
-                collection={collection}
+                category={collection}
                 headline={headline}
                 subline={subline}
                 layout={layout}

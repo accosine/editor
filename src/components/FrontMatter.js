@@ -4,11 +4,16 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import Input, { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl } from 'material-ui/Form';
 import Slide from 'material-ui/transitions/Slide';
+import Select from 'material-ui/Select';
 
 import MediaManager from './MediaManager';
 import MediaManagerTabs from './MediaManager/Tabs';
 import MediaManagerActions from './MediaManager/Actions';
+import config from '../config';
 
 const styleSheet = theme => ({
   container: {
@@ -107,13 +112,69 @@ const FrontMatter = props => (
       }}
     />
     <FrontMatterTextfield id="title" {...props} />
-    <FrontMatterTextfield id="author" {...props} />
+    <FormControl margin="normal">
+      <InputLabel htmlFor="author">author</InputLabel>
+      <Select
+        value={props.author}
+        onChange={event => props.onChange({ author: event.target.value })}
+        input={<Input id="author" />}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {Object.keys(config.authors).map(author => (
+          <MenuItem value={author}>{config.authors[author].name}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
     <FrontMatterTextfield id="description" {...props} />
-    <FrontMatterTextfield id="collection" {...props} />
+    <FormControl margin="normal">
+      <InputLabel htmlFor="category">category</InputLabel>
+      <Select
+        value={props.category}
+        onChange={event => props.onChange({ collection: event.target.value })}
+        input={<Input id="category" />}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {Object.keys(config.categories).map(category => (
+          <MenuItem value={category}>{category}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
     <FrontMatterTextfield id="headline" {...props} />
     <FrontMatterTextfield id="subline" {...props} />
-    <FrontMatterTextfield id="layout" {...props} />
-    <FrontMatterTextfield id="type" {...props} />
+    <FormControl margin="normal">
+      <InputLabel htmlFor="layout">layout</InputLabel>
+      <Select
+        value={props.layout}
+        onChange={event => props.onChange({ layout: event.target.value })}
+        input={<Input id="layout" />}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {Object.keys(config.layouts).map(layout => (
+          <MenuItem value={layout}>{layout}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+    <FormControl margin="normal">
+      <InputLabel htmlFor="type">type</InputLabel>
+      <Select
+        value={props.type}
+        onChange={event => props.onChange({ type: event.target.value })}
+        input={<Input id="type" />}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {Object.keys(config.types).map(type => (
+          <MenuItem value={type}>{type}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
     <FrontMatterTextfield id="picture" {...props} />
     <FrontMatterTextfield id="attribution" {...props} />
     <FrontMatterTextfield id="alt" {...props} />
@@ -125,7 +186,7 @@ FrontMatter.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  collection: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   headline: PropTypes.string.isRequired,
   subline: PropTypes.string.isRequired,
   layout: PropTypes.string.isRequired,
