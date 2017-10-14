@@ -4,9 +4,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import addSizeSuffix from '../../util/addSizeSuffix';
-
-const storageurl = process.env.REACT_APP_FIREBASE_STORAGE_URL;
-const storagesuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
+import config from '../../config.js';
 
 const styleSheet = theme => ({
   root: {
@@ -67,7 +65,9 @@ class ImageCard extends Component {
             <CardMedia
               className={classes.media}
               image={
-                storageurl + addSizeSuffix(image.name, '-s') + storagesuffix
+                config.media +
+                addSizeSuffix(image.name, '-s') +
+                config.mediasuffix
               }
             />
             <CardContent>

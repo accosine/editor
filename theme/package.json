@@ -12,8 +12,8 @@
     "gray-matter": "^3.0.3",
     "marksy": "^5.0.0",
     "moment": "^2.18.1",
-    "react": "^16.0.0-rc.2",
-    "react-dom": "^16.0.0-rc.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "styletron-react": "^2.5.8",
     "styletron-server": "^2.5.7",
     "unescape": "^1.0.1"

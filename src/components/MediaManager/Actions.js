@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
+
+const styleSheet = {
+  container: {
+    paddingRight: '70px',
+  },
+};
 
 const TabContainer = props => (
   <div style={{ padding: 24 }}>{props.children}</div>
@@ -34,8 +41,9 @@ class MediaManagerActions extends Component {
     const {
       mediamanager: { index, selection, onInsert, onCancel },
     } = this.context;
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.container}>
         {index > 0 && (
           <Button disabled={!selection.length} onClick={onInsert}>
             Insert
@@ -47,4 +55,4 @@ class MediaManagerActions extends Component {
   }
 }
 
-export default MediaManagerActions;
+export default withStyles(styleSheet)(MediaManagerActions);

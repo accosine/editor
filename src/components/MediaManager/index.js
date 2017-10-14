@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+
+const styleSheet = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100vh',
+  },
+};
 
 class MediaManager extends Component {
   state = {
@@ -81,8 +91,10 @@ class MediaManager extends Component {
   }
 
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <div className={this.props.classes.container}>{this.props.children}</div>
+    );
   }
 }
 
-export default MediaManager;
+export default withStyles(styleSheet)(MediaManager);
