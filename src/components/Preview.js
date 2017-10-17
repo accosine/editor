@@ -12,9 +12,6 @@ import config from '../config.js';
 import DevicePreview from './DevicePreview';
 import Iframe from './Iframe';
 
-// config.media = process.env.REACT_APP_FIREBASE_STORAGE_URL;
-// config.mediasuffix = process.env.REACT_APP_FIREBASE_STORAGE_SUFFIX;
-
 const styleSheet = {
   container: {
     width: '100%',
@@ -70,11 +67,9 @@ class Preview extends Component {
     }
 
     this.renderTimeout = setTimeout(() => {
-      console.log('updatePreview');
       const { text, ...frontmatter } = this.props;
       let preview;
       try {
-        console.log(`render with ${frontmatter.author}`);
         preview = theme(text, frontmatter, config);
       } catch (error) {
         console.log(error);

@@ -9,11 +9,59 @@ import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
 import Slide from 'material-ui/transitions/Slide';
 import Select from 'material-ui/Select';
+import IconButton from 'material-ui/IconButton';
+import AddCircleOutlineIcon from 'material-ui-icons/AddCircleOutline';
+import Chip from 'material-ui/Chip';
 
 import MediaManager from './MediaManager';
 import MediaManagerTabs from './MediaManager/Tabs';
 import MediaManagerActions from './MediaManager/Actions';
 import config from '../config';
+
+const styles = theme => ({
+  chip: {
+    margin: theme.spacing.unit / 2,
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+});
+
+class ChipsArray extends React.Component {
+  handleRequestDelete = data => () => {
+    const chipData = [...this.props.chipData];
+    const chipToDelete = chipData.indexOf(data);
+    chipData.splice(chipToDelete, 1);
+    this.props.onChange(chipData);
+  };
+
+  render() {
+    const { classes, chipData } = this.props;
+
+    return (
+      <div className={classes.row}>
+        {chipData.map((data, index) => {
+          return (
+            <Chip
+              label={data}
+              key={index}
+              onRequestDelete={this.handleRequestDelete(data)}
+              className={classes.chip}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+ChipsArray.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+ChipsArray = withStyles(styles)(ChipsArray);
 
 const styleSheet = theme => ({
   container: {
@@ -85,6 +133,44 @@ class FrontMatterImagePicker extends Component {
   }
 }
 
+class ChipInput extends Component {
+  state = {
+    text: '',
+  };
+
+  handleChipAdd = () => {
+    this.props.onChange([...this.props.chipData, this.state.text]);
+    console.log('new chips', [...this.props.chipData, this.state.text]);
+    this.setState({ text: '' });
+  };
+
+  onKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.handleChipAdd();
+    }
+  };
+
+  render() {
+    const { text } = this.state;
+    const { onChange, chipData, id } = this.props;
+    return (
+      <div>
+        <TextField
+          onKeyPress={this.onKeyPress}
+          label={id}
+          value={text}
+          onChange={event => this.setState({ text: event.target.value })}
+          margin="normal"
+        />
+        <IconButton onClick={this.handleChipAdd}>
+          <AddCircleOutlineIcon />
+        </IconButton>
+        <ChipsArray chipData={chipData} onChange={onChange} />
+      </div>
+    );
+  }
+}
+
 const StyledFrontMatterImagePicker = withStyles(imagePickerStyleSheet)(
   FrontMatterImagePicker
 );
@@ -123,7 +209,9 @@ const FrontMatter = props => (
           <em>None</em>
         </MenuItem>
         {Object.keys(config.authors).map(author => (
-          <MenuItem value={author}>{config.authors[author].name}</MenuItem>
+          <MenuItem key={author} value={author}>
+            {config.authors[author].name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
@@ -139,7 +227,9 @@ const FrontMatter = props => (
           <em>None</em>
         </MenuItem>
         {Object.keys(config.categories).map(category => (
-          <MenuItem value={category}>{category}</MenuItem>
+          <MenuItem key={category} value={category}>
+            {category}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
@@ -156,7 +246,9 @@ const FrontMatter = props => (
           <em>None</em>
         </MenuItem>
         {Object.keys(config.layouts).map(layout => (
-          <MenuItem value={layout}>{layout}</MenuItem>
+          <MenuItem key={layout} value={layout}>
+            {layout}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
@@ -171,7 +263,9 @@ const FrontMatter = props => (
           <em>None</em>
         </MenuItem>
         {Object.keys(config.types).map(type => (
-          <MenuItem value={type}>{type}</MenuItem>
+          <MenuItem key={type} value={type}>
+            {type}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
@@ -179,6 +273,17 @@ const FrontMatter = props => (
     <FrontMatterTextfield id="attribution" {...props} />
     <FrontMatterTextfield id="alt" {...props} />
     <FrontMatterTextfield id="slug" {...props} />
+    {props.type === 'rezension' ? (
+      'rezension'
+    ) : props.type === 'rezept' ? (
+      <ChipInput
+        id="ingredients"
+        onChange={ingredients => props.onChange({ ingredients })}
+        chipData={props.ingredients}
+      />
+    ) : props.type === 'video' ? (
+      'video'
+    ) : null}
   </div>
 );
 

@@ -72,6 +72,7 @@ class SplitScreen extends Component {
     attribution: '',
     alt: '',
     slug: '',
+    ingredients: [],
   };
 
   componentDidMount() {
@@ -163,6 +164,7 @@ class SplitScreen extends Component {
       attribution,
       alt,
       slug,
+      ingredients,
     } = this.state;
 
     return (
@@ -192,6 +194,7 @@ class SplitScreen extends Component {
                 attribution={attribution}
                 alt={alt}
                 slug={slug}
+                ingredients={ingredients}
                 onChange={change => this.setState(change)}
               />
             </Collapse>
