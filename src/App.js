@@ -64,7 +64,7 @@ class App extends Component {
       onDrawerClose,
     } = this.props;
     return (
-      <Router>
+      <Router basename="/admin">
         <div className={classes.app}>
           <Navigation onDrawerToggle={onDrawerToggle} user={user} />
           <Dresser

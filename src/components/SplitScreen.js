@@ -57,9 +57,9 @@ const styleSheet = theme => ({
 class SplitScreen extends Component {
   state = {
     isSaving: false,
-    content: '',
     caretPosition: { start: 0, end: 0 },
     frontmatterExpanded: this.props.match.params.slug ? false : true,
+    content: '',
     title: '',
     author: '',
     description: '',
@@ -72,7 +72,24 @@ class SplitScreen extends Component {
     attribution: '',
     alt: '',
     slug: '',
+    // recipe
     ingredients: [],
+    instructions: '',
+    preptime: '',
+    cooktime: '',
+    recipeyield: '',
+    servingsize: '',
+    calories: '',
+    fatcontent: '',
+    // review
+    itemtype: '',
+    itemname: '',
+    director: '',
+    releasedate: '',
+    wikipediaurl: '',
+    rating: '',
+    verdict: '',
+    reviewbody: '',
   };
 
   componentDidMount() {
@@ -150,21 +167,10 @@ class SplitScreen extends Component {
     const { classes } = this.props;
     const {
       frontmatterExpanded,
+      caretPosition,
       isSaving,
       content,
-      title,
-      author,
-      description,
-      collection,
-      headline,
-      subline,
-      layout,
-      type,
-      picture,
-      attribution,
-      alt,
-      slug,
-      ingredients,
+      ...frontmatter
     } = this.state;
 
     return (
@@ -182,19 +188,7 @@ class SplitScreen extends Component {
             <Collapse in={frontmatterExpanded} transitionDuration="auto">
               <Typography type="headline">Frontmatter</Typography>
               <FrontMatter
-                title={title}
-                author={author}
-                description={description}
-                category={collection}
-                headline={headline}
-                subline={subline}
-                layout={layout}
-                type={type}
-                picture={picture}
-                attribution={attribution}
-                alt={alt}
-                slug={slug}
-                ingredients={ingredients}
+                {...frontmatter}
                 onChange={change => this.setState(change)}
               />
             </Collapse>
@@ -239,21 +233,7 @@ class SplitScreen extends Component {
                 Preview
               </Typography>
               <Divider />
-              <Preview
-                text={content}
-                title={title}
-                author={author}
-                description={description}
-                collection={collection}
-                headline={headline}
-                subline={subline}
-                layout={layout}
-                type={type}
-                picture={picture}
-                attribution={attribution}
-                alt={alt}
-                slug={slug}
-              />
+              <Preview text={content} {...frontmatter} />
             </Paper>
           </Grid>
         </Grid>
