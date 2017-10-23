@@ -25,17 +25,6 @@ const RenderMergedProps = (component, ...rest) => {
   return React.createElement(component, finalProps);
 };
 
-const PropsRoute = ({ component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={routeProps => {
-        return RenderMergedProps(component, routeProps, rest);
-      }}
-    />
-  );
-};
-
 const PrivateRoute = ({ component, redirectTo, isAuthenticated, ...rest }) => (
   <Route
     {...rest}

@@ -16,7 +16,6 @@ class FileList extends Component {
   };
 
   list(files) {
-    // console.log(files);
     return files.map(file => {
       console.log(file);
       return <FilePreview key={file.name} file={file} />;

@@ -4,9 +4,8 @@ import * as firebase from 'firebase';
 import 'typeface-roboto';
 import App from './App';
 import firebaseconfig from './config';
-// import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import ThemeProvider from './ThemeProvider';
+import ThemeProvider from './util/ThemeProvider';
 import FirebaseProvider from './util/FirebaseProvider';
 
 firebase.initializeApp(firebaseconfig);
@@ -107,4 +106,3 @@ class Main extends Component {
 }
 
 ReactDOM.render(<Main />, document.getElementById('root'));
-// registerServiceWorker();

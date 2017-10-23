@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
 import FullscreenIcon from 'material-ui-icons/Fullscreen';
 import FullscreenExitIcon from 'material-ui-icons/FullscreenExit';
-import theme from 'nausika-theme';
+import theme from 'nausicaa';
 import config from '../config.js';
 
 import DevicePreview from './DevicePreview';

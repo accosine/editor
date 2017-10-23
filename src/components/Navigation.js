@@ -10,13 +10,6 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Login from './Login';
 
 const styleSheet = {
-  root: {
-    // position: 'relative',
-    // width: '100%',
-  },
-  appBar: {
-    // position: 'relative',
-  },
   flex: {
     flex: 1,
   },
@@ -26,8 +19,8 @@ const Navigation = props => {
   const { classes, onDrawerToggle, ...rest } = props;
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
+    <div>
+      <AppBar position="static">
         <Toolbar>
           <IconButton onClick={onDrawerToggle}>
             <MenuIcon />

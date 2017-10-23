@@ -1,7 +1,6 @@
 {
-  "name": "editor",
-  "version": "0.1.0",
-  "private": true,
+  "name": "iliad",
+  "version": "0.0.1",
   "dependencies": {
     "classnames": "^2.2.5",
     "common-tags": "^1.4.0",
@@ -10,12 +9,12 @@
     "material-design-icons": "^3.0.1",
     "material-ui": "^1.0.0-beta.16",
     "material-ui-icons": "^1.0.0-alpha.3",
-    "prop-types": "^15.5.10",
+    "nausicaa": "0.0.2",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^16.0.0",
-    "react-helmet": "^5.2.0",
     "react-router-dom": "^4.1.1",
     "typeface-roboto": "^0.0.22"
   },
@@ -41,5 +40,11 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged"
   },
-  "homepage": "https://firebase.nausika.de/admin"
+  "homepage": "/admin",
+  "author": "accosine",
+  "contributors": [
+    "Simon Bugert <simon.bugert@gmail.com>",
+    "Duncan Kolba <duncankolba@gmail.com>"
+  ],
+  "license": "BSD-2-Clause"
 }
